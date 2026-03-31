@@ -1,0 +1,96 @@
+package tb_pkg_lab08;
+
+   parameter PERIOD = 10;
+
+   task automatic check_result_16bit(
+      input string test_name,
+      ref logic clk,
+      ref logic [15:0] actual,
+      input logic [15:0] expected
+   );
+      @(negedge clk);
+      if (actual === expected)
+         print_pass(test_name);
+      else
+         print_fail(test_name,
+            $sformatf("expected=%04h, actual=%04h", expected, actual));
+   endtask
+
+   task automatic check_result_8bit(
+      input string test_name,
+      ref logic clk,
+      ref logic [7:0] actual,
+      input logic [7:0] expected
+   );
+      @(negedge clk);
+      if (actual === expected)
+         print_pass(test_name);
+      else
+         print_fail(test_name,
+            $sformatf("expected=%02h, actual=%02h", expected, actual));
+   endtask
+
+   task automatic check_result_17bit(
+      input string test_name,
+      ref logic clk,
+      ref logic [16:0] actual,
+      input logic [16:0] expected
+   );
+      @(negedge clk);
+      if (actual === expected)
+         print_pass(test_name);
+      else
+         print_fail(test_name,
+            $sformatf("expected=%05h, actual=%05h", expected, actual));
+   endtask
+
+   function void check_comb_1bit(
+      input string test_name,
+      input logic  actual,
+      input logic  expected
+   );
+      if (actual === expected)
+         print_pass(test_name);
+      else
+         print_fail(test_name,
+            $sformatf("expected=%b, actual=%b", expected, actual));
+   endfunction
+
+   task automatic write_mem_16(
+      ref logic clk,
+      ref logic read,
+      ref logic write,
+      ref logic [7:0]  addr,
+      ref logic [15:0] data_in,
+      input logic [7:0]  waddr,
+      input logic [15:0] wdata
+   );
+      write = 1; read = 0;
+      addr = waddr; data_in = wdata;
+      @(negedge clk);
+      @(negedge clk);
+      write = 0;
+   endtask
+
+   task automatic read_mem_16(
+      ref logic clk,
+      ref logic write,
+      ref logic read,
+      ref logic [7:0] addr,
+      input logic [7:0] raddr
+   );
+      write = 0; read = 1;
+      addr = raddr;
+      @(negedge clk);
+   endtask
+
+   function void print_pass(input string test_name);
+      $display("  [PASS] %s", test_name);
+   endfunction
+
+   function void print_fail(input string test_name, input string msg);
+      $display("  [FAIL] %s : %s", test_name, msg);
+      $finish;
+   endfunction
+
+endpackage : tb_pkg_lab08

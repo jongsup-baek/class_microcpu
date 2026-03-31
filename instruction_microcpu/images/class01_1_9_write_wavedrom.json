@@ -1,0 +1,9 @@
+{ "signal": [
+  { "name": "clk_mem",       "wave": "P....|" },
+  { "name": "read",          "wave": "0....|" },
+  { "name": "write",         "wave": "01..0|" },
+  { "name": "addr[7:0]",     "wave": "x=..x|", "data": ["A"] },
+  { "name": "data_in[15:0]", "wave": "x=..x|", "data": ["D"] },
+  { "name": "data_out[15:0]","wave": "x....|" },
+  { "name": "memory[A]",     "wave": "=.3..|", "data": ["M", "D"] }
+]}
