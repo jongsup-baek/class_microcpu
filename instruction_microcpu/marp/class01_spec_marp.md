@@ -253,7 +253,7 @@ assign clk_sys = div;
 
 ---
 
-## 1.11 mem 블럭
+## 1.12 mem 블럭
 
 > 256x16 동기 메모리. read와 write는 동시에 high가 되지 않는다
 
@@ -291,7 +291,7 @@ always_ff @(posedge clk)
 
 ---
 
-## 1.12 Controller 모듈 동작
+## 1.13 Controller 모듈 동작
 
 > 8-상태 FSM이 opcode와 zero를 입력받아 8개 제어 신호를 생성한다. opcode를 디코딩하여 op_memrd, is_halt, is_brz, is_bra, is_sta 조건을 만들고, FSM 상태와 조합하여 각 제어 신호의 활성 타이밍을 결정한다. 1.8의 상태별 제어 신호 다이어그램으로 구현 가능하다
 
@@ -342,7 +342,7 @@ always_ff @(posedge clk or negedge rst_n)
 
 ---
 
-## 1.13 IR 모듈 동작
+## 1.14 IR 모듈 동작
 
 > 16-bit Instruction Register. 메모리에서 읽은 명령어를 래치하고 5개 필드로 디코딩한다
 
@@ -384,7 +384,7 @@ assign ir_data = ir_out[7:0];
 
 ---
 
-## 1.14 Register File 모듈 동작
+## 1.15 Register File 모듈 동작
 
 > 4x16-bit 레지스터 파일(R0~R3). 읽기는 조합, 쓰기는 동기
 
@@ -430,7 +430,7 @@ assign rs_data = regs[rs_addr];
 
 ---
 
-## 1.15 op_mux 모듈 동작
+## 1.16 op_mux 모듈 동작
 
 > 파라미터화된 2:1 MUX. sel_a에 따라 두 입력 중 하나를 선택하여 출력한다. 조합 로직
 
@@ -457,7 +457,7 @@ assign dout = sel_a ? din_a : din_b;
 
 ---
 
-## 1.16 PC 모듈 동작
+## 1.17 PC 모듈 동작
 
 > 8-bit 카운터. load 시 din 값을 로드하고, enable 시 +1 증가한다. load가 enable보다 우선한다
 
@@ -488,7 +488,7 @@ always_ff @(posedge clk, negedge rst_n)
 
 ---
 
-## 1.17 addr_mux 모듈 동작
+## 1.18 addr_mux 모듈 동작
 
 > 파라미터화된 2:1 MUX. sel_a에 따라 두 입력 중 하나를 선택하여 출력한다. 조합 로직
 
@@ -515,7 +515,7 @@ assign dout = sel_a ? din_a : din_b;
 
 ---
 
-## 1.18 ALU 모듈 동작
+## 1.19 ALU 모듈 동작
 
 > 16-bit 조합 논리 연산기. 입력이 바뀌면 즉시 출력이 바뀐다
 
@@ -551,26 +551,16 @@ assign zero = ~(|accum);
 
 ---
 
-## 1.19 MEM 모듈 동작
-
-> 1.11과 동일한 mem 블럭의 전체 타이밍 관점 설명
-
-- addr(addr_mux), mem_rd/mem_wr(Controller), data_in(alu_out)의 관계
-- clk_sys posedge에서 mem_rd=1이면 memory[addr]을 읽고, mem_wr=1이면 data_in을 쓴다
-
----
-
 ## 복습
 
-- 1.1: MicroCPU는 16비트 명령어/데이터, 4개 범용 레지스터, 폰 노이만 구조의 16비트 프로세서
+- 1.1: 16비트 프로세서. 폰 노이만, 4개 범용 레지스터, 단일 clk_sys
 - 1.2: 16비트 명령어 = opcode(3) + mode(1) + rd(2) + rs(2) + data(8)
-- 1.3: 8개 명령어를 4그룹(제어/분기/이동/산술)으로 분류, Direct와 Register 2모드 지원
+- 1.3: 8개 명령어. `op_memrd`(ADD, AND, LDA)만 mode 전환, 나머지는 mode 무관
 - 1.4: cpu_top은 4핀(clk_ext, rst_n, halt, ir_load)만 외부에 노출
-- 1.5: sysclk(clock gating + 2분주) + 8개 블럭이 단일 clk_sys로 동작
-- 1.7: 8-상태 FSM(S0~S7), Fetch phase + Execute phase, 8 clk_sys = 1 명령어
-- 1.8: Controller가 상태+opcode+zero 조합으로 8개 제어 신호 + fetch_phase 생성
-- 1.9: ALU는 조합 로직. Controller enable 신호로 각 블럭의 동작 타이밍 제어
-- 1.10~1.19: 모든 블럭이 단일 clk_sys에서 동작. halt 시 clock gating으로 전체 정지
+- 1.7: 8-상태 FSM(S0~S7), Fetch + Execute 2-phase, 8 clk_sys = 1 명령어
+- 1.8: Controller가 8개 제어 신호를 생성. `op_memrd`와 `is_not`으로 분류
+- 1.10: cpu_pkg — opcode_t(8개), state_t(8상태) enum 정의
+- 1.11~1.19: 각 블럭이 단일 clk_sys에서 동작. halt 시 clock gating으로 전체 정지
 
 ---
 
@@ -585,13 +575,13 @@ assign zero = ~(|accum);
 🔖 1.7 MicroCPU 명령어 실행 — 데이터 흐름
 🔖 1.8 MicroCPU 명령어 실행 — 제어 신호
 🔖 1.9 MicroCPU 구성 블럭
-🔖 1.10 sysclk 블럭
-🔖 1.11 mem 블럭
-🔖 1.12 Controller 모듈 동작
-🔖 1.13 IR 모듈 동작
-🔖 1.14 Register File 모듈 동작
-🔖 1.15 op_mux 모듈 동작
-🔖 1.16 PC 모듈 동작
-🔖 1.17 addr_mux 모듈 동작
-🔖 1.18 ALU 모듈 동작
-🔖 1.19 MEM 모듈 동작
+🔖 1.10 cpu_pkg 패키지
+🔖 1.11 sysclk 블럭
+🔖 1.12 mem 블럭
+🔖 1.13 Controller 모듈 동작
+🔖 1.14 IR 모듈 동작
+🔖 1.15 Register File 모듈 동작
+🔖 1.16 op_mux 모듈 동작
+🔖 1.17 PC 모듈 동작
+🔖 1.18 addr_mux 모듈 동작
+🔖 1.19 ALU 모듈 동작

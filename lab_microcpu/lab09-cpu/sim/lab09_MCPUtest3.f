@@ -22,7 +22,7 @@
 
 // Test program
 +TESTPROG=../../microcpu/program_code/MCPUtest3.dat
-+EXPECT_PC=16
++EXPECT_PC=17
 
 // Simulation Options
 +access+rwc

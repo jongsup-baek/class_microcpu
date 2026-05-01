@@ -80,16 +80,16 @@ module tb_control;
       check_result_8bit("S6 OP_ALU",     clk, actual_data, 8'b0_1_0_0_0_1_0_0);
       check_result_8bit("S7 UPDATE",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
 
-      // --- SUB ---
-      $display("\n--- SUB ---");
-      ir_opcode = SUB; zero = 0;
+      // --- NOT ---
+      $display("\n--- NOT ---");
+      ir_opcode = NOT; zero = 0;
       check_result_8bit("S0 INST_ADDR",  clk, actual_data, 8'b0_0_0_0_0_0_0_0);
       check_result_8bit("S1 INST_FETCH", clk, actual_data, 8'b0_1_0_0_0_0_0_0);
       check_result_8bit("S2 INST_LOAD",  clk, actual_data, 8'b0_1_1_0_0_0_0_0);
       check_result_8bit("S3 IDLE",       clk, actual_data, 8'b0_1_1_0_0_0_0_0);
       check_result_8bit("S4 OP_ADDR",    clk, actual_data, 8'b0_0_0_0_1_0_0_0);
-      check_result_8bit("S5 OP_FETCH",   clk, actual_data, 8'b0_1_0_0_0_0_0_0);
-      check_result_8bit("S6 OP_ALU",     clk, actual_data, 8'b0_1_0_0_0_1_0_0);
+      check_result_8bit("S5 OP_FETCH",   clk, actual_data, 8'b0_0_0_0_0_0_0_0);
+      check_result_8bit("S6 OP_ALU",     clk, actual_data, 8'b0_0_0_0_0_1_0_0);
       check_result_8bit("S7 UPDATE",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
 
       // --- LDA ---

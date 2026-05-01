@@ -51,8 +51,8 @@ module tb_alu;
       {opcode, din, accum} = {AND, 16'h0037, 16'h00DA};
       check_comb("AND: DA&37=12",   16'h0012, 1'b0);
 
-      {opcode, din, accum} = {SUB, 16'h0037, 16'h00DA};
-      check_comb("SUB: DA-37=A3",   16'h00A3, 1'b0);
+      {opcode, din, accum} = {NOT, 16'h0037, 16'h00DA};
+      check_comb("NOT: ~00DA=FF25", 16'hFF25, 1'b0);
 
       {opcode, din, accum} = {LDA, 16'h0037, 16'h00DA};
       check_comb("LDA: din=37",     16'h0037, 1'b0);
@@ -81,8 +81,8 @@ module tb_alu;
       {opcode, din, accum} = {LDA, 16'h0001, 16'h0000};
       check_comb("LDA 1: zero=1 (accum=0)", 16'h0001, 1'b1);
 
-      {opcode, din, accum} = {SUB, 16'h0005, 16'h0005};
-      check_comb("SUB 5-5: zero=0 (accum=5)", 16'h0000, 1'b0);
+      {opcode, din, accum} = {NOT, 16'h0005, 16'h0005};
+      check_comb("NOT: ~0005=FFFA (accum=5)", 16'hFFFA, 1'b0);
 
       // --- 16-bit overflow ---
       $display("\n--- 16-bit operations ---");
@@ -90,8 +90,8 @@ module tb_alu;
       {opcode, din, accum} = {ADD, 16'hFFFF, 16'h0001};
       check_comb("ADD: 1+FFFF=0000", 16'h0000, 1'b0);
 
-      {opcode, din, accum} = {SUB, 16'h0001, 16'h0000};
-      check_comb("SUB: 0-1=FFFF",    16'hFFFF, 1'b1);
+      {opcode, din, accum} = {NOT, 16'h0001, 16'h0000};
+      check_comb("NOT: ~0000=FFFF",   16'hFFFF, 1'b1);
 
       {opcode, din, accum} = {AND, 16'hFF00, 16'h0FF0};
       check_comb("AND: FF00&0FF0=0F00", 16'h0F00, 1'b0);
