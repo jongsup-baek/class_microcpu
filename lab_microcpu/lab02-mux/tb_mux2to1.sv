@@ -1,4 +1,4 @@
-module tb_addr_mux;
+module tb_mux2to1;
 
    import tb_pkg_lab02::*;
 
@@ -9,7 +9,7 @@ module tb_addr_mux;
    logic        clk;
    logic [15:0] actual_data;
 
-   addr_mux #(8) dut (.*);
+   mux2to1 #(8) dut (.*);
 
    assign actual_data = {8'h00, dout};
 
@@ -30,7 +30,7 @@ module tb_addr_mux;
    end
 
    initial begin
-      $display("=== Address MUX Test (WIDTH=8) ===");
+      $display("=== mux2to1 Test (WIDTH=8) ===");
 
       // Initialize
       {sel_a, din_a, din_b} = '0;

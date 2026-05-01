@@ -1,4 +1,4 @@
-module tb_counter_prog;
+module tb_prog_counter;
 
    import cpu_pkg::*;
    import tb_pkg_lab03::*;
@@ -9,7 +9,7 @@ module tb_counter_prog;
 
    logic [7:0] actual_data;
 
-   counter_prog dut (.*);
+   prog_counter dut (.*);
 
    assign actual_data = pc_count;
 
@@ -30,7 +30,7 @@ module tb_counter_prog;
    end
 
    initial begin
-      $display("=== Counter Prog Test (8-bit) ===");
+      $display("=== Prog Counter Test (8-bit) ===");
 
       // Initialize
       {rst_n, load, enable, din} = '0;

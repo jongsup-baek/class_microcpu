@@ -2,12 +2,12 @@
 // KSDC Proprietary
 // Course: MicroCPU 실습
 // File  : cpu_intf.sv
-// Date  : 2026-03-31
+// Date  : 2026-05-01
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //////////////////////////////////////////////////////////
 
 interface cpu_intf (
-   input logic clk_master
+   input logic clk_ext
 );
    import cpu_pkg::*;
 
@@ -30,23 +30,23 @@ interface cpu_intf (
 
    assign data_out  = tb_cpu_top.top.data_out;
    assign alu_out   = tb_cpu_top.top.alu_out;
-   assign rd_data   = tb_cpu_top.top.cpu1.rd_data;
-   assign pc_addr   = tb_cpu_top.top.cpu1.pc_addr;
+   assign rd_data   = tb_cpu_top.top.u_cpu_core.rd_data;
+   assign pc_addr   = tb_cpu_top.top.u_cpu_core.pc_addr;
    assign addr      = tb_cpu_top.top.addr;
-   assign ir_opcode = tb_cpu_top.top.cpu1.ir_opcode;
-   assign ir_mode   = tb_cpu_top.top.cpu1.ir_mode;
-   assign ir_rd     = tb_cpu_top.top.cpu1.ir_rd;
+   assign ir_opcode = tb_cpu_top.top.u_cpu_core.ir_opcode;
+   assign ir_mode   = tb_cpu_top.top.u_cpu_core.ir_mode;
+   assign ir_rd     = tb_cpu_top.top.u_cpu_core.ir_rd;
 
    // Testbench modport
    modport TB (
-      input  clk_master,
+      input  clk_ext,
       output rst_n,
       input  halt, ir_load
    );
 
    // Monitor modport (read-only)
    modport MON (
-      input clk_master,
+      input clk_ext,
       input halt, ir_load,
       input data_out, alu_out, rd_data,
       input pc_addr, addr, ir_opcode, ir_mode, ir_rd

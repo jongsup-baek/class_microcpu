@@ -4,8 +4,8 @@ module tb_cpu_core;
 
    parameter PERIOD = 10;
 
-   logic clk_master, rst_n;
-   logic clk_core, clk_cntrl, clk_alu, sel_fetch_pc, clk_mem;
+   logic clk_ext, rst_n;
+   logic clk_sys;
 
    logic        halt, ir_load;
    logic [7:0]  addr;
@@ -14,21 +14,18 @@ module tb_cpu_core;
    logic [15:0] data_out;
 
    // Clock generation
-   initial clk_master = 1'b0;
-   always #(PERIOD/2) clk_master = ~clk_master;
+   initial clk_ext = 1'b0;
+   always #(PERIOD/2) clk_ext = ~clk_ext;
 
-   // Instantiate sys_clk
-   sys_clk sclk (
-      .clk_master,
-      .clk_core,
-      .clk_cntrl,
-      .clk_alu,
-      .sel_fetch_pc,
-      .clk_mem,
+   // Instantiate sysclk (clock gating + 2-divider)
+   sysclk u_sysclk (
+      .clk_ext,
+      .halt,
+      .clk_sys,
       .rst_n
    );
 
-   // Instantiate cpu_core (DUT)
+   // Instantiate cpu_core (DUT) — single clock
    cpu_core core1 (
       .halt,
       .ir_load,
@@ -37,16 +34,13 @@ module tb_cpu_core;
       .mem_rd,
       .mem_wr,
       .data_out,
-      .clk_core,
-      .clk_cntrl,
-      .clk_alu,
-      .sel_fetch_pc,
+      .clk_sys,
       .rst_n
    );
 
    // Instantiate memory
    mem mem1 (
-      .clk      (clk_mem),
+      .clk      (clk_sys),
       .read     (mem_rd),
       .write    (mem_wr),
       .addr     (addr),
@@ -56,9 +50,9 @@ module tb_cpu_core;
 
    initial begin
       rst_n = 0;
-      repeat (4) @(negedge clk_master);
+      repeat (4) @(negedge clk_ext);
       rst_n = 1;
-      repeat (32) @(negedge clk_master);
+      repeat (32) @(negedge clk_ext);
       $display("cpu_core COMPILE & RESET TEST PASSED");
       $finish;
    end

@@ -3,13 +3,13 @@
 ../../microcpu/tb_pkg.sv
 
 // DUT sources
-../../microcpu/sv_src/register_file.sv
-../../microcpu/sv_src/register_core.sv
-../../microcpu/sv_src/counter_prog.sv
+../../microcpu/sv_src/regfile.sv
+../../microcpu/sv_src/instr_reg.sv
+../../microcpu/sv_src/prog_counter.sv
 ../../microcpu/sv_src/alu.sv
-../../microcpu/sv_src/addr_mux.sv
+../../microcpu/sv_src/mux2to1.sv
 ../../microcpu/sv_src/control.sv
-../../microcpu/sv_src/sys_clk.sv
+../../microcpu/sv_src/sysclk.sv
 ../../microcpu/mem.sv
 ../../microcpu/cpu_core.sv
 

@@ -25,7 +25,8 @@ logic [15:0] memory [0:255];
       if (write && !read)
          memory[addr] <= data_in;
 
-   always_ff @(posedge clk iff ((read == '1) && (write == '0)))
-      data_out <= memory[addr];
+   always_ff @(posedge clk)
+      if (read && !write)
+         data_out <= memory[addr];
 
 endmodule

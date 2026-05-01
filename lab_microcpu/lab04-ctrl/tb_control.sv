@@ -53,7 +53,7 @@ module tb_control;
       check_result_8bit("S3 IDLE",       clk, actual_data, 8'b0_1_1_0_0_0_0_0);
       check_result_8bit("S4 OP_ADDR",    clk, actual_data, 8'b0_0_0_1_1_0_0_0);
       check_result_8bit("S5 OP_FETCH",   clk, actual_data, 8'b0_0_0_0_0_0_0_0);
-      check_result_8bit("S6 ALU_OP",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
+      check_result_8bit("S6 OP_ALU",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
       check_result_8bit("S7 UPDATE",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
 
       // --- ADD ---
@@ -65,7 +65,7 @@ module tb_control;
       check_result_8bit("S3 IDLE",       clk, actual_data, 8'b0_1_1_0_0_0_0_0);
       check_result_8bit("S4 OP_ADDR",    clk, actual_data, 8'b0_0_0_0_1_0_0_0);
       check_result_8bit("S5 OP_FETCH",   clk, actual_data, 8'b0_1_0_0_0_0_0_0);
-      check_result_8bit("S6 ALU_OP",     clk, actual_data, 8'b0_1_0_0_0_1_0_0);
+      check_result_8bit("S6 OP_ALU",     clk, actual_data, 8'b0_1_0_0_0_1_0_0);
       check_result_8bit("S7 UPDATE",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
 
       // --- AND ---
@@ -77,7 +77,7 @@ module tb_control;
       check_result_8bit("S3 IDLE",       clk, actual_data, 8'b0_1_1_0_0_0_0_0);
       check_result_8bit("S4 OP_ADDR",    clk, actual_data, 8'b0_0_0_0_1_0_0_0);
       check_result_8bit("S5 OP_FETCH",   clk, actual_data, 8'b0_1_0_0_0_0_0_0);
-      check_result_8bit("S6 ALU_OP",     clk, actual_data, 8'b0_1_0_0_0_1_0_0);
+      check_result_8bit("S6 OP_ALU",     clk, actual_data, 8'b0_1_0_0_0_1_0_0);
       check_result_8bit("S7 UPDATE",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
 
       // --- SUB ---
@@ -89,7 +89,7 @@ module tb_control;
       check_result_8bit("S3 IDLE",       clk, actual_data, 8'b0_1_1_0_0_0_0_0);
       check_result_8bit("S4 OP_ADDR",    clk, actual_data, 8'b0_0_0_0_1_0_0_0);
       check_result_8bit("S5 OP_FETCH",   clk, actual_data, 8'b0_1_0_0_0_0_0_0);
-      check_result_8bit("S6 ALU_OP",     clk, actual_data, 8'b0_1_0_0_0_1_0_0);
+      check_result_8bit("S6 OP_ALU",     clk, actual_data, 8'b0_1_0_0_0_1_0_0);
       check_result_8bit("S7 UPDATE",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
 
       // --- LDA ---
@@ -101,7 +101,7 @@ module tb_control;
       check_result_8bit("S3 IDLE",       clk, actual_data, 8'b0_1_1_0_0_0_0_0);
       check_result_8bit("S4 OP_ADDR",    clk, actual_data, 8'b0_0_0_0_1_0_0_0);
       check_result_8bit("S5 OP_FETCH",   clk, actual_data, 8'b0_1_0_0_0_0_0_0);
-      check_result_8bit("S6 ALU_OP",     clk, actual_data, 8'b0_1_0_0_0_1_0_0);
+      check_result_8bit("S6 OP_ALU",     clk, actual_data, 8'b0_1_0_0_0_1_0_0);
       check_result_8bit("S7 UPDATE",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
 
       // --- STA ---
@@ -113,7 +113,7 @@ module tb_control;
       check_result_8bit("S3 IDLE",       clk, actual_data, 8'b0_1_1_0_0_0_0_0);
       check_result_8bit("S4 OP_ADDR",    clk, actual_data, 8'b0_0_0_0_1_0_0_0);
       check_result_8bit("S5 OP_FETCH",   clk, actual_data, 8'b0_0_0_0_0_0_0_0);
-      check_result_8bit("S6 ALU_OP",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
+      check_result_8bit("S6 OP_ALU",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
       check_result_8bit("S7 UPDATE",     clk, actual_data, 8'b0_0_0_0_0_0_0_1);
 
       // --- BRA ---
@@ -125,7 +125,7 @@ module tb_control;
       check_result_8bit("S3 IDLE",       clk, actual_data, 8'b0_1_1_0_0_0_0_0);
       check_result_8bit("S4 OP_ADDR",    clk, actual_data, 8'b0_0_0_0_1_0_0_0);
       check_result_8bit("S5 OP_FETCH",   clk, actual_data, 8'b0_0_0_0_0_0_0_0);
-      check_result_8bit("S6 ALU_OP",     clk, actual_data, 8'b0_0_0_0_0_0_1_0);
+      check_result_8bit("S6 OP_ALU",     clk, actual_data, 8'b0_0_0_0_0_0_1_0);
       check_result_8bit("S7 UPDATE",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
 
       // --- BRZ (zero=0, not taken) ---
@@ -137,7 +137,7 @@ module tb_control;
       check_result_8bit("S3 IDLE",       clk, actual_data, 8'b0_1_1_0_0_0_0_0);
       check_result_8bit("S4 OP_ADDR",    clk, actual_data, 8'b0_0_0_0_1_0_0_0);
       check_result_8bit("S5 OP_FETCH",   clk, actual_data, 8'b0_0_0_0_0_0_0_0);
-      check_result_8bit("S6 ALU_OP",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
+      check_result_8bit("S6 OP_ALU",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
       check_result_8bit("S7 UPDATE",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
 
       // --- BRZ (zero=1, taken — skip next) ---
@@ -149,7 +149,7 @@ module tb_control;
       check_result_8bit("S3 IDLE",       clk, actual_data, 8'b0_1_1_0_0_0_0_0);
       check_result_8bit("S4 OP_ADDR",    clk, actual_data, 8'b0_0_0_0_1_0_0_0);
       check_result_8bit("S5 OP_FETCH",   clk, actual_data, 8'b0_0_0_0_0_0_0_0);
-      check_result_8bit("S6 ALU_OP",     clk, actual_data, 8'b0_0_0_0_1_0_0_0);
+      check_result_8bit("S6 OP_ALU",     clk, actual_data, 8'b0_0_0_0_1_0_0_0);
       check_result_8bit("S7 UPDATE",     clk, actual_data, 8'b0_0_0_0_0_0_0_0);
 
       $display("\n=== All tests PASSED ===");

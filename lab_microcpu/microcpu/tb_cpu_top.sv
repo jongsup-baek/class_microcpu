@@ -15,15 +15,15 @@ module tb_cpu_top;
    import tb_pkg::*;
 
    // Clock generator
-   logic clk_master = 1'b1;
-   always #(PERIOD/2) clk_master = ~clk_master;
+   logic clk_ext = 1'b1;
+   always #(PERIOD/2) clk_ext = ~clk_ext;
 
    // Interface instance
-   cpu_intf cif (.clk_master);
+   cpu_intf cif (.clk_ext);
 
    // DUT
    cpu_top top (
-      .clk_master,
+      .clk_ext,
       .rst_n   (cif.rst_n),
       .halt    (cif.halt),
       .ir_load (cif.ir_load)
@@ -44,16 +44,16 @@ module tb_cpu_top;
 
       // Reset sequence
       cif.rst_n = 1;
-      repeat (2) @(negedge clk_master);
+      repeat (2) @(negedge clk_ext);
       cif.rst_n = 0;
-      repeat (2) @(negedge clk_master);
+      repeat (2) @(negedge clk_ext);
 
       // Load test program
-      $readmemb(testprog, top.mem1.memory);
+      $readmemb(testprog, top.u_mem.memory);
       cif.rst_n = 1;
-      repeat (2) @(negedge clk_master);
+      repeat (2) @(negedge clk_ext);
       cif.rst_n = 0;
-      repeat (2) @(negedge clk_master);
+      repeat (2) @(negedge clk_ext);
       cif.rst_n = 1;
 
       // Monitor
@@ -71,7 +71,7 @@ module tb_cpu_top;
          // Wait for halt
          begin
             while (!cif.halt)
-               @(posedge top.clk_core)
+               @(posedge top.clk_sys)
                   if (cif.ir_load) begin
                      #(PERIOD/2);
                      $display("%t    %02h    %s    %b  R%0d   %02h    %04h      %04h",

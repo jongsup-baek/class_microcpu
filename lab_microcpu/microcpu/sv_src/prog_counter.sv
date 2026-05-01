@@ -1,14 +1,13 @@
 //////////////////////////////////////////////////////////
 // KSDC Proprietary
 // Course: MicroCPU 실습
-// File  : counter_prog.sv
+// File  : prog_counter.sv
 // Date  : 2026-03-31
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //////////////////////////////////////////////////////////
 
 // 8-bit programmable counter with load and enable
-// Extended from SimpleCPU's 5-bit counter
-module counter_prog (
+module prog_counter (
    output logic [7:0] pc_count,
    input  logic [7:0] din,
    input  logic       clk,

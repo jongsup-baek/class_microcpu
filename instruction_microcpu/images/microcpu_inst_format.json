@@ -1,0 +1,10 @@
+{
+  "reg": [
+    {"bits": 8, "name": "data", "attr": "logic [7:0]"},
+    {"bits": 2, "name": "rs", "attr": "2b"},
+    {"bits": 2, "name": "rd", "attr": "2b"},
+    {"bits": 1, "name": "mode", "attr": "1b"},
+    {"bits": 3, "name": "opcode", "attr": "3b"}
+  ],
+  "config": {"hspace": 800, "bits": 16, "lanes": 1, "fontsize": 14}
+}

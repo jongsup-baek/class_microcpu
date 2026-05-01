@@ -2,12 +2,12 @@
 // KSDC Proprietary
 // Course: MicroCPU 실습
 // File  : cpu_top.sv
-// Date  : 2026-03-31
+// Date  : 2026-05-01
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //////////////////////////////////////////////////////////
 
 module cpu_top (
-   input  logic clk_master,
+   input  logic clk_ext,
    input  logic rst_n,
    output logic halt,
    output logic ir_load
@@ -15,27 +15,24 @@ module cpu_top (
 
 import cpu_pkg::*;
 
-// Internal clock signals
-logic clk_core, clk_cntrl, clk_alu, sel_fetch_pc, clk_mem;
+// Internal gated clock
+logic clk_sys;
 
 // Memory bus signals
 logic [7:0]  addr;
 logic [15:0] alu_out, data_out;
 logic        mem_rd, mem_wr;
 
-// Clock generator
-sys_clk clkgen (
-   .clk_master,
-   .clk_core,
-   .clk_cntrl,
-   .clk_alu,
-   .sel_fetch_pc,
-   .clk_mem,
+// Clock gating
+sysclk u_sysclk (
+   .clk_ext,
+   .halt,
+   .clk_sys,
    .rst_n
 );
 
 // CPU instance
-cpu_core cpu1 (
+cpu_core u_cpu_core (
    .halt,
    .ir_load,
    .addr     (addr),
@@ -43,16 +40,13 @@ cpu_core cpu1 (
    .mem_rd   (mem_rd),
    .mem_wr   (mem_wr),
    .data_out (data_out),
-   .clk_core,
-   .clk_cntrl,
-   .clk_alu,
-   .sel_fetch_pc,
+   .clk      (clk_sys),
    .rst_n
 );
 
 // Memory instance
-mem mem1 (
-   .clk(clk_mem),
+mem u_mem (
+   .clk      (clk_sys),
    .read    (mem_rd),
    .write   (mem_wr),
    .addr    (addr),

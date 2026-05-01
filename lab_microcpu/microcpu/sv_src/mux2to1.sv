@@ -1,14 +1,14 @@
 //////////////////////////////////////////////////////////
 // KSDC Proprietary
 // Course: MicroCPU 실습
-// File  : addr_mux.sv
+// File  : mux2to1.sv
 // Date  : 2026-03-31
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //////////////////////////////////////////////////////////
 
 // Parameterized 2-to-1 multiplexer
 // Used for address mux (WIDTH=8) and operand mux (WIDTH=16)
-module addr_mux #(WIDTH = 8) (
+module mux2to1 #(WIDTH = 8) (
    output logic [WIDTH-1:0] dout,
    input  logic [WIDTH-1:0] din_a,
    input  logic [WIDTH-1:0] din_b,
