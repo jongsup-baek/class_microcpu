@@ -13,7 +13,7 @@ module alu
 );
 
    // TODO: Combinational output (always_comb) with unique case on opcode
-   //       ADD, AND, SUB, LDA: compute result
+   //       ADD, AND, NOT, LDA: compute result
    //       default: passthrough (dout = accum)
 
    // TODO: Combinational zero flag: zero = ~(|accum)
