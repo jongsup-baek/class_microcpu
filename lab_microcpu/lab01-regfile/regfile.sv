@@ -1,7 +1,7 @@
-// Students: Implement your register_file here
-// See microcpu/sv_src/register_file.sv for reference
+// Students: Implement your regfile here
+// See microcpu/sv_src/regfile.sv for reference
 
-module register_file (
+module regfile (
    output logic [15:0] rd_data,
    output logic [15:0] rs_data,
    input  logic [1:0]  rd_addr,

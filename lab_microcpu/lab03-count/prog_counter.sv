@@ -1,7 +1,7 @@
-// Students: Implement your counter_prog here
-// See microcpu/sv_src/counter_prog.sv for reference
+// Students: Implement your prog_counter here
+// See microcpu/sv_src/prog_counter.sv for reference
 
-module counter_prog (
+module prog_counter (
    output logic [7:0] pc_count,
    input  logic [7:0] din,
    input  logic       clk,

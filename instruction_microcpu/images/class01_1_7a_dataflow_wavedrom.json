@@ -1,0 +1,27 @@
+{
+  "signal": [
+    {"name": "State",    "wave": "22222222", "data": ["S0","S1","S2","S3","S4","S5","S6","S7"]},
+    {"name": "Phase",    "wave": "2...2...", "data": ["Fetch","Execute"]},
+    {},
+    {"name": "PC",       "wave": "2...2...", "data": ["0x03","0x04"]},
+    {"name": "addr",     "wave": "x2..2...", "data": ["0x03","0x80"]},
+    {"name": "mem_rd",   "wave": "0100.10."},
+    {"name": "data_out", "wave": "x..2.2..", "data": ["A503_80","00FF"]},
+    {},
+    {"name": "IR",       "wave": "x..2....", "data": ["A503_80"]},
+    {"name": "opcode",   "wave": "x..2....", "data": ["ADD(101)"]},
+    {"name": "mode",     "wave": "x..2....", "data": ["0"]},
+    {"name": "rd",       "wave": "x..2....", "data": ["R1(01)"]},
+    {"name": "data",     "wave": "x..2....", "data": ["0x80"]},
+    {},
+    {"name": "rd_data",  "wave": "x..2....", "data": ["R1=0x0010"]},
+    {"name": "alu_oper", "wave": "x.....2.", "data": ["0x00FF"]},
+    {"name": "alu_out",  "wave": "x......2", "data": ["0x010F"]},
+    {},
+    {"name": "load_reg", "wave": "0.....10"},
+    {"name": "inc_pc",   "wave": "0...10.."},
+    {"name": "halt",     "wave": "0......."}
+  ],
+  "head": {"text": "ADD R1, mem[0x80]  (R1=0x0010, mem[0x80]=0x00FF -> R1=0x010F)"},
+  "config": {"hscale": 3}
+}

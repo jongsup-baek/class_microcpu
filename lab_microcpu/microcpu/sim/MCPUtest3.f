@@ -3,13 +3,13 @@
 ../tb_pkg.sv
 
 // DUT sources
-../sv_src/register_file.sv
-../sv_src/register_core.sv
-../sv_src/counter_prog.sv
+../sv_src/regfile.sv
+../sv_src/instr_reg.sv
+../sv_src/prog_counter.sv
 ../sv_src/alu.sv
-../sv_src/addr_mux.sv
+../sv_src/mux2to1.sv
 ../sv_src/control.sv
-../sv_src/sys_clk.sv
+../sv_src/sysclk.sv
 ../mem.sv
 ../cpu_core.sv
 

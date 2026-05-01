@@ -1,5 +1,5 @@
 ../tb_pkg_lab07.sv
-../sys_clk.sv
-../tb_sys_clk.sv
+../sysclk.sv
+../tb_sysclk.sv
 +access+rwc
 -timescale 1ns/100ps

@@ -1,7 +1,7 @@
-// Students: Implement your addr_mux here
-// See microcpu/sv_src/addr_mux.sv for reference
+// Students: Implement your mux2to1 here
+// See microcpu/sv_src/mux2to1.sv for reference
 
-module addr_mux #(WIDTH = 8) (
+module mux2to1 #(WIDTH = 8) (
    output logic [WIDTH-1:0] dout,
    input  logic [WIDTH-1:0] din_a,
    input  logic [WIDTH-1:0] din_b,

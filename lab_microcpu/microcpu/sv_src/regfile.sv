@@ -1,14 +1,13 @@
 //////////////////////////////////////////////////////////
 // KSDC Proprietary
 // Course: MicroCPU 실습
-// File  : register_file.sv
+// File  : regfile.sv
 // Date  : 2026-03-31
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //////////////////////////////////////////////////////////
 
 // 4x16-bit register file with 2 read ports and 1 write port
-// Replaces SimpleCPU's single accumulator (register_core)
-module register_file (
+module regfile (
    output logic [15:0] rd_data,
    output logic [15:0] rs_data,
    input  logic [1:0]  rd_addr,

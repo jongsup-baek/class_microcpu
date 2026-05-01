@@ -1,4 +1,4 @@
-module tb_register_file;
+module tb_regfile;
 
    import tb_pkg_lab01::*;
 
@@ -11,7 +11,7 @@ module tb_register_file;
 
    logic [15:0] actual_rd, actual_rs;
 
-   register_file dut (.*);
+   regfile dut (.*);
 
    assign actual_rd = rd_data;
    assign actual_rs = rs_data;

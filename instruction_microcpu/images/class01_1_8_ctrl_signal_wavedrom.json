@@ -1,0 +1,21 @@
+{
+  "signal": [
+    {"name": "State",        "wave": "22222222", "data": ["S0","S1","S2","S3","S4","S5","S6","S7"]},
+    {},
+    {"name": "fetch_phase",  "wave": "1...0..."},
+    {},
+    {"name": "mem_rd",       "wave": "01..02.0", "data": ["op_memrd"]},
+    {"name": "mem_wr",       "wave": "0......2", "data": ["STA"]},
+    {},
+    {"name": "ir_load",      "wave": "0.1.0..."},
+    {},
+    {"name": "load_reg",     "wave": "0.....20", "data": ["op_memrd|NOT"]},
+    {},
+    {"name": "inc_pc",       "wave": "0...1020", "data": ["BRZ&zero"]},
+    {"name": "load_pc",      "wave": "0.....20", "data": ["BRA"]},
+    {},
+    {"name": "halt",         "wave": "0...2...", "data": ["HALT: latch, clk gated, rst_n only"]}
+  ],
+  "head": {"text": "Controller Control Signals (8)"},
+  "config": {"hscale": 3}
+}
