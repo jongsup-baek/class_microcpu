@@ -60,10 +60,22 @@ module tb;
    endtask
 
    initial begin
+      
+      foreach (u_mem.memory[i]) u_mem.memory[i] = '0;
+
       reset_dut();
 
-      // Comment #1 : Fetch/Execute 사이클 관찰
-      repeat (40) @(posedge clk_ext);
+      // Comment #1 : halt 대기
+      fork
+         begin
+            #50000;
+            $display("TIMEOUT");
+         end
+         begin
+            wait (halt == 1);
+         end
+      join_any
+      disable fork;
       // End Comment
 
       @(posedge clk_ext);
@@ -74,11 +86,11 @@ module tb;
    //////////////////////////////////////////////////////////
    // Expected Waveform (SimVision)
    //////////////////////////////////////////////////////////
-   //  time  rst_n  clk_sys  halt  u_core.u_ctrl.state  addr  mem_rd  mem_wr
-   //  ----  -----  -------  ----  -------------------  ----  ------  ------
-   //     0      0        0     0  INST_ADDR              00       0       0
-   //   200      1        0     0  INST_ADDR              00       0       0    #1
-   //   -- FSM cycles through INST_ADDR → INST_FETCH → ... → UPDATE --
-   //   -- halt asserts when WFR opcode reaches OP_ADDR --
+   //  time  rst_n  halt  u_core.u_ctrl.state
+   //  ----  -----  ----  -------------------
+   //     0      0     0  INST_ADDR
+   //   200      1     0  INST_ADDR              #1
+   //   -- 메모리 0(WFR) → FSM 첫 사이클 OP_ADDR에서 halt=1 --
+   //   850      1     1  (정지)
    //////////////////////////////////////////////////////////
 endmodule
