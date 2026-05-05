@@ -38,7 +38,7 @@ module tb;
       @(posedge clk);
    endtask
 
-   // Comment #1 : count/load task
+   // Comment #1 : enable_pc_duration/load_pc task
 
 
 
@@ -85,6 +85,7 @@ module tb;
    //   700      1       1     0   F0        F0
    //   800      1       1     0   F0        F1
    //   900      1       1     0   F0        F2
-   //  1000      --      --    --  --        --
+   //  1000      1       1     0   F0        F3
+   //  1100      --      --    --  --        --
    //////////////////////////////////////////////////////////
 endmodule
