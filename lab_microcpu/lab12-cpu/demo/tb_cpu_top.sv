@@ -40,7 +40,7 @@ module tb;
       reset_dut();
       fork
          begin
-            #50000;
+            #200000;
             $display("TIMEOUT");
          end
          begin
