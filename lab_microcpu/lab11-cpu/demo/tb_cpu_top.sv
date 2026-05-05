@@ -35,7 +35,7 @@ module tb;
 
    initial begin
       // Comment #1 : 프로그램 로드 + 실행
-      $readmemb("../program_code/MCPUtest2.dat",
+      $readmemb("../program_code/test_arith.dat",
                  u_top.u_mem.memory);
       reset_dut();
       fork
