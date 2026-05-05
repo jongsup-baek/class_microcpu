@@ -15,40 +15,14 @@ module tb;
 
    import cpu_pkg::*;
 
-   logic        rst_n;
-   logic        halt, ir_load;
-   logic [7:0]  addr;
-   logic [15:0] alu_out;
-   logic        mem_rd, mem_wr;
-   logic [15:0] data_out;
-   logic        clk_sys;
+   logic rst_n;
+   logic halt, ir_load;
 
-   sysclk u_sysclk (
+   cpu_top u_top (
       .clk_ext (clk_ext),
+      .rst_n   (rst_n),
       .halt    (halt),
-      .clk_sys (clk_sys),
-      .rst_n   (rst_n)
-   );
-
-   cpu_core u_core (
-      .halt     (halt),
-      .ir_load  (ir_load),
-      .addr     (addr),
-      .alu_out  (alu_out),
-      .mem_rd   (mem_rd),
-      .mem_wr   (mem_wr),
-      .data_out (data_out),
-      .clk_sys  (clk_sys),
-      .rst_n    (rst_n)
-   );
-
-   mem u_mem (
-      .clk      (clk_sys),
-      .read     (mem_rd),
-      .write    (mem_wr),
-      .addr     (addr),
-      .data_in  (alu_out),
-      .data_out (data_out)
+      .ir_load (ir_load)
    );
 
    task reset_dut();
@@ -60,8 +34,7 @@ module tb;
    endtask
 
    initial begin
-      
-      foreach (u_mem.memory[i]) u_mem.memory[i] = '0;
+      foreach (u_top.u_mem.memory[i]) u_top.u_mem.memory[i] = '0;
 
       reset_dut();
 

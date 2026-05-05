@@ -19,6 +19,7 @@
 
 // Lab files
 ../cpu_core.sv
+../cpu_top.sv
 ../tb_cpu_core.sv
 
 // Simulation Options
