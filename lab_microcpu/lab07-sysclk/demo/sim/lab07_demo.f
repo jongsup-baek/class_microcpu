@@ -7,7 +7,8 @@
 //////////////////////////////////////////////////////////
 
 // Lab files
-../lab07_sysclk_demo.sv
+../sysclk.sv
+../tb_sysclk.sv
 
 // Simulation Options
 +access+rwc

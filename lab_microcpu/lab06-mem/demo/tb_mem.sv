@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////
 // KSDC Proprietary
 // Course: MicroCPU 설계 실무
-// File  : lab06_mem_demo.sv
+// File  : tb_mem.sv
 // Date  : 2026-05-05
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //
@@ -9,31 +9,6 @@
 //    $> cd sim
 //    $> xrun -f lab06_blank.f -input ../../shm.tcl
 //////////////////////////////////////////////////////////
-
-// Comment #1 : 동기 메모리 모듈
-module mem (
-   input  logic        clk,
-   input  logic        read,
-   input  logic        write,
-   input  logic [7:0]  addr,
-   input  logic [15:0] data_in,
-   output logic [15:0] data_out
-);
-
-   logic [15:0] memory [0:255];
-
-   always @(posedge clk) begin
-      if (write && !read)
-         memory[addr] <= data_in;
-   end
-
-   always_ff @(posedge clk) begin
-      if (read && !write)
-         data_out <= memory[addr];
-   end
-
-endmodule
-// End Comment
 
 module tb;
    bit clk = 0; initial forever #50 clk = ~clk;
@@ -51,50 +26,61 @@ module tb;
       .data_out (data_out)
    );
 
-   initial begin
-      // Comment #2 : 쓰기 검증
+   task reset_dut();
+      #10;
          read    = 0;
          write   = 0;
          addr    = 8'h00;
          data_in = 16'h0000;
       @(posedge clk);
+   endtask
+
+   // Comment #1 : write_mem/read_mem task
+   task write_mem(input logic [7:0] a, input logic [15:0] d);
          write   = 1;
-         addr    = 8'h00;
-         data_in = 16'hAAAA;
+         read    = 0;
+         addr    = a;
+         data_in = d;
       @(posedge clk);
-         addr    = 8'h01;
-         data_in = 16'hBBBB;
+   endtask
+
+   task read_mem(input logic [7:0] a);
+         write = 0;
+         read  = 1;
+         addr  = a;
       @(posedge clk);
-         addr    = 8'h02;
-         data_in = 16'hCCCC;
+   endtask
+
+   task idle();
+         write = 0;
+         read  = 0;
       @(posedge clk);
-         write   = 0;
+   endtask
+   // End Comment
+
+   initial begin
+      reset_dut();
+
+      // Comment #2 : 쓰기 후 읽기 검증
+      write_mem(8'h00, 16'hAAAA);
+      write_mem(8'h01, 16'hBBBB);
+      write_mem(8'h02, 16'hCCCC);
+      idle();
+      read_mem(8'h00);
+      read_mem(8'h01);
+      read_mem(8'h02);
+      idle();
       // End Comment
 
-      // Comment #3 : 읽기 검증
-      @(posedge clk);
-         read = 1;
-         addr = 8'h00;
-      @(posedge clk);
-         addr = 8'h01;
-      @(posedge clk);
-         addr = 8'h02;
-      @(posedge clk);
-         read = 0;
-      // End Comment
-
-      // Comment #4 : 읽기/쓰기 동시 — 무시
+      // Comment #3 : 읽기/쓰기 동시 — 무시
       @(posedge clk);
          read    = 1;
          write   = 1;
          addr    = 8'h00;
          data_in = 16'hFFFF;
       @(posedge clk);
-         read    = 1;
-         write   = 0;
-         addr    = 8'h00;
-      @(posedge clk);
-         read    = 0;
+      read_mem(8'h00);
+      idle();
       // End Comment
 
       @(posedge clk);
@@ -112,13 +98,12 @@ module tb;
    //   200      1     0    01     BBBB      xxxx
    //   300      1     0    02     CCCC      xxxx
    //   400      0     0    02     CCCC      xxxx
-   //   500      0     1    00     CCCC      xxxx    #3
+   //   500      0     1    00     CCCC      xxxx
    //   600      0     1    01     --        AAAA
    //   700      0     1    02     --        BBBB
    //   800      0     0    02     --        CCCC
-   //   900      1     1    00     FFFF      --      #4
+   //   900      1     1    00     FFFF      --      #3
    //  1000      0     1    00     FFFF      --
    //  1100      0     0    00     --        AAAA
-   //  1200      --    --   --     --        --
    //////////////////////////////////////////////////////////
 endmodule
