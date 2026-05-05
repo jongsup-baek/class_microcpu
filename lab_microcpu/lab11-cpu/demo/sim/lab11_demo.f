@@ -17,9 +17,9 @@
 ../../../design/sysclk.sv
 ../../../design/mem.sv
 ../../../design/cpu_core.sv
+../../../design/cpu_top.sv
 
 // Lab files
-../cpu_top.sv
 ../tb_cpu_top.sv
 
 // Simulation Options
