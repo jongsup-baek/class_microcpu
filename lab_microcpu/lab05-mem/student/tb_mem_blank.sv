@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////
 // KSDC Proprietary
 // Course: MicroCPU 설계 실무
-// File  : lab06_mem_blank.sv
+// File  : tb_mem_blank.sv
 // Date  : 2026-05-05
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //
@@ -9,31 +9,6 @@
 //    $> cd sim
 //    $> xrun -f lab06_blank.f -input ../../shm.tcl
 //////////////////////////////////////////////////////////
-
-// Comment #1 : 동기 메모리 모듈
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// End Comment
 
 module tb;
    bit clk = 0; initial forever #50 clk = ~clk;
@@ -51,30 +26,46 @@ module tb;
       .data_out (data_out)
    );
 
+   task reset_dut();
+      #10;
+         read    = 0;
+         write   = 0;
+         addr    = 8'h00;
+         data_in = 16'h0000;
+      @(posedge clk);
+   endtask
+
+   // Comment #1 : write_mem/read_mem task
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   // End Comment
+
+   // Comment #3 : rw_mem task
+
+
+
+
+
+
+
+   // End Comment
+
    initial begin
-      // Comment #2 : 쓰기 검증
+      reset_dut();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      // End Comment
-
-      // Comment #3 : 읽기 검증
-
-
-
+      // Comment #2 : 쓰기 후 읽기 검증
 
 
 
@@ -84,15 +75,6 @@ module tb;
       // End Comment
 
       // Comment #4 : 읽기/쓰기 동시 — 무시
-
-
-
-
-
-
-
-
-
 
 
       // End Comment
@@ -111,14 +93,11 @@ module tb;
    //   100      1     0    00     AAAA      xxxx    #2
    //   200      1     0    01     BBBB      xxxx
    //   300      1     0    02     CCCC      xxxx
-   //   400      0     0    02     CCCC      xxxx
-   //   500      0     1    00     CCCC      xxxx    #3
-   //   600      0     1    01     --        AAAA
-   //   700      0     1    02     --        BBBB
-   //   800      0     0    02     --        CCCC
-   //   900      1     1    00     FFFF      --      #4
-   //  1000      0     1    00     FFFF      --
-   //  1100      0     0    00     --        AAAA
-   //  1200      --    --   --     --        --
+   //   400      0     1    00     --        xxxx
+   //   500      0     1    01     --        AAAA
+   //   600      0     1    02     --        BBBB
+   //   700      1     1    00     FFFF      CCCC    #4
+   //   800      0     1    00     --        --
+   //   900      --    --   --     --        AAAA
    //////////////////////////////////////////////////////////
 endmodule

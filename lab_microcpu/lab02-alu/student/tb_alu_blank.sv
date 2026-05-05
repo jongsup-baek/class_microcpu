@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////
 // KSDC Proprietary
 // Course: MicroCPU 설계 실무
-// File  : lab05_alu_blank.sv
+// File  : tb_alu_blank.sv
 // Date  : 2026-05-05
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //
@@ -9,38 +9,6 @@
 //    $> cd sim
 //    $> xrun -f lab05_blank.f -input ../../shm.tcl
 //////////////////////////////////////////////////////////
-
-package cpu_pkg;
-   typedef enum logic [2:0] {WFR, BRZ, BRA, LDA, STA, ADD, AND, NOT} opcode_t;
-   typedef enum logic [2:0] {INST_ADDR, INST_FETCH, INST_LOAD, IDLE,
-                             OP_ADDR, OP_FETCH, OP_ALU, UPDATE} state_t;
-endpackage : cpu_pkg
-
-// Comment #1 : ALU 모듈
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// End Comment
 
 module tb;
    bit clk = 0; initial forever #50 clk = ~clk;
@@ -60,46 +28,39 @@ module tb;
       .opcode (opcode)
    );
 
+   task reset_dut();
+      #10;
+         opcode = WFR;
+         accum  = 16'h0000;
+         din    = 16'h0000;
+      @(posedge clk);
+   endtask
+
+   // Comment #1 : drive_alu task
+
+
+
+
+
+
+   // End Comment
+
    initial begin
-      @(posedge clk);
+      reset_dut();
 
-      // Comment #2 : ADD 연산
-
-
-
-
-
-
-
-
-      // End Comment
-
-      @(posedge clk);
-
-      // Comment #3 : AND 연산
-
-
-
-
+      // Comment #2 : ADD/AND 연산
 
 
 
 
       // End Comment
 
-      @(posedge clk);
-
-      // Comment #4 : NOT/LDA 연산과 zero 플래그
+      // Comment #3 : NOT/LDA 연산
 
 
+      // End Comment
 
-
-
-
-
-
-
-
+      // Comment #4 : BRZ zero 플래그 확인
 
 
       // End Comment
@@ -114,17 +75,14 @@ module tb;
    //////////////////////////////////////////////////////////
    //  time  opcode  accum  din    dout   zero
    //  ----  ------  -----  -----  -----  ----
-   //     0  WFR     xxxx   xxxx   xxxx   x
-   //   100  --      --     --     --     --
-   //   200  ADD     0010   0020   0030   0       #2
-   //   300  ADD     FFFF   0001   0000   0
-   //   400  --      --     --     --     --
-   //   500  AND     FF00   0F0F   0F00   0       #3
-   //   600  AND     AAAA   5555   0000   0
-   //   700  --      --     --     --     --
-   //   800  NOT     00FF   --     FF00   0       #4
-   //   900  LDA     --     BEEF   BEEF   0
-   //  1000  ADD     0000   0000   0000   1
-   //  1100  --      --     --     --     --
+   //     0  WFR     0000   0000   0000   1
+   //   100  ADD     0010   0020   0030   0       #2
+   //   200  ADD     FFFF   0001   0000   1
+   //   300  AND     FF00   0F0F   0F00   0
+   //   400  AND     AAAA   5555   0000   1
+   //   500  NOT     00FF   0000   FF00   0       #3
+   //   600  LDA     0000   BEEF   BEEF   0
+   //   700  BRZ     0000   0000   0000   1       #4
+   //   800  BRZ     1234   0000   1234   0
    //////////////////////////////////////////////////////////
 endmodule

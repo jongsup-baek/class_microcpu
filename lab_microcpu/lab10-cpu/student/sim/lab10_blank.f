@@ -1,26 +1,26 @@
 //////////////////////////////////////////////////////////
 // KSDC Proprietary
 // Course: MicroCPU 설계 실무
-// File  : lab09_blank.f
+// File  : lab10_blank.f
 // Date  : 2026-05-05
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //////////////////////////////////////////////////////////
 
-// Shared RTL sources
-../../../microcpu/cpu_pkg.sv
-../../../microcpu/sv_src/regfile.sv
-../../../microcpu/sv_src/instr_reg.sv
-../../../microcpu/sv_src/prog_counter.sv
-../../../microcpu/sv_src/alu.sv
-../../../microcpu/sv_src/mux2to1.sv
-../../../microcpu/sv_src/control.sv
-../../../microcpu/sv_src/sysclk.sv
-../../../microcpu/mem.sv
-../../../microcpu/cpu_core.sv
-../../../microcpu/cpu_top.sv
+// Design sources
+../../../design/cpu_pkg.sv
+../../../design/regfile.sv
+../../../design/instr_reg.sv
+../../../design/prog_counter.sv
+../../../design/alu.sv
+../../../design/mux2to1.sv
+../../../design/control.sv
+../../../design/sysclk.sv
+../../../design/mem.sv
+../../../design/cpu_core.sv
+../../../design/cpu_top.sv
 
 // Lab files
-../lab09_cpu_top_blank.sv
+../tb_cpu_top.sv
 
 // Simulation Options
 +access+rwc

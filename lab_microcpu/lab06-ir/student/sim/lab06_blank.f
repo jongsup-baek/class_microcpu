@@ -1,14 +1,15 @@
 ..////////////////////////////////////////////////////////
 // KSDC Proprietary
 // Course: MicroCPU 설계 실무
-// File  : lab03_blank.f
+// File  : lab06_blank.f
 // Date  : 2026-05-05
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 ..////////////////////////////////////////////////////////
 
 // Lab files
-../prog_counter.sv
-../tb_prog_counter.sv
+../cpu_pkg.sv
+../instr_reg.sv
+../tb_instr_reg.sv
 
 // Simulation Options
 +access+rwc
