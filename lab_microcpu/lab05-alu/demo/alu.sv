@@ -26,7 +26,7 @@ module alu
       endcase
    end
 
-   assign zero = ~(|accum);
+   assign zero = ~(|dout);
    // End Comment
 
 endmodule
