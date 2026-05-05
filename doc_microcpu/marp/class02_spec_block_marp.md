@@ -115,7 +115,7 @@ td:nth-child(6) { width: 55%; }
 | sysclk | sysclk | u_sysclk | clk_ext | clock gating + 2분주. halt=1이면 clk_sys 정지 |
 | MEM | mem | u_mem | clk_sys | 256x16 동기 메모리. 명령어와 데이터를 동일 공간에 저장한다 |
 | **cpu_core** | | u_cpu_core | | |
-| Controller | control | u_ctrl | clk_sys | 8-상태 Mealy FSM. 8개 제어 신호 + fetch_phase를 출력한다 |
+| Controller | control | u_ctrl | clk_sys | 8-상태 Moore FSM. 9개 출력이 모두 FF에 등록된다 |
 | PC | prog_counter | u_pc | clk_sys | 8-bit Program Counter. 매 명령어마다 자동 증가한다 |
 | IR | instr_reg | u_ir | clk_sys | 16-bit Instruction Register. 명령어를 5개 필드로 분리한다 |
 | Register File | regfile | u_regfile | clk_sys | 4x16-bit 레지스터 파일(R0-R3). 2R+1W 포트 |
@@ -130,7 +130,7 @@ td:nth-child(6) { width: 55%; }
 - cpu_top은 4개 핀(clk_ext, rst_n, halt, ir_load)만 외부에 노출하며, 내부 동작은 외부에서 보이지 않는다
 - cpu_top 내부는 sysclk, cpu_core, MEM 3개 블럭으로 구성되며, 모두 단일 clk_sys로 동작한다
 - 하나의 명령어는 Fetch phase(S0~S3)와 Execute phase(S4~S7)를 거쳐 8 clk_sys에 실행된다
-- Controller는 FSM 상태와 opcode를 조합하여 8개 제어 신호를 생성한다. Fetch phase의 신호는 고정이고, Execute phase는 opcode에 따라 조건부로 활성화된다
+- Controller는 Moore FSM이다. 모든 출력이 FF에 등록되어 글리치 없이 동작한다. next-state 기반으로 출력을 미리 계산하여 8 clk_sys를 유지한다
 - 9개 블럭은 각각 모듈명, 인스턴스명(u_ 접두어), 클럭 도메인이 명확히 정의되어 있다
 
 ---
