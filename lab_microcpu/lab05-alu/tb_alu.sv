@@ -37,7 +37,7 @@ module tb_alu;
       $display("=== ALU Test (16-bit, combinational) ===");
 
       // Initialize
-      opcode = HALT;
+      opcode = WFR;
       accum = 16'h0000;
       din   = 16'h0000;
       #1;
@@ -60,8 +60,8 @@ module tb_alu;
       // --- Passthrough opcodes (dout = accum) ---
       $display("\n--- Passthrough opcodes ---");
 
-      {opcode, din, accum} = {HALT, 16'h0037, 16'h00DA};
-      check_comb("HALT: pass DA",   16'h00DA, 1'b0);
+      {opcode, din, accum} = {WFR, 16'h0037, 16'h00DA};
+      check_comb("WFR: pass DA",   16'h00DA, 1'b0);
 
       {opcode, din, accum} = {BRZ, 16'h0037, 16'h00DA};
       check_comb("BRZ: pass DA",    16'h00DA, 1'b0);
