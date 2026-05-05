@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////
 // KSDC Proprietary
 // Course: MicroCPU 설계 실무
-// File  : lab08_demo.f
+// File  : lab09_demo.f
 // Date  : 2026-05-05
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //////////////////////////////////////////////////////////
@@ -16,10 +16,10 @@
 ../../../microcpu/sv_src/control.sv
 ../../../microcpu/sv_src/sysclk.sv
 ../../../microcpu/mem.sv
-../../../microcpu/cpu_core.sv
 
 // Lab files
-../lab08_cpu_core_demo.sv
+../cpu_core.sv
+../tb_cpu_core.sv
 
 // Simulation Options
 +access+rwc

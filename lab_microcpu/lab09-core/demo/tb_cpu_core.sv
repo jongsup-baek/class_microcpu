@@ -1,13 +1,13 @@
 //////////////////////////////////////////////////////////
 // KSDC Proprietary
 // Course: MicroCPU 설계 실무
-// File  : lab08_cpu_core_demo.sv
+// File  : tb_cpu_core.sv
 // Date  : 2026-05-05
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //
 // execution command
 //    $> cd sim
-//    $> xrun -f lab08_blank.f -input ../../shm.tcl
+//    $> xrun -f lab09_blank.f -input ../../shm.tcl
 //////////////////////////////////////////////////////////
 
 module tb;
@@ -23,7 +23,6 @@ module tb;
    logic [15:0] data_out;
    logic        clk_sys;
 
-   // Comment #1 : cpu_core 인스턴스
    sysclk u_sysclk (
       .clk_ext (clk_ext),
       .halt    (halt),
@@ -51,22 +50,24 @@ module tb;
       .data_in  (alu_out),
       .data_out (data_out)
    );
-   // End Comment
 
-   initial begin
-      // Comment #2 : 리셋 검증
+   task reset_dut();
+      #10;
          rst_n = 0;
       @(posedge clk_ext);
       @(posedge clk_ext);
          rst_n = 1;
-      // End Comment
+   endtask
 
-      // Comment #3 : Fetch/Execute 사이클 관찰
+   initial begin
+      reset_dut();
+
+      // Comment #1 : Fetch/Execute 사이클 관찰
       repeat (40) @(posedge clk_ext);
       // End Comment
 
       @(posedge clk_ext);
-      $display("SIM DONE: lab08_cpu_core");
+      $display("SIM DONE: lab09_cpu_core");
       $finish;
    end
 
@@ -75,9 +76,9 @@ module tb;
    //////////////////////////////////////////////////////////
    //  time  rst_n  clk_sys  halt  u_core.u_ctrl.state  addr  mem_rd  mem_wr
    //  ----  -----  -------  ----  -------------------  ----  ------  ------
-   //     0      0        0     0  INST_ADDR              00       0       0    #2
-   //   200      1        0     0  INST_ADDR              00       0       0
-   //   -- FSM cycles through INST_ADDR → INST_FETCH → ... → UPDATE --      #3
+   //     0      0        0     0  INST_ADDR              00       0       0
+   //   200      1        0     0  INST_ADDR              00       0       0    #1
+   //   -- FSM cycles through INST_ADDR → INST_FETCH → ... → UPDATE --
    //   -- halt asserts when WFR opcode reaches OP_ADDR --
    //////////////////////////////////////////////////////////
 endmodule
