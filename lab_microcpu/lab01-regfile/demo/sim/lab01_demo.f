@@ -7,7 +7,8 @@
 //////////////////////////////////////////////////////////
 
 // Lab files
-../lab01_regfile_demo.sv
+../regfile.sv
+../tb_regfile.sv
 
 // Simulation Options
 +access+rwc
