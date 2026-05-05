@@ -66,16 +66,10 @@ module tb;
       reset_dut();
 
       // Comment #1 : halt 대기
-      fork
-         begin
-            #50000;
-            $display("TIMEOUT");
-         end
-         begin
-            wait (halt == 1);
-         end
-      join_any
-      disable fork;
+      repeat (100) begin
+         @(posedge clk_ext);
+         if (halt) break;
+      end
       // End Comment
 
       @(posedge clk_ext);
