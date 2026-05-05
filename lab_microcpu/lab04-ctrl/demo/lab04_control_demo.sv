@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////
 
 package cpu_pkg;
-   typedef enum logic [2:0] {HALT, BRZ, BRA, LDA, STA, ADD, AND, NOT} opcode_t;
+   typedef enum logic [2:0] {WFR, BRZ, BRA, LDA, STA, ADD, AND, NOT} opcode_t;
    typedef enum logic [2:0] {INST_ADDR, INST_FETCH, INST_LOAD, IDLE,
                              OP_ADDR, OP_FETCH, OP_ALU, UPDATE} state_t;
 endpackage : cpu_pkg
@@ -43,7 +43,7 @@ module control
    always_ff @(posedge clk or negedge rst_n) begin
       if (!rst_n)
          halt <= 1'b0;
-      else if (state == OP_ADDR && ir_opcode == HALT)
+      else if (state == OP_ADDR && ir_opcode == WFR)
          halt <= 1'b1;
    end
 

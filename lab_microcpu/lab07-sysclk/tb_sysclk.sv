@@ -48,8 +48,8 @@ module tb_sysclk;
       @(negedge clk_ext);  // div toggles 1->0
       check_comb_1bit("cyc4: clk_sys=0", clk_sys, 1'b0);
 
-      // --- Test 3: Halt gating ---
-      $display("\n--- Test 3: Halt gating ---");
+      // --- Test 3: Wait For Reset gating ---
+      $display("\n--- Test 3: Wait For Reset gating ---");
       halt = 1;
       @(negedge clk_ext);
       logic clk_before;

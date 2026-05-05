@@ -78,6 +78,6 @@ module tb;
    //     0      0        0     0  INST_ADDR              00       0       0    #2
    //   200      1        0     0  INST_ADDR              00       0       0
    //   -- FSM cycles through INST_ADDR → INST_FETCH → ... → UPDATE --      #3
-   //   -- halt asserts when HALT opcode reaches OP_ADDR --
+   //   -- halt asserts when WFR opcode reaches OP_ADDR --
    //////////////////////////////////////////////////////////
 endmodule

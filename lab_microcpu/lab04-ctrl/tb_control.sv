@@ -34,7 +34,7 @@ module tb_control;
       $display("=== Control FSM Test ===");
 
       // Initialize
-      ir_opcode = HALT;
+      ir_opcode = WFR;
       zero = 0;
       rst_n = 0;
 
@@ -43,9 +43,9 @@ module tb_control;
       rst_n = 1;
       repeat (7) @(negedge clk);
 
-      // --- HALT ---
-      $display("\n--- HALT ---");
-      ir_opcode = HALT; zero = 0;
+      // --- WFR ---
+      $display("\n--- WFR ---");
+      ir_opcode = WFR; zero = 0;
       //                      0_mrd_lir_hlt_ipc_lrg_lpc_mwr
       check_result_8bit("S0 INST_ADDR",  clk, actual_data, 8'b0_0_0_0_0_0_0_0);
       check_result_8bit("S1 INST_FETCH", clk, actual_data, 8'b0_1_0_0_0_0_0_0);

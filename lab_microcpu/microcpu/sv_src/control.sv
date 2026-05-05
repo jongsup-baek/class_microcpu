@@ -36,7 +36,7 @@ wire is_not = (ir_opcode == NOT);
 always_ff @(posedge clk or negedge rst_n)
    if (!rst_n)
       halt <= 1'b0;
-   else if (state == OP_ADDR && ir_opcode == HALT)
+   else if (state == OP_ADDR && ir_opcode == WFR)
       halt <= 1'b1;
 
 // fetch_phase — high during Fetch (S0~S3), low during Execute (S4~S7)
