@@ -6,16 +6,16 @@
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //////////////////////////////////////////////////////////
 
-// Shared RTL sources
-../../../microcpu/cpu_pkg.sv
-../../../microcpu/sv_src/regfile.sv
-../../../microcpu/sv_src/instr_reg.sv
-../../../microcpu/sv_src/prog_counter.sv
-../../../microcpu/sv_src/alu.sv
-../../../microcpu/sv_src/mux2to1.sv
-../../../microcpu/sv_src/control.sv
-../../../microcpu/sv_src/sysclk.sv
-../../../microcpu/sv_src/mem.sv
+// Design sources
+../../../design/cpu_pkg.sv
+../../../design/regfile.sv
+../../../design/instr_reg.sv
+../../../design/prog_counter.sv
+../../../design/alu.sv
+../../../design/mux2to1.sv
+../../../design/control.sv
+../../../design/sysclk.sv
+../../../design/mem.sv
 
 // Lab files
 ../cpu_core.sv

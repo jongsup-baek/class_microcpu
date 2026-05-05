@@ -1,29 +1,26 @@
 //////////////////////////////////////////////////////////
 // KSDC Proprietary
-// Course: MicroCPU 실습
+// Course: MicroCPU 설계 실무
 // File  : cpu_top.sv
-// Date  : 2026-05-01
+// Date  : 2026-05-05
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //////////////////////////////////////////////////////////
 
 module cpu_top (
-   input  logic clk_ext,
-   input  logic rst_n,
-   output logic halt,
-   output logic ir_load
+   input  logic clk_ext,   // 외부 클럭
+   input  logic rst_n,     // 비동기 리셋
+   output logic halt,      // 정지 출력
+   output logic ir_load    // IR 로드 (디버그용)
 );
 
 import cpu_pkg::*;
 
-// Internal gated clock
 logic clk_sys;
-
-// Memory bus signals
 logic [7:0]  addr;
 logic [15:0] alu_out, data_out;
 logic        mem_rd, mem_wr;
 
-// Clock gating
+// Comment #1 : cpu_top 인스턴스 연결
 sysclk u_sysclk (
    .clk_ext,
    .halt,
@@ -31,7 +28,6 @@ sysclk u_sysclk (
    .rst_n
 );
 
-// CPU instance
 cpu_core u_cpu_core (
    .halt,
    .ir_load,
@@ -44,14 +40,14 @@ cpu_core u_cpu_core (
    .rst_n
 );
 
-// Memory instance
 mem u_mem (
    .clk      (clk_sys),
-   .read    (mem_rd),
-   .write   (mem_wr),
-   .addr    (addr),
-   .data_in (alu_out),
-   .data_out(data_out)
+   .read     (mem_rd),
+   .write    (mem_wr),
+   .addr     (addr),
+   .data_in  (alu_out),
+   .data_out (data_out)
 );
+// End Comment
 
 endmodule : cpu_top
