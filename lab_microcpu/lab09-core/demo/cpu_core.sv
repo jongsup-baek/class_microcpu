@@ -20,7 +20,6 @@ module cpu_core (
 
 import cpu_pkg::*;
 
-// Comment #1 : 내부 신호 선언
 opcode_t     ir_opcode;
 logic        ir_mode;
 logic [1:0]  ir_rd, ir_rs;
@@ -32,7 +31,7 @@ logic        alu_zero;
 logic        load_reg, pc_inc, pc_load, fetch_phase;
 // End Comment
 
-// Comment #2 : 블록 인스턴스 연결
+// Comment #1 : 블록 인스턴스 연결
 instr_reg u_ir (
    .ir_opcode,
    .ir_mode,

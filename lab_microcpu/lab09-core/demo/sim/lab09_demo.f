@@ -15,7 +15,7 @@
 ../../../microcpu/sv_src/mux2to1.sv
 ../../../microcpu/sv_src/control.sv
 ../../../microcpu/sv_src/sysclk.sv
-../../../microcpu/mem.sv
+../../../microcpu/sv_src/mem.sv
 
 // Lab files
 ../cpu_core.sv
