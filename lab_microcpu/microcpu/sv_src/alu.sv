@@ -26,6 +26,6 @@ always_comb
       default : dout = accum;
    endcase
 
-assign zero = ~(|accum);
+assign zero = ~(|dout);
 
 endmodule
