@@ -145,7 +145,7 @@ always_ff @(posedge clk)
 
 ## 3.4 Controller 모듈 동작
 
-> 8-상태 FSM이 opcode와 zero를 입력받아 8개 제어 신호를 생성한다
+> 8-상태 Moore FSM. 모든 출력이 FF에 등록된다. next-state 기반으로 출력을 미리 계산하여 지연 없이 8 clk_sys를 유지한다
 
 <div class="columns">
 <div>
@@ -165,28 +165,49 @@ always_ff @(posedge clk)
 | load_pc | out | 1 | | PC 분기 주소 로드 enable |
 | halt | out | 1 | | WFR 시 1로 래치 |
 
+모든 출력이 FF에 등록되어 글리치 없이 깨끗하게 출력된다.
+
 </div>
 <div>
 
 ```verilog
 // opcode decode
-assign op_memrd = (ir_opcode inside {ADD, AND, LDA});
-wire is_not = (ir_opcode == NOT);
-wire is_wfr  = (ir_opcode == WFR);
-wire is_brz  = (ir_opcode == BRZ);
-wire is_bra  = (ir_opcode == BRA);
-wire is_sta  = (ir_opcode == STA);
+assign is_op_memrd = (ir_opcode inside {ADD, AND, LDA});
+assign is_not = (ir_opcode == NOT);
+assign is_wfr = (ir_opcode == WFR);
+assign is_brz = (ir_opcode == BRZ);
+assign is_bra = (ir_opcode == BRA);
+assign is_sta = (ir_opcode == STA);
 
-// halt latch
+// state FF
 always_ff @(posedge clk or negedge rst_n)
-   if (!rst_n) halt <= 0;
-   else if (state == OP_ADDR && is_wfr)
-      halt <= 1;
-
-// FSM — halt시 정지
-always_ff @(posedge clk or negedge rst_n)
-   if (!rst_n)          state <= INST_ADDR;
+   if (!rst_n)      state <= INST_ADDR;
    else if (!halt)  state <= state.next();
+
+// 출력 FF — next-state 기반
+always_ff @(posedge clk or negedge rst_n)
+   if (!rst_n) begin
+      {mem_rd, ir_load, inc_pc,
+       load_reg, load_pc, mem_wr} <= 6'b0;
+      fetch_phase <= 1;
+      halt <= 0;
+   end
+   else if (!halt) begin
+      fetch_phase <= (state.next()
+         inside {INST_ADDR, INST_FETCH,
+                 INST_LOAD, IDLE});
+      case (state.next())
+         INST_ADDR: ...
+         OP_ADDR:   halt <= is_wfr;
+         OP_ALU: begin
+            load_reg <= is_op_memrd | is_not;
+            inc_pc   <= is_brz && zero;
+            load_pc  <= is_bra;
+         end
+         UPDATE: mem_wr <= is_sta;
+         ...
+      endcase
+   end
 ```
 
 </div>
@@ -408,7 +429,7 @@ assign zero = ~(|accum);
 - cpu_pkg는 opcode_t와 state_t 두 enum을 정의한다. 모든 모듈이 import하여 타입을 공유한다
 - sysclk은 clk_ext를 2분주하여 clk_sys를 생성한다. halt=1이면 clock gating으로 전체 클럭이 정지한다
 - mem은 256x16 동기 메모리이다. read와 write는 동시에 활성화되지 않으며, posedge clk에서 동작한다
-- Controller는 8-상태 FSM이다. opcode를 op_memrd와 is_not 등으로 디코딩하여 8개 제어 신호를 생성한다
+- Controller는 8-상태 Moore FSM이다. 모든 출력이 FF에 등록되며, next-state 기반으로 미리 계산하여 글리치 없이 동작한다
 - IR은 16비트 명령어를 래치하고 opcode, mode, rd, rs, data 5개 필드로 디코딩한다
 - regfile은 4x16비트 레지스터 파일이다. 읽기는 조합 로직으로 즉시 출력되고, 쓰기는 clk posedge에서 동기 동작한다
 - op_mux와 addr_mux는 동일한 mux2to1 모듈의 인스턴스이다. 삼항 연산자로 구현된 조합 로직이다
