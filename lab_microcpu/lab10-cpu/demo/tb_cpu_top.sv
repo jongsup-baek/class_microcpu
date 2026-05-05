@@ -58,11 +58,21 @@ module tb;
    //////////////////////////////////////////////////////////
    // Expected Waveform (SimVision)
    //////////////////////////////////////////////////////////
-   //  time  rst_n  halt  u_top.u_cpu_core.u_ctrl.state  u_top.u_cpu_core.u_pc.pc_count
-   //  ----  -----  ----  ----------------------------  ------------------------------
-   //     0      0     0  INST_ADDR                       00
-   //   200      1     0  INST_ADDR                       00    #1
-   //   -- FSM executes MCPUtest1 instructions --
-   //   -- halt asserts at end of program --
+   //  time   rst_n  halt  pc    설명
+   //  -----  -----  ----  ----  ----
+   //     50      0     0    00  reset
+   //   1650      1     0    05  BRA 0x05
+   //   3250      1     0    20  BRA 0x20 → [2]
+   //   4850      1     0    21  BRZ R0 (skip)
+   //   6450      1     0    23  LDA R0,[0x81]
+   //   8050      1     0    24  BRZ R0 (no skip)
+   //   9650      1     0    25  BRA 0x40 → [3]
+   //  11250      1     0    40  STA [0x82]
+   //  12850      1     0    41  LDA R0,[0x80]
+   //  14450      1     0    42  STA [0x82]
+   //  16050      1     0    43  LDA R0,[0x82]
+   //  17650      1     0    44  BRZ R0 (skip)
+   //  19250      1     0    46  WFR
+   //  20050      1     1    46  halt
    //////////////////////////////////////////////////////////
 endmodule
