@@ -32,8 +32,8 @@ module tb;
       .rst_n   (rst_n)
    );
 
-   // Comment #1 : task 정의
    task reset_dut();
+      #10;
          rst_n   = 0;
          wr_en   = 0;
          wr_addr = 2'd0;
@@ -43,17 +43,12 @@ module tb;
       @(posedge clk);
       @(posedge clk);
          rst_n = 1;
-   endtask
-
-   task write_reg(input logic [1:0] addr, input logic [15:0] data);
-         wr_en   = 1;
-         wr_addr = addr;
-         wr_data = data;
       @(posedge clk);
    endtask
 
-   task write_nowr(input logic [1:0] addr, input logic [15:0] data);
-         wr_en   = 0;
+   // Comment #1 : write_reg task
+   task write_reg(input logic [1:0] addr, input logic [15:0] data);
+         wr_en   = 1;
          wr_addr = addr;
          wr_data = data;
       @(posedge clk);
@@ -67,29 +62,33 @@ module tb;
    endtask
    // End Comment
 
-   initial begin
-      // Comment #2 : 리셋 검증
-      reset_dut();
-      // End Comment
+   // Comment #3 : write_nowr task
+   task write_nowr(input logic [1:0] addr, input logic [15:0] data);
+         wr_en   = 0;
+         wr_addr = addr;
+         wr_data = data;
+      @(posedge clk);
+   endtask
+   // End Comment
 
-      // Comment #3 : 쓰기 검증
+   
+   initial begin
+      reset_dut();
+
+      // Comment #2 : 쓰기 검증
       write_reg(2'd0, 16'hAAAA);
       write_reg(2'd1, 16'hBBBB);
       write_reg(2'd2, 16'hCCCC);
       write_reg(2'd3, 16'hDDDD);
-      // End Comment
 
-      // Comment #4 : 읽기 검증
       read_reg(2'd0, 2'd1);
       read_reg(2'd2, 2'd3);
       // End Comment
 
-      // Comment #5 : wr_en 비활성 쓰기 시도
+      // Comment #4 : wr_en 비활성 쓰기 시도
       write_nowr(2'd0, 16'hEEEE);
       write_nowr(2'd1, 16'hFFFF);
-      // End Comment
 
-      // Comment #6 : 값 유지 확인
       read_reg(2'd0, 2'd1);
       // End Comment
 
@@ -103,16 +102,16 @@ module tb;
    //////////////////////////////////////////////////////////
    //  time  rst_n  wr_en  wr_addr  wr_data  rd_addr  rs_addr  rd_data  rs_data
    //  ----  -----  -----  -------  -------  -------  -------  -------  -------
-   //     0      0      0        0     0000        0        0     0000     0000    #2
+   //     0      0      0        0     0000        0        0     0000     0000
    //   100      1      0        0     0000        0        0     0000     0000
-   //   200      1      1        0     AAAA        0        0     AAAA     AAAA    #3
+   //   200      1      1        0     AAAA        0        0     AAAA     AAAA    #2
    //   300      1      1        1     BBBB        0        0     AAAA     AAAA
    //   400      1      1        2     CCCC        0        0     AAAA     AAAA
    //   500      1      1        3     DDDD        0        0     AAAA     AAAA
-   //   600      1      0        3     DDDD        0        1     AAAA     BBBB    #4
+   //   600      1      0        3     DDDD        0        1     AAAA     BBBB
    //   700      1      0        3     DDDD        2        3     CCCC     DDDD
-   //   800      1      0        0     EEEE        2        3     AAAA     AAAA    #5
+   //   800      1      0        0     EEEE        2        3     AAAA     AAAA    #4
    //   900      1      0        1     FFFF        2        3     AAAA     AAAA
-   //  1000      1      0        1     FFFF        0        1     AAAA     BBBB    #6
+   //  1000      1      0        1     FFFF        0        1     AAAA     BBBB
    //////////////////////////////////////////////////////////
 endmodule
