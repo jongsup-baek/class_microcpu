@@ -20,20 +20,22 @@ module instr_reg
    input  logic        rst_n       // 비동기 리셋
 );
    // Comment #1 : IR 모듈
-   logic [15:0] ir_out;
-
    always_ff @(posedge clk or negedge rst_n) begin
-      if (!rst_n)
-         ir_out <= '0;
-      else if (enable)
-         ir_out <= din;
+      if (!rst_n) begin
+         ir_opcode <= WFR;
+         ir_mode   <= 1'b0;
+         ir_rd     <= 2'b0;
+         ir_rs     <= 2'b0;
+         ir_data   <= 8'b0;
+      end
+      else if (enable) begin
+         ir_opcode <= opcode_t'(din[15:13]);
+         ir_mode   <= din[12];
+         ir_rd     <= din[11:10];
+         ir_rs     <= din[9:8];
+         ir_data   <= din[7:0];
+      end
    end
-
-   assign ir_opcode = opcode_t'(ir_out[15:13]);
-   assign ir_mode   = ir_out[12];
-   assign ir_rd     = ir_out[11:10];
-   assign ir_rs     = ir_out[9:8];
-   assign ir_data   = ir_out[7:0];
    // End Comment
 
 endmodule
