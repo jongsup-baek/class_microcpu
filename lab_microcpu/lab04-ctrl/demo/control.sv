@@ -54,7 +54,7 @@ module control
 
          case (state.next())
             INST_ADDR : begin
-               {mem_rd, ir_load, inc_pc, load_reg, load_pc, mem_wr} <= 6'b0;
+               {mem_rd, ir_load, inc_pc, load_reg, load_pc, mem_wr} <= 6'b000_000;
             end
             INST_FETCH: begin
                {mem_rd, ir_load, inc_pc, load_reg, load_pc, mem_wr} <= 6'b100_000;
@@ -70,7 +70,8 @@ module control
                halt <= is_wfr;
             end
             OP_FETCH  : begin
-               {mem_rd, ir_load, inc_pc, load_reg, load_pc, mem_wr} <= {is_op_memrd, 5'b0};
+               mem_rd <= is_op_memrd;
+               {ir_load, inc_pc, load_reg, load_pc, mem_wr} <= 5'b0;
             end
             OP_ALU    : begin
                mem_rd   <= is_op_memrd;

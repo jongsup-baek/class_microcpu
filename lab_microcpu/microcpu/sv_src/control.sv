@@ -71,7 +71,8 @@ always_ff @(posedge clk or negedge rst_n) begin
             halt <= is_wfr;
          end
          OP_FETCH  : begin
-            {mem_rd, ir_load, inc_pc, load_reg, load_pc, mem_wr} <= {is_op_memrd, 5'b0};
+            mem_rd <= is_op_memrd;
+            {ir_load, inc_pc, load_reg, load_pc, mem_wr} <= 5'b0;
          end
          OP_ALU    : begin
             mem_rd   <= is_op_memrd;
