@@ -15,10 +15,13 @@
  *   000 WFR  정지
  *   001 BRZ  R[rd]=0이면 PC+2 (skip)
  *   010 BRA  PC <- data
- *   011 LDA  R[rd] <- mem[data] (m=0) / R[rd] <- R[rs] (m=1)
+ *   011 LDA  m=0: R[rd] <- mem[data]
+ *            m=1: R[rd] <- R[rs]
  *   100 STA  mem[data] <- R[rd]
- *   101 ADD  R[rd] <- R[rd] + mem[data] (m=0) / R[rd] + R[rs] (m=1)
- *   110 AND  R[rd] <- R[rd] & mem[data] (m=0) / R[rd] & R[rs] (m=1)
+ *   101 ADD  m=0: R[rd] <- R[rd] + mem[data]
+ *            m=1: R[rd] <- R[rd] + R[rs]
+ *   110 AND  m=0: R[rd] <- R[rd] & mem[data]
+ *            m=1: R[rd] <- R[rd] & R[rs]
  *   111 NOT  R[rd] <- ~R[rd]
  *
  * 메모리 맵:
