@@ -7,7 +7,7 @@
 //
 // execution command
 //    $> cd sim
-//    $> xrun -f lab10_blank.f -input ../../shm.tcl
+//    $> xrun -f lab12_blank.f -input ../../shm.tcl
 //////////////////////////////////////////////////////////
 
 module tb;
@@ -35,7 +35,7 @@ module tb;
 
    initial begin
       // Comment #1 : 프로그램 로드 + 실행
-      $readmemb("../program_code/MCPUtest1.dat",
+      $readmemb("../program_code/MCPUtest3.dat",
                  u_top.u_mem.memory);
       reset_dut();
       repeat (500) begin
@@ -45,7 +45,7 @@ module tb;
       // End Comment
 
       @(posedge clk_ext);
-      $display("SIM DONE: lab10_cpu_top");
+      $display("SIM DONE: lab12_cpu_top");
       $finish;
    end
 
@@ -56,7 +56,7 @@ module tb;
    //  ----  -----  ----  ----------------------------  ------------------------------
    //     0      0     0  INST_ADDR                       00
    //   200      1     0  INST_ADDR                       00    #1
-   //   -- FSM executes MCPUtest1 instructions --
+   //   -- FSM executes MCPUtest3 instructions --
    //   -- halt asserts at end of program --
    //////////////////////////////////////////////////////////
 endmodule
