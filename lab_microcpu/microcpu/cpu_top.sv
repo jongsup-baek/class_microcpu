@@ -40,7 +40,7 @@ cpu_core u_cpu_core (
    .mem_rd   (mem_rd),
    .mem_wr   (mem_wr),
    .data_out (data_out),
-   .clk      (clk_sys),
+   .clk_sys  (clk_sys),
    .rst_n
 );
 
