@@ -38,10 +38,16 @@ module tb;
       $readmemb("../program_code/MCPUtest3.dat",
                  u_top.u_mem.memory);
       reset_dut();
-      repeat (500) begin
-         @(posedge clk_ext);
-         if (halt) break;
-      end
+      fork
+         begin
+            #50000;
+            $display("TIMEOUT");
+         end
+         begin
+            wait (halt == 1);
+         end
+      join_any
+      disable fork;
       // End Comment
 
       @(posedge clk_ext);
