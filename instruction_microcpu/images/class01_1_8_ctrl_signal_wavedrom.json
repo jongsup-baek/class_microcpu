@@ -14,7 +14,7 @@
     {"name": "inc_pc",       "wave": "0...1020", "data": ["BRZ&zero"]},
     {"name": "load_pc",      "wave": "0.....20", "data": ["BRA"]},
     {},
-    {"name": "halt",         "wave": "0...2...", "data": ["HALT: latch, clk gated, rst_n only"]}
+    {"name": "halt",         "wave": "0...2...", "data": ["WFR: latch, clk gated, rst_n only"]}
   ],
   "head": {"text": "Controller Control Signals (8)"},
   "config": {"hscale": 3}
