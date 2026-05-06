@@ -25,7 +25,7 @@ import cpu_pkg::*;
 opcode_t     ir_opcode;
 logic        ir_mode;
 logic [1:0]  ir_rd, ir_rs;
-logic [7:0]  ir_data;
+logic [7:0]  ir_addr;
 
 // Register file signals
 logic [15:0] rd_data, rs_data;
@@ -46,7 +46,7 @@ instr_reg u_ir (
    .ir_mode,
    .ir_rd,
    .ir_rs,
-   .ir_data,
+   .ir_addr,
    .din    (data_out),
    .clk    (clk_sys),
    .enable (ir_load),
@@ -69,7 +69,7 @@ regfile u_regfile (
 // PC — 8-bit program counter
 prog_counter u_pc (
    .pc_count (pc_addr),
-   .din      (ir_data),
+   .din      (ir_addr),
    .clk      (clk_sys),
    .load     (pc_load),
    .enable   (pc_inc),
@@ -98,7 +98,7 @@ alu u_alu (
 mux2to1 #(8) u_addrmux (
    .dout  (addr),
    .din_a (pc_addr),
-   .din_b (ir_data),
+   .din_b (ir_addr),
    .sel_a (fetch_phase)
 );
 

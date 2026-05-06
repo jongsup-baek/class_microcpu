@@ -20,14 +20,14 @@ module tb;
    opcode_t     ir_opcode;
    logic        ir_mode;
    logic [1:0]  ir_rd, ir_rs;
-   logic [7:0]  ir_data;
+   logic [7:0]  ir_addr;
 
    instr_reg u_ir (
       .ir_opcode (ir_opcode),
       .ir_mode   (ir_mode),
       .ir_rd     (ir_rd),
       .ir_rs     (ir_rs),
-      .ir_data   (ir_data),
+      .ir_addr   (ir_addr),
       .din       (din),
       .clk       (clk),
       .enable    (enable),
@@ -80,7 +80,7 @@ module tb;
    //////////////////////////////////////////////////////////
    // Expected Waveform (SimVision)
    //////////////////////////////////////////////////////////
-   //  time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_data
+   //  time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_addr
    //  ----  ------  -----  ---------  -------  -----  -----  -------
    //     0      0   0000   WFR             0      0      0       00
    //   100      0   0000   WFR             0      0      0       00

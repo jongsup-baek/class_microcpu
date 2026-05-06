@@ -23,7 +23,7 @@ import cpu_pkg::*;
 opcode_t     ir_opcode;
 logic        ir_mode;
 logic [1:0]  ir_rd, ir_rs;
-logic [7:0]  ir_data;
+logic [7:0]  ir_addr;
 logic [15:0] rd_data, rs_data;
 logic [7:0]  pc_addr;
 logic [15:0] alu_operand;
