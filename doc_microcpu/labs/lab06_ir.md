@@ -31,13 +31,6 @@ typedef enum logic [2:0] {INST_ADDR, INST_FETCH, INST_LOAD, IDLE,
                           OP_ADDR, OP_FETCH, OP_ALU, UPDATE} state_t;
 ```
 
-시뮬레이션하여 파형을 확인한다.
-
-```bash
-cd sim
-xrun -f lab06_blank.f -input ../../shm.tcl
-```
-
 <p class="ref">💻 cpu_pkg.sv</p>
 
 ---
@@ -54,14 +47,14 @@ always_ff @(posedge clk or negedge rst_n) begin
       ir_mode   <= 1'b0;
       ir_rd     <= 2'b0;
       ir_rs     <= 2'b0;
-      ir_data   <= 8'b0;
+      ir_addr   <= 8'b0;
    end
    else if (enable) begin
       ir_opcode <= opcode_t'(din[15:13]);
       ir_mode   <= din[12];
       ir_rd     <= din[11:10];
       ir_rs     <= din[9:8];
-      ir_data   <= din[7:0];
+      ir_addr   <= din[7:0];
    end
 end
 ```
@@ -71,6 +64,8 @@ end
 ---
 
 ## Step 3: TB — IR 로드 + 디코드
+
+`tb_instr_reg_blank.sv`를 열고 Comment #1, #2를 작성한다.
 
 <div class="columns">
 <div>
@@ -103,8 +98,6 @@ load_ir(16'b011_1_11_00_10101011);
 load_ir(16'b000_0_00_00_00000000);
 ```
 
-시뮬레이션하여 필드 디코드를 파형으로 확인한다.
-
 <p class="ref">💻 tb_instr_reg.sv</p>
 
 </div>
@@ -112,10 +105,19 @@ load_ir(16'b000_0_00_00_00000000);
 
 ---
 
-## Step 3: Expected Waveform
+## Step 4: 시뮬레이션
+
+- 시뮬레이션하여 필드 디코드를 파형으로 확인한다.
+
+```bash
+cd sim
+xrun -f lab06_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
-time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_data
+time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_addr
 ----  ------  -----  ---------  -------  -----  -----  -------
    0      0   0000   WFR             0      0      0       00
  100      0   0000   WFR             0      0      0       00
@@ -129,7 +131,7 @@ time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_data
 
 ---
 
-## Step 4: 완성품 복사
+## Step 5: 완성품 복사
 
 ```bash
 cd ..
@@ -138,7 +140,7 @@ cp cpu_pkg.sv instr_reg.sv ../../../design/
 
 ---
 
-## Step 5: Git Checkin
+## Step 6: Git Checkin
 
 ```bash
 git status

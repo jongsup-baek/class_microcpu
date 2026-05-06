@@ -77,13 +77,6 @@ drive_alu(AND, 16'hFF00, 16'h0F0F);
 drive_alu(AND, 16'hAAAA, 16'h5555);
 ```
 
-시뮬레이션하여 파형을 확인한다.
-
-```bash
-cd sim
-xrun -f lab02_blank.f -input ../../shm.tcl
-```
-
 <p class="ref">💻 tb_alu.sv</p>
 
 </div>
@@ -91,7 +84,16 @@ xrun -f lab02_blank.f -input ../../shm.tcl
 
 ---
 
-## Step 2: Expected Waveform
+## Step 3: 시뮬레이션
+
+- 시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab02_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
 time  opcode  accum  din    dout   zero
@@ -105,7 +107,7 @@ time  opcode  accum  din    dout   zero
 
 ---
 
-## Step 3: TB — NOT/LDA + BRZ
+## Step 4: TB — NOT/LDA + BRZ
 
 Comment #3, #4를 추가하고 다시 시뮬레이션한다.
 
@@ -138,7 +140,16 @@ drive_alu(BRZ, 16'h1234, 16'h0000);
 
 ---
 
-## Step 3: Expected Waveform
+## Step 5: 시뮬레이션
+
+- 시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab02_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
 time  opcode  accum  din    dout   zero
@@ -156,7 +167,7 @@ time  opcode  accum  din    dout   zero
 
 ---
 
-## Step 4: 완성품 복사
+## Step 6: 완성품 복사
 
 ```bash
 cd ..
@@ -165,7 +176,7 @@ cp alu.sv ../../../design/
 
 ---
 
-## Step 5: Git Checkin
+## Step 7: Git Checkin
 
 ```bash
 git status

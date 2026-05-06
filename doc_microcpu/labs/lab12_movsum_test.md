@@ -110,16 +110,41 @@ Comment #5: R3 -1 = 0이 도달할 때까지 loop back
 
 ---
 
----
+## Step 5: 시뮬레이션
 
-## 시뮬레이션
+- 시뮬레이션하여 이동합 결과를 파형으로 확인한다.
 
 ```bash
 cd sim
 xrun -f lab12_blank.f -input ../../shm.tcl
 ```
 
-## Step 5: Git Checkin
+Expected Waveform:
+
+```
+ time  rst_n  halt  pc    설명
+-----  -----  ----  ----  ----
+   50      0     0    00  reset
+ 1650      1     0    01  LDA R3,[0xA0]
+ 3250      1     0    02  BRA 0x10
+ 4850      1     0    10  LDA R1,[0x81]
+ 6450      1     0    11  LDA R2,R0(m=1)
+ 8050      1     0    12  ADD R2,R1(m=1)
+ 9650      1     0    13  LDA R0,R1(m=1)
+11250      1     0    14  STA [0x90],R2
+12850      1     0    20  LDA R2,[0x10]
+14450      1     0    21  ADD R2,[0xA1]
+16050      1     0    22  STA [0x10],R2
+17650      1     0    30  LDA R2,[0x14]
+19250      1     0    31  ADD R2,[0xA1]
+20850      1     0    32  STA [0x14],R2
+22450      1     0    40  ADD R3,[0xA2]
+24050      1     0    42  BRA 0x10 (loop)
+```
+
+---
+
+## Step 6: Git Checkin
 
 ```bash
 git status

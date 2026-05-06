@@ -39,18 +39,13 @@ always_ff @(posedge clk) begin
 end
 ```
 
-시뮬레이션하여 파형을 확인한다.
-
-```bash
-cd sim
-xrun -f lab05_blank.f -input ../../shm.tcl
-```
-
 <p class="ref">💻 mem.sv</p>
 
 ---
 
 ## Step 2: TB — 쓰기 후 읽기
+
+`tb_mem_blank.sv`를 열고 Comment #1, #2를 작성한다.
 
 <div class="columns">
 <div>
@@ -91,8 +86,6 @@ read_mem(8'h01);
 read_mem(8'h02);
 ```
 
-시뮬레이션하여 파형을 확인한다.
-
 <p class="ref">💻 tb_mem.sv</p>
 
 </div>
@@ -100,7 +93,16 @@ read_mem(8'h02);
 
 ---
 
-## Step 2: Expected Waveform
+## Step 3: 시뮬레이션
+
+- 시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab05_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
 time  write  read  addr  data_in  data_out
@@ -116,7 +118,7 @@ time  write  read  addr  data_in  data_out
 
 ---
 
-## Step 3: TB — 읽기/쓰기 동시
+## Step 4: TB — 읽기/쓰기 동시
 
 Comment #3, #4를 추가하고 다시 시뮬레이션한다.
 
@@ -155,7 +157,16 @@ read_mem(8'h00);
 
 ---
 
-## Step 3: Expected Waveform
+## Step 5: 시뮬레이션
+
+- 시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab05_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
 time  write  read  addr  data_in  data_out
@@ -174,7 +185,7 @@ time  write  read  addr  data_in  data_out
 
 ---
 
-## Step 4: 완성품 복사
+## Step 6: 완성품 복사
 
 ```bash
 cd ..
@@ -183,7 +194,7 @@ cp mem.sv ../../../design/
 
 ---
 
-## Step 5: Git Checkin
+## Step 7: Git Checkin
 
 ```bash
 git status
