@@ -10,7 +10,7 @@ module cpu_core (
    output logic        halt,       // 정지
    output logic        ir_load,    // IR 로드
    output logic [7:0]  addr,       // 메모리 주소
-   output logic [15:0] alu_out,    // ALU 출력
+   output logic [15:0] rd_data,    // Rd 레지스터 출력
    output logic        mem_rd,     // 메모리 읽기
    output logic        mem_wr,     // 메모리 쓰기
    input  logic [15:0] data_out,   // 메모리 데이터 입력
@@ -24,9 +24,9 @@ opcode_t     ir_opcode;
 logic        ir_mode;
 logic [1:0]  ir_rd, ir_rs;
 logic [7:0]  ir_addr;
-logic [15:0] rd_data, rs_data;
+logic [15:0] rs_data;
 logic [7:0]  pc_addr;
-logic [15:0] alu_operand;
+logic [15:0] alu_result, alu_operand;
 logic        alu_zero;
 logic        load_reg, pc_inc, pc_load, fetch_phase;
 // End Comment

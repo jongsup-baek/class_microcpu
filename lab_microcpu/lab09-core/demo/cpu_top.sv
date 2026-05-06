@@ -17,7 +17,7 @@ import cpu_pkg::*;
 
 logic clk_sys;
 logic [7:0]  addr;
-logic [15:0] alu_out, data_out;
+logic [15:0] rd_data, data_out;
 logic        mem_rd, mem_wr;
 
 // Comment #1 : cpu_top 인스턴스 연결
@@ -32,7 +32,7 @@ cpu_core u_cpu_core (
    .halt,
    .ir_load,
    .addr     (addr),
-   .alu_out  (alu_out),
+   .rd_data  (rd_data),
    .mem_rd   (mem_rd),
    .mem_wr   (mem_wr),
    .data_out (data_out),
@@ -45,7 +45,7 @@ mem u_mem (
    .read     (mem_rd),
    .write    (mem_wr),
    .addr     (addr),
-   .data_in  (alu_out),
+   .data_in  (rd_data),
    .data_out (data_out)
 );
 // End Comment
