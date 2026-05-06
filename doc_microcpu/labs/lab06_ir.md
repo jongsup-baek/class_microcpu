@@ -31,6 +31,13 @@ typedef enum logic [2:0] {INST_ADDR, INST_FETCH, INST_LOAD, IDLE,
                           OP_ADDR, OP_FETCH, OP_ALU, UPDATE} state_t;
 ```
 
+시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab06_blank.f -input ../../shm.tcl
+```
+
 <p class="ref">💻 cpu_pkg.sv</p>
 
 ---

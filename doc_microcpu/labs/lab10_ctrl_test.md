@@ -66,6 +66,15 @@ Comment #3 영역에 바이너리를 추가하고 다시 시뮬레이션한다.
 
 ---
 
+---
+
+## 시뮬레이션
+
+```bash
+cd sim
+xrun -f lab10_blank.f -input ../../shm.tcl
+```
+
 ## Step 4: Git Checkin
 
 ```bash

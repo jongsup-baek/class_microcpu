@@ -110,6 +110,15 @@ Comment #5: R3 -1 = 0이 도달할 때까지 loop back
 
 ---
 
+---
+
+## 시뮬레이션
+
+```bash
+cd sim
+xrun -f lab12_blank.f -input ../../shm.tcl
+```
+
 ## Step 5: Git Checkin
 
 ```bash
