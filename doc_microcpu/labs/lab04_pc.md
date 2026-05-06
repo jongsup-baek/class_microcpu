@@ -42,6 +42,8 @@ end
 
 ## Step 2: TB — enable 카운트
 
+`tb_prog_counter_blank.sv`를 열고 Comment #1, #2를 작성한다.
+
 <div class="columns">
 <div>
 
@@ -73,13 +75,6 @@ endtask
 enable_pc_duration(4);
 ```
 
-시뮬레이션하여 파형을 확인한다.
-
-```bash
-cd sim
-xrun -f lab04_blank.f -input ../../shm.tcl
-```
-
 <p class="ref">💻 tb_prog_counter.sv</p>
 
 </div>
@@ -87,7 +82,16 @@ xrun -f lab04_blank.f -input ../../shm.tcl
 
 ---
 
-## Step 2: Expected Waveform
+## Step 3: 시뮬레이션
+
+- 시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab04_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
 time  rst_n  enable  load  din  pc_count
@@ -102,7 +106,7 @@ time  rst_n  enable  load  din  pc_count
 
 ---
 
-## Step 3: TB — load 값 로드 후 카운트
+## Step 4: TB — load 값 로드 후 카운트
 
 Comment #3을 추가하고 다시 시뮬레이션한다.
 
@@ -116,7 +120,16 @@ enable_pc_duration(3);
 
 ---
 
-## Step 3: Expected Waveform
+## Step 5: 시뮬레이션
+
+- 시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab04_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
 time  rst_n  enable  load  din  pc_count
@@ -136,7 +149,7 @@ time  rst_n  enable  load  din  pc_count
 
 ---
 
-## Step 4: 완성품 복사
+## Step 6: 완성품 복사
 
 ```bash
 cd ..
@@ -145,7 +158,7 @@ cp prog_counter.sv ../../../design/
 
 ---
 
-## Step 5: Git Checkin
+## Step 7: Git Checkin
 
 ```bash
 git status

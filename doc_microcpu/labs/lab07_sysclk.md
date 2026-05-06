@@ -39,18 +39,13 @@ end
 assign clk_sys = div;
 ```
 
-시뮬레이션하여 파형을 확인한다.
-
-```bash
-cd sim
-xrun -f lab07_blank.f -input ../../shm.tcl
-```
-
 <p class="ref">💻 sysclk.sv</p>
 
 ---
 
 ## Step 2: TB — 정상 2분주
+
+`tb_sysclk_blank.sv`를 열고 Comment #1을 작성한다.
 
 - Comment #1: 정상 2분주
 
@@ -59,13 +54,20 @@ xrun -f lab07_blank.f -input ../../shm.tcl
 repeat(8) @(posedge clk_ext);
 ```
 
-시뮬레이션하여 clk_sys가 clk_ext의 2분주인지 확인한다.
-
 <p class="ref">💻 tb_sysclk.sv</p>
 
 ---
 
-## Step 2: Expected Waveform
+## Step 3: 시뮬레이션
+
+- 시뮬레이션하여 clk_sys가 clk_ext의 2분주인지 확인한다.
+
+```bash
+cd sim
+xrun -f lab07_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
 time  rst_n  halt  clk_sys
@@ -84,7 +86,7 @@ time  rst_n  halt  clk_sys
 
 ---
 
-## Step 3: TB — halt 시 클럭 정지
+## Step 4: TB — halt 시 클럭 정지
 
 Comment #2를 추가하고 다시 시뮬레이션한다.
 
@@ -98,7 +100,16 @@ repeat(4) @(posedge clk_ext);
 
 ---
 
-## Step 3: Expected Waveform
+## Step 5: 시뮬레이션
+
+- 시뮬레이션하여 halt=1일 때 clk_sys가 정지하는지 확인한다.
+
+```bash
+cd sim
+xrun -f lab07_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
 time  rst_n  halt  clk_sys
@@ -116,7 +127,7 @@ time  rst_n  halt  clk_sys
 
 ---
 
-## Step 4: 완성품 복사
+## Step 6: 완성품 복사
 
 ```bash
 cd ..
@@ -125,7 +136,7 @@ cp sysclk.sv ../../../design/
 
 ---
 
-## Step 5: Git Checkin
+## Step 7: Git Checkin
 
 ```bash
 git status

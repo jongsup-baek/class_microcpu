@@ -90,13 +90,6 @@ read_reg(2'd0, 2'd1);
 read_reg(2'd2, 2'd3);
 ```
 
-시뮬레이션하여 파형을 확인한다.
-
-```bash
-cd sim
-xrun -f lab01_blank.f -input ../../shm.tcl
-```
-
 <p class="ref">💻 tb_regfile.sv</p>
 
 </div>
@@ -104,14 +97,23 @@ xrun -f lab01_blank.f -input ../../shm.tcl
 
 ---
 
-## Step 2: Expected Waveform
+## Step 3: 시뮬레이션
+
+- 시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab01_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
 time  rst_n  wr_en  wr_addr  wr_data  rd_addr  rs_addr  rd_data  rs_data
 ----  -----  -----  -------  -------  -------  -------  -------  -------
-   0      0      0        0     0000        0        0     0000     0000
+   0      0      0        0     0000        0        0     0000     0000    #2
  100      1      0        0     0000        0        0     0000     0000
- 200      1      1        0     AAAA        0        0     AAAA     AAAA    #2
+ 200      1      1        0     AAAA        0        0     AAAA     AAAA
  300      1      1        1     BBBB        0        0     AAAA     AAAA
  400      1      1        2     CCCC        0        0     AAAA     AAAA
  500      1      1        3     DDDD        0        0     AAAA     AAAA
@@ -121,7 +123,7 @@ time  rst_n  wr_en  wr_addr  wr_data  rd_addr  rs_addr  rd_data  rs_data
 
 ---
 
-## Step 3: TB — wr_en 비활성 검증
+## Step 4: TB — wr_en 비활성 검증
 
 Comment #3, #4를 추가하고 다시 시뮬레이션한다.
 
@@ -143,7 +145,7 @@ endtask
 </div>
 <div>
 
-- Comment #4: wr_en=0 쓰기 시도 → 값 유지 확인
+- Comment #4: wr_en 비활성 쓰기 시도
 
 ```verilog
 // Comment #4 : wr_en 비활성 쓰기 시도
@@ -153,8 +155,6 @@ write_nowr(2'd1, 16'hFFFF);
 read_reg(2'd0, 2'd1);
 ```
 
-시뮬레이션하여 R0=AAAA, R1=BBBB가 유지되는지 확인한다.
-
 <p class="ref">💻 tb_regfile.sv</p>
 
 </div>
@@ -162,14 +162,23 @@ read_reg(2'd0, 2'd1);
 
 ---
 
-## Step 3: Expected Waveform
+## Step 5: 시뮬레이션
+
+- 시뮬레이션하여 R0=AAAA, R1=BBBB가 유지되는지 확인한다.
+
+```bash
+cd sim
+xrun -f lab01_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
 time  rst_n  wr_en  wr_addr  wr_data  rd_addr  rs_addr  rd_data  rs_data
 ----  -----  -----  -------  -------  -------  -------  -------  -------
-   0      0      0        0     0000        0        0     0000     0000
+   0      0      0        0     0000        0        0     0000     0000    #2
  100      1      0        0     0000        0        0     0000     0000
- 200      1      1        0     AAAA        0        0     AAAA     AAAA    #2
+ 200      1      1        0     AAAA        0        0     AAAA     AAAA
  300      1      1        1     BBBB        0        0     AAAA     AAAA
  400      1      1        2     CCCC        0        0     AAAA     AAAA
  500      1      1        3     DDDD        0        0     AAAA     AAAA
@@ -182,21 +191,20 @@ time  rst_n  wr_en  wr_addr  wr_data  rd_addr  rs_addr  rd_data  rs_data
 
 ---
 
-## Step 4: 완성품 복사
-
-검증이 끝나면 `regfile.sv`를 `microcpu/sv_src/`에 복사한다.
+## Step 6: 완성품 복사
 
 ```bash
 cd ..
-cp regfile.sv ../../../microcpu/sv_src/
+cp regfile.sv ../../../design/
 ```
 
 ---
 
-## Step 5: Git Checkin
+## Step 7: Git Checkin
 
 ```bash
 git status
-git add regfile.sv tb_regfile.sv ../../../microcpu/sv_src/regfile.sv
+git add regfile.sv tb_regfile.sv
+git add ../../../design/regfile.sv
 git commit -m "lab01: regfile 설계 완료"
 ```

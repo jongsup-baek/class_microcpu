@@ -70,13 +70,6 @@ drive_mux(8'hAA, 8'h55, 0);
 drive_mux(8'h00, 8'hFF, 0);
 ```
 
-시뮬레이션하여 파형을 확인한다.
-
-```bash
-cd sim
-xrun -f lab03_blank.f -input ../../shm.tcl
-```
-
 <p class="ref">💻 tb_mux2to1.sv</p>
 
 </div>
@@ -84,7 +77,16 @@ xrun -f lab03_blank.f -input ../../shm.tcl
 
 ---
 
-## Step 2: Expected Waveform
+## Step 3: 시뮬레이션
+
+- 시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab03_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
 time  sel_a  din_a  din_b  dout
@@ -99,7 +101,7 @@ time  sel_a  din_a  din_b  dout
 
 ---
 
-## Step 3: TB — sel_a 토글
+## Step 4: TB — sel_a 토글
 
 Comment #4를 추가하고 다시 시뮬레이션한다.
 
@@ -116,7 +118,16 @@ drive_mux(8'h12, 8'h34, 1);
 
 ---
 
-## Step 3: Expected Waveform
+## Step 5: 시뮬레이션
+
+- 시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab03_blank.f -input ../../shm.tcl
+```
+
+Expected Waveform:
 
 ```
 time  sel_a  din_a  din_b  dout
@@ -135,7 +146,7 @@ time  sel_a  din_a  din_b  dout
 
 ---
 
-## Step 4: 완성품 복사
+## Step 6: 완성품 복사
 
 ```bash
 cd ..
@@ -144,7 +155,7 @@ cp mux2to1.sv ../../../design/
 
 ---
 
-## Step 5: Git Checkin
+## Step 7: Git Checkin
 
 ```bash
 git status

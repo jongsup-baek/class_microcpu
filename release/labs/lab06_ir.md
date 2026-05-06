@@ -47,14 +47,14 @@ always_ff @(posedge clk or negedge rst_n) begin
       ir_mode   <= 1'b0;
       ir_rd     <= 2'b0;
       ir_rs     <= 2'b0;
-      ir_data   <= 8'b0;
+      ir_addr   <= 8'b0;
    end
    else if (enable) begin
       ir_opcode <= opcode_t'(din[15:13]);
       ir_mode   <= din[12];
       ir_rd     <= din[11:10];
       ir_rs     <= din[9:8];
-      ir_data   <= din[7:0];
+      ir_addr   <= din[7:0];
    end
 end
 ```
@@ -117,7 +117,7 @@ xrun -f lab06_blank.f -input ../../shm.tcl
 Expected Waveform:
 
 ```
-time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_data
+time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_addr
 ----  ------  -----  ---------  -------  -----  -----  -------
    0      0   0000   WFR             0      0      0       00
  100      0   0000   WFR             0      0      0       00
