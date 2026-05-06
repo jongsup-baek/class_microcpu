@@ -1,10 +1,10 @@
-..////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 // KSDC Proprietary
 // Course: MicroCPU 설계 실무
 // File  : lab09_blank.f
 // Date  : 2026-05-05
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
-..////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 // Design sources
 ../../../design/cpu_pkg.sv
@@ -18,10 +18,10 @@
 ../../../design/mem.sv
 
 // Lab files
-../cpu_core.sv
-../cpu_top.sv
-../tb_cpu_core.sv
+../cpu_core_blank.sv
+../cpu_top_blank.sv
+../tb_cpu_core_blank.sv
 
 // Simulation Options
 +access+rwc
--timescale 1../100ps
+-timescale 1ns/100ps

@@ -13,7 +13,7 @@ module instr_reg
    output logic        ir_mode,    // 모드 비트
    output logic [1:0]  ir_rd,      // Rd 주소
    output logic [1:0]  ir_rs,      // Rs 주소
-   output logic [7:0]  ir_data,    // 데이터/주소 필드
+   output logic [7:0]  ir_addr,    // 주소 필드
    input  logic [15:0] din,        // 입력 데이터 (메모리에서)
    input  logic        clk,        // 클럭
    input  logic        enable,     // 래치 활성화
