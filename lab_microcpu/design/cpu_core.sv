@@ -11,7 +11,7 @@ module cpu_core (
    output logic        halt,
    output logic        ir_load,
    output logic [7:0]  addr,
-   output logic [15:0] alu_out,
+   output logic [15:0] rd_data,
    output logic        mem_rd,
    output logic        mem_wr,
    input  logic [15:0] data_out,
@@ -28,13 +28,13 @@ logic [1:0]  ir_rd, ir_rs;
 logic [7:0]  ir_addr;
 
 // Register file signals
-logic [15:0] rd_data, rs_data;
+logic [15:0] rs_data;
 
 // PC signals
 logic [7:0]  pc_addr;
 
 // ALU signals
-logic [15:0] alu_operand;
+logic [15:0] alu_result, alu_operand;
 logic        alu_zero;
 
 // Control signals
@@ -59,7 +59,7 @@ regfile u_regfile (
    .rs_data (rs_data),
    .rd_addr (ir_rd),
    .rs_addr (ir_rs),
-   .wr_data (alu_out),
+   .wr_data (alu_result),
    .wr_addr (ir_rd),
    .wr_en   (load_reg),
    .clk     (clk_sys),
@@ -87,7 +87,7 @@ mux2to1 #(16) u_opmux (
 
 // ALU — 16-bit combinational
 alu u_alu (
-   .dout   (alu_out),
+   .dout   (alu_result),
    .zero   (alu_zero),
    .accum  (rd_data),
    .din    (alu_operand),

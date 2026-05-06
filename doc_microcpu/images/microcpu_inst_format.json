@@ -1,6 +1,6 @@
 {
   "reg": [
-    {"bits": 8, "name": "data", "attr": "logic [7:0]"},
+    {"bits": 8, "name": "addr", "attr": "8b"},
     {"bits": 2, "name": "rs", "attr": "2b"},
     {"bits": 2, "name": "rd", "attr": "2b"},
     {"bits": 1, "name": "mode", "attr": "1b"},

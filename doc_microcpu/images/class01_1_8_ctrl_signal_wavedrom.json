@@ -4,18 +4,17 @@
     {},
     {"name": "fetch_phase",  "wave": "1...0..."},
     {},
-    {"name": "mem_rd",       "wave": "01..02.0", "data": ["op_memrd"]},
+    {"name": "mem_rd",       "wave": "01..02.0", "data": ["ADD,AND,LDA"]},
     {"name": "mem_wr",       "wave": "0......2", "data": ["STA"]},
     {},
     {"name": "ir_load",      "wave": "0.1.0..."},
     {},
-    {"name": "load_reg",     "wave": "0.....20", "data": ["op_memrd|NOT"]},
+    {"name": "load_reg",     "wave": "0.....20", "data": ["ADD,AND,LDA,NOT"]},
     {},
     {"name": "inc_pc",       "wave": "0...1020", "data": ["BRZ&zero"]},
     {"name": "load_pc",      "wave": "0.....20", "data": ["BRA"]},
     {},
-    {"name": "halt",         "wave": "0...2...", "data": ["WFR: latch, clk gated, rst_n only"]}
+    {"name": "halt",         "wave": "0...2...", "data": ["WFR"]}
   ],
-  "head": {"text": "Controller Control Signals (8)"},
-  "config": {"hscale": 3}
+    "config": {"hscale": 3}
 }
