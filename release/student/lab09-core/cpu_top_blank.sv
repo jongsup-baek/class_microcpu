@@ -17,7 +17,7 @@ import cpu_pkg::*;
 
 logic clk_sys;
 logic [7:0]  addr;
-logic [15:0] alu_out, data_out;
+logic [15:0] rd_data, data_out;
 logic        mem_rd, mem_wr;
 
 // Comment #1 : cpu_top 인스턴스 연결
