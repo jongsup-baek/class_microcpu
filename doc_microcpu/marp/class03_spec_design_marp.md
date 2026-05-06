@@ -42,13 +42,16 @@ Class 03: MicroCPU 블럭 설계
 <div class="columns">
 <div>
 
-- 패키지로 타입을 공유하여 모듈 간 일관성을 보장한다
-- enum은 숫자 대신 이름으로 코딩하여 가독성과 안전성을 높인다
+- **opcode_t** (3비트): 8개 명령어
+  - 제어: WFR
+  - 분기: BRZ, BRA
+  - 데이터 이동: LDA, STA
+  - 산술/논리: ADD, AND, NOT
+- **state_t** (3비트): 8개 FSM 상태
+  - Fetch: S0~S2
+  - Decode: S3
+  - Execute: S4~S7
 - `import cpu_pkg::*;`로 모든 모듈에서 사용
-- opcode_t: 3비트
-  - 8개 명령어를 기능별 그룹으로 인코딩
-- state_t: 3비트
-  - 8개 FSM 상태를 Fetch/Execute 2-phase로 구분
 
 </div>
 <div>
