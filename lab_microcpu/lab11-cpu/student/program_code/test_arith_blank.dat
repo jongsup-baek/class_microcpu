@@ -1,0 +1,113 @@
+/******************************************************************************
+ * test_arith: 연산 검증 프로그램
+ *
+ * Goal : MicroCPU의 연산 명령어(ADD, AND, NOT)를 검증한다.
+ *        메모리 모드(m=0)와 레지스터 모드(m=1)를 모두 사용한다.
+ *
+ * 16비트 명령어 형식: opc_m_rd_rs_d[7:0]
+ *   opc[15:13] — 명령어 종류 (3비트)
+ *   m[12]      — 0: 메모리 모드, 1: 레지스터 모드
+ *   rd[11:10]  — 대상 레지스터 (R0~R3)
+ *   rs[9:8]    — 소스 레지스터 (mode=1일 때)
+ *   d[7:0]     — 메모리 주소 또는 즉시값
+ *
+ * opcode 인코딩:
+ *   000 WFR  정지
+ *   001 BRZ  R[rd]=0이면 PC+2 (skip)
+ *   010 BRA  PC <- data
+ *   011 LDA  m=0: R[rd] <- mem[data]
+ *            m=1: R[rd] <- R[rs]
+ *   100 STA  mem[data] <- R[rd]
+ *   101 ADD  m=0: R[rd] <- R[rd] + mem[data]
+ *            m=1: R[rd] <- R[rd] + R[rs]
+ *   110 AND  m=0: R[rd] <- R[rd] & mem[data]
+ *            m=1: R[rd] <- R[rd] & R[rs]
+ *   111 NOT  R[rd] <- ~R[rd]
+ *
+ * 메모리 맵:
+ *   0x00~0x0F: 1) NOT 검증
+ *   0x20~0x2F: 2) AND + ADD 검증 (메모리 모드)
+ *   0x40~0x4F: 3) ADD 검증 (레지스터 모드 + 뺄셈)
+ *   0x80~0x86: 데이터 영역
+ *
+ * 정상 실행 흐름:
+ *
+ *   1) NOT 검증: NOT(NOT(x)) == x
+ *      PC=0x00 LDA R0,[0x80] -> R0=0x00AA
+ *      PC=0x01 NOT R0 -> R0=0xFF55
+ *      PC=0x02 NOT R0 -> R0=0x00AA (원복)
+ *      PC=0x03 ADD R0,[0x82] -> R0=0x00AA+0xFF56=0x0000
+ *      PC=0x04 BRZ R0 -> skip (R0=0)
+ *      PC=0x06 BRA 0x20 -> 2)로 이동
+ *
+ *   2) AND + ADD 검증 (메모리 모드):
+ *      PC=0x20 LDA R0,[0x81] -> R0=0x0001
+ *      PC=0x21 AND R0,[0x80] -> R0=0x0001&0x00AA=0x0000
+ *      PC=0x22 BRZ R0 -> skip (R0=0)
+ *      PC=0x24 ADD R0,[0x81] -> R0=0x0000+0x0001=0x0001
+ *      PC=0x25 ADD R0,[0x83] -> R0=0x0001+0xFFFF=0x0000
+ *      PC=0x26 BRZ R0 -> skip (R0=0)
+ *      PC=0x28 BRA 0x40 -> 3)으로 이동
+ *
+ *   3) ADD 검증 (레지스터 모드 + 뺄셈): 5 - 3 = 2
+ *      PC=0x40 LDA R0,[0x84] -> R0=0x0005
+ *      PC=0x41 LDA R1,[0x85] -> R1=0x0003
+ *      PC=0x42 NOT R1 -> R1=0xFFFC
+ *      PC=0x43 ADD R1,[0x81] -> R1=0xFFFC+1=0xFFFD (-3)
+ *      PC=0x44 ADD R0,R1 (m=1) -> R0=0x0005+0xFFFD=0x0002
+ *      PC=0x45 ADD R0,[0x86] -> R0=0x0002+0xFFFE=0x0000
+ *      PC=0x46 BRZ R0 -> skip (R0=0)
+ *      PC=0x48 WFR -> 모든 테스트 통과!
+ *
+ * opc_m_rd_rs_dddddddd  //  addr  asm               설명
+ *
+ *****************************************************************************/
+
+// Comment #1. NOT 검증
+@00
+
+
+
+
+
+
+
+// End Comment
+
+// Comment #2. AND + ADD 검증 (메모리 모드)
+// opc_m_rd_rs_dddddddd  //  addr  asm               설명
+@20
+
+
+
+
+
+
+
+
+
+// End Comment
+
+// Comment #3. ADD 검증 (레지스터 모드 + 뺄셈)
+// opc_m_rd_rs_dddddddd  //  addr  asm               설명
+@40
+
+
+
+
+
+
+
+
+
+// End Comment
+
+// --- Data section ---
+@80
+0000000010101010        //  0x80  상수 0x00AA
+0000000000000001        //  0x81  상수 0x0001
+1111111101010110        //  0x82  상수 0xFF56 (-0x00AA)
+1111111111111111        //  0x83  상수 0xFFFF (-1)
+0000000000000101        //  0x84  상수 0x0005
+0000000000000011        //  0x85  상수 0x0003
+1111111111111110        //  0x86  상수 0xFFFE (-2)

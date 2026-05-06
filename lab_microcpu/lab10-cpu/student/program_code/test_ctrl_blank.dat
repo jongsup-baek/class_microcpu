@@ -1,0 +1,92 @@
+/******************************************************************************
+ * test_ctrl: 제어 검증 프로그램
+ *
+ * Goal : MicroCPU의 제어 및 메모리 명령어(BRA, BRZ, LDA, STA, WFR)를 검증한다.
+ *
+ * 16비트 명령어 형식: opc_m_rd_rs_d[7:0]
+ *   opc[15:13] — 명령어 종류 (3비트)
+ *   m[12]      — 0: 메모리 모드, 1: 레지스터 모드
+ *   rd[11:10]  — 대상 레지스터 (R0~R3)
+ *   rs[9:8]    — 소스 레지스터 (mode=1일 때)
+ *   d[7:0]     — 메모리 주소 또는 즉시값
+ *
+ * opcode 인코딩:
+ *   000 WFR  정지
+ *   001 BRZ  R[rd]=0이면 PC+2 (skip)
+ *   010 BRA  PC <- data
+ *   011 LDA  m=0: R[rd] <- mem[data]
+ *            m=1: R[rd] <- R[rs]
+ *   100 STA  mem[data] <- R[rd]
+ *   101 ADD  m=0: R[rd] <- R[rd] + mem[data]
+ *            m=1: R[rd] <- R[rd] + R[rs]
+ *   110 AND  m=0: R[rd] <- R[rd] & mem[data]
+ *            m=1: R[rd] <- R[rd] & R[rs]
+ *   111 NOT  R[rd] <- ~R[rd]
+ *
+ * 메모리 맵:
+ *   0x00~0x0F: 1) BRA 검증
+ *   0x20~0x2F: 2) LDA + BRZ 검증
+ *   0x40~0x4F: 3) STA 검증
+ *   0x80~0x82: 데이터 영역
+ *
+ * 정상 실행 흐름:
+ *
+ *   1) BRA 검증:
+ *      PC=0x00 BRA 0x05 -> 0x05로 점프
+ *      PC=0x05 BRA 0x20 -> 2)로 이동
+ *
+ *   2) LDA + BRZ 검증:
+ *      PC=0x20 LDA R0,[0x80] -> R0=0x0000
+ *      PC=0x21 BRZ R0 -> skip (R0=0)
+ *      PC=0x23 LDA R0,[0x81] -> R0=0x00FF
+ *      PC=0x24 BRZ R0 -> no skip (R0!=0)
+ *      PC=0x25 BRA 0x40 -> 3)으로 이동
+ *
+ *   3) STA 검증:
+ *      PC=0x40 STA [0x82],R0 -> mem[0x82] <- 0x00FF
+ *      PC=0x41 LDA R0,[0x80] -> R0=0x0000
+ *      PC=0x42 STA [0x82],R0 -> mem[0x82] <- 0x0000
+ *      PC=0x43 LDA R0,[0x82] -> R0=0x0000
+ *      PC=0x44 BRZ R0 -> skip (R0=0)
+ *      PC=0x46 WFR -> 모든 테스트 통과!
+ *
+ * opc_m_rd_rs_dddddddd  //  addr  asm               설명
+ *
+ *****************************************************************************/
+
+// Comment #1. BRA 검증 
+@00
+
+
+
+
+
+
+// End Comment
+
+// Comment #2. LDA + BRZ 검증
+@20
+
+
+
+
+
+
+// End Comment
+
+// Comment #3. STA 검증
+@40
+
+
+
+
+
+
+
+// End Comment
+
+// --- Data section ---
+@80
+0000000000000000        //  0x80  상수 0x0000
+0000000011111111        //  0x81  상수 0x00FF
+1010101010101010        //  0x82  임시 변수 (0xAAAA)

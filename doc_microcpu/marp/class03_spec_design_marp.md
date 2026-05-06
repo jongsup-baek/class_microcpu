@@ -145,7 +145,7 @@ always_ff @(posedge clk)
 
 ## 3.4 Controller 모듈 동작
 
-> 8-상태 Moore FSM. 모든 출력이 FF에 등록된다. next-state 기반으로 출력을 미리 계산하여 지연 없이 8 clk_sys를 유지한다
+> 8-상태 FSM이 opcode와 zero를 입력받아 9개 제어 신호를 생성한다
 
 <div class="columns">
 <div>
@@ -165,13 +165,12 @@ always_ff @(posedge clk)
 | load_pc | out | 1 | | PC 분기 주소 로드 enable |
 | halt | out | 1 | | WFR 시 1로 래치 |
 
-모든 출력이 FF에 등록되어 글리치 없이 깨끗하게 출력된다.
 
 </div>
 <div>
 
 ```verilog
-// opcode decode
+// 1. opcode decode (조합)
 assign is_op_memrd = (ir_opcode inside {ADD, AND, LDA});
 assign is_not = (ir_opcode == NOT);
 assign is_wfr = (ir_opcode == WFR);
@@ -179,33 +178,24 @@ assign is_brz = (ir_opcode == BRZ);
 assign is_bra = (ir_opcode == BRA);
 assign is_sta = (ir_opcode == STA);
 
-// state FF
+// 2. state FF
 always_ff @(posedge clk or negedge rst_n)
    if (!rst_n)      state <= INST_ADDR;
    else if (!halt)  state <= state.next();
 
-// 출력 FF — next-state 기반
+// 3. 출력 FF — next-state 기반
 always_ff @(posedge clk or negedge rst_n)
-   if (!rst_n) begin
-      {mem_rd, ir_load, inc_pc,
-       load_reg, load_pc, mem_wr} <= 6'b0;
-      fetch_phase <= 1;
-      halt <= 0;
-   end
+   if (!rst_n) begin /* 초기화 */ end
    else if (!halt) begin
-      fetch_phase <= (state.next()
-         inside {INST_ADDR, INST_FETCH,
-                 INST_LOAD, IDLE});
+      fetch_phase <= ...;  // next-state 기반
       case (state.next())
-         INST_ADDR: ...
-         OP_ADDR:   halt <= is_wfr;
-         OP_ALU: begin
-            load_reg <= is_op_memrd | is_not;
-            inc_pc   <= is_brz && zero;
-            load_pc  <= is_bra;
-         end
-         UPDATE: mem_wr <= is_sta;
-         ...
+         // Fetch: 
+         //    mem_rd, ir_load (고정)
+         // Execute:
+         //    inc_pc, halt(is_wfr)
+         //    mem_rd(is_op_memrd), mem_wr(is_sta)
+         //    load_reg(is_op_memrd|is_not)
+         //    inc_pc(is_brz&&zero), load_pc(is_bra)
       endcase
    end
 ```
@@ -217,7 +207,7 @@ always_ff @(posedge clk or negedge rst_n)
 
 ## 3.5 IR 모듈 동작
 
-> 16-bit Instruction Register. 메모리에서 읽은 명령어를 래치하고 5개 필드로 디코딩한다
+> 16-bit Instruction Register. 메모리에서 읽은 명령어를 5개 필드로 분리하여 개별 FF에 래치한다
 
 <div class="columns">
 <div>
@@ -228,28 +218,31 @@ always_ff @(posedge clk or negedge rst_n)
 | rst_n | in | 1 | 외부 핀 | 비동기 리셋 |
 | enable | in | 1 | Controller | ir_load |
 | din | in | 16 | MEM | 래치할 데이터 |
-| ir_opcode | out | 3 | | [15:13] 연산 코드 |
-| ir_mode | out | 1 | | [12] 주소 지정 방식 |
-| ir_rd | out | 2 | | [11:10] 목적 레지스터 |
-| ir_rs | out | 2 | | [9:8] 소스 레지스터 |
-| ir_data | out | 8 | | [7:0] 주소 |
+| ir_opcode | out | 3 | | din[15:13] 연산 코드. 리셋 시 WFR |
+| ir_mode | out | 1 | | din[12] 주소 지정 방식 |
+| ir_rd | out | 2 | | din[11:10] 목적 레지스터 |
+| ir_rs | out | 2 | | din[9:8] 소스 레지스터 |
+| ir_data | out | 8 | | din[7:0] 주소 |
 
 </div>
 <div>
 
 ```verilog
-logic [15:0] ir_out;
-
-always_ff @(posedge clk, negedge rst_n)
-   if (!rst_n)      ir_out <= '0;
-   else if (enable)  ir_out <= din;
-
-// Field decode
-assign ir_opcode = opcode_t'(ir_out[15:13]);
-assign ir_mode = ir_out[12];
-assign ir_rd   = ir_out[11:10];
-assign ir_rs   = ir_out[9:8];
-assign ir_data = ir_out[7:0];
+always_ff @(posedge clk or negedge rst_n)
+   if (!rst_n) begin
+      ir_opcode <= WFR;
+      ir_mode   <= 1'b0;
+      ir_rd     <= 2'b0;
+      ir_rs     <= 2'b0;
+      ir_data   <= 8'b0;
+   end
+   else if (enable) begin
+      ir_opcode <= opcode_t'(din[15:13]);
+      ir_mode   <= din[12];
+      ir_rd     <= din[11:10];
+      ir_rs     <= din[9:8];
+      ir_data   <= din[7:0];
+   end
 ```
 
 </div>
@@ -401,7 +394,7 @@ assign dout = sel_a ? din_a : din_b;
 | din | in | 16 | op_mux | 두 번째 피연산자 |
 | opcode | in | 3 | IR | 연산 종류 선택 |
 | dout | out | 16 | | 연산 결과 |
-| zero | out | 1 | | ~(\|accum) |
+| zero | out | 1 | | ~(\|dout). 연산 결과가 0이면 1 |
 
 </div>
 <div>
@@ -416,7 +409,7 @@ always_comb
       default : dout = accum;
    endcase
 
-assign zero = ~(|accum);
+assign zero = ~(|dout);
 ```
 
 </div>
