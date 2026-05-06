@@ -26,6 +26,13 @@ Lab 08: Control FSM
 
 모든 출력이 FF — 글리치 없는 등록된 출력.
 
+시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab08_blank.f -input ../../shm.tcl
+```
+
 <p class="ref">💻 control.sv (코드가 길어 슬라이드 참조)</p>
 
 ---

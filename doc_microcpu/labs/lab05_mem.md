@@ -39,6 +39,13 @@ always_ff @(posedge clk) begin
 end
 ```
 
+시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab05_blank.f -input ../../shm.tcl
+```
+
 <p class="ref">💻 mem.sv</p>
 
 ---

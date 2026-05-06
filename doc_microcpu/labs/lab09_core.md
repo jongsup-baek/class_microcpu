@@ -26,6 +26,13 @@ Lab 09: CPU Core + Top 조립
 
 인스턴스: u_ir, u_regfile, u_pc, u_opmux, u_alu, u_addrmux, u_ctrl
 
+시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab09_blank.f -input ../../shm.tcl
+```
+
 <p class="ref">💻 cpu_core.sv (코드가 길어 슬라이드 참조)</p>
 
 ---

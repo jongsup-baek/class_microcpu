@@ -39,6 +39,13 @@ end
 assign clk_sys = div;
 ```
 
+시뮬레이션하여 파형을 확인한다.
+
+```bash
+cd sim
+xrun -f lab07_blank.f -input ../../shm.tcl
+```
+
 <p class="ref">💻 sysclk.sv</p>
 
 ---

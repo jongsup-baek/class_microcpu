@@ -73,6 +73,15 @@ Comment #3 영역에 바이너리를 추가한다. mode=1 레지스터 연산 + 
 
 ---
 
+---
+
+## 시뮬레이션
+
+```bash
+cd sim
+xrun -f lab11_blank.f -input ../../shm.tcl
+```
+
 ## Step 4: Git Checkin
 
 ```bash
