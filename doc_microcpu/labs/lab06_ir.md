@@ -20,9 +20,9 @@ Lab 06: Instruction Register
 
 ---
 
-## Step 1: 설계 — cpu_pkg.sv + instr_reg.sv
+## Step 1: 설계 — cpu_pkg.sv
 
-`cpu_pkg_blank.sv`의 Comment #1: opcode/state 타입 정의
+`cpu_pkg_blank.sv`를 열고 Comment #1 영역에 타입을 정의한다.
 
 ```verilog
 // Comment #1 : opcode/state 타입 정의
@@ -35,9 +35,9 @@ typedef enum logic [2:0] {INST_ADDR, INST_FETCH, INST_LOAD, IDLE,
 
 ---
 
-## Step 1: 설계 — instr_reg.sv
+## Step 2: 설계 — instr_reg.sv
 
-`instr_reg_blank.sv`의 Comment #1: IR 모듈
+`instr_reg_blank.sv`를 열고 Comment #1 영역에 IR을 작성한다.
 
 ```verilog
 // Comment #1 : IR 모듈
@@ -63,7 +63,7 @@ end
 
 ---
 
-## Step 2: TB — IR 로드 + 디코드
+## Step 3: TB — IR 로드 + 디코드
 
 <div class="columns">
 <div>
@@ -102,6 +102,23 @@ load_ir(16'b000_0_00_00_00000000);
 
 </div>
 </div>
+
+---
+
+## Step 3: Expected Waveform
+
+```
+time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_data
+----  ------  -----  ---------  -------  -----  -----  -------
+   0      0   0000   WFR             0      0      0       00
+ 100      0   0000   WFR             0      0      0       00
+ 200      1   A655   WFR             0      0      0       00    #2
+ 300      0   A655   ADD             0      1      2       55
+ 400      1   7CAB   ADD             0      1      2       55
+ 500      0   7CAB   LDA             1      3      0       AB
+ 600      1   0000   LDA             1      3      0       AB
+ 700      0   0000   WFR             0      0      0       00
+```
 
 ---
 
