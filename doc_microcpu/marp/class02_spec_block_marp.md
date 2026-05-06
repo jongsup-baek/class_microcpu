@@ -61,18 +61,18 @@ td, th { padding-left: 6px; padding-right: 6px; }
 
 | Signal | Width | From | To | Description |
 | --- | --- | --- | --- | --- |
-| pc_addr | 8 | PC | addr_mux | 현재 명령어의 메모리 주소를 전달한다. |
-| ir_data | 8 | IR | addr_mux, PC | 피연산자 주소 또는 분기 주소를 전달한다. |
-| addr | 8 | addr_mux | MEM | fetch/operand phase에 따라 선택된 메모리 주소를 전달한다. |
-| data_out | 16 | MEM | IR, op_mux | 메모리에서 읽은 명령어 또는 피연산자 데이터를 전달한다. |
-| ir_opcode | 3 | IR | Controller | 디코딩된 opcode를 Controller에 전달한다. |
+| ir_opcode | 3 | IR | Controller | 디코딩된 opcode를 전달한다. |
 | ir_mode | 1 | IR | op_mux | mode 비트로 Operand MUX의 입력을 선택한다. |
 | ir_rd, ir_rs | 2, 2 | IR | Register File | 목적/소스 레지스터 주소를 전달한다. |
+| ir_data | 8 | IR | addr_mux, PC | 피연산자 주소 또는 분기 주소를 전달한다. |
+| pc_addr | 8 | PC | addr_mux | 현재 명령어의 메모리 주소를 전달한다. |
+| addr | 8 | addr_mux | MEM | fetch/operand phase에 따라 선택된 메모리 주소를 전달한다. |
+| data_out | 16 | MEM | IR, op_mux | 메모리에서 읽은 명령어 또는 피연산자 데이터를 전달한다. |
 | rd_data | 16 | Register File | ALU | Rd 레지스터 값을 ALU의 첫 번째 입력(accum)으로 전달한다. |
 | rs_data | 16 | Register File | op_mux | Rs 레지스터 값을 Operand MUX에 전달한다(mode=1). |
 | alu_operand | 16 | op_mux | ALU | 선택된 피연산자를 ALU의 두 번째 입력(din)으로 전달한다. |
 | alu_out | 16 | ALU | Register File, MEM | 연산 결과를 Rd에 저장하거나, STA 시 메모리에 기록한다. |
-| zero | 1 | ALU | Controller | Rd가 0이면 high. BRZ 분기 판단에 사용한다. |
+| zero | 1 | ALU | Controller | ALU 연산 결과(dout)가 0이면 high. BRZ 분기 판단에 사용한다. |
 
 ---
 

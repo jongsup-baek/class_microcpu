@@ -69,19 +69,18 @@ Class 01: MicroCPU 스펙
 
 > 3비트 opcode로 8개 명령어를 정의하며, mode 비트에 따라 피연산자 소스가 달라진다
 
-| 그룹 | Opcode | 이름 | 인코딩 | Direct 모드 | Register 모드 | Note |
-| --- | --- | --- | --- | --- | --- | --- |
-| **제어** | WFR | Wait For Reset | 000 | 프로세서 정지 | <span class="rtl">프로세서 정지</span> | clock gating으로 전체 정지. rst_n으로만 해제 |
-| **분기** | BRZ | Branch if Zero | 001 | Rd=0이면 PC += 1 | <span class="rtl">Rd=0이면 PC += 1</span> | 유일한 조건 분기. Rd가 0이면 다음 명령어를 건너뛴다 |
-| | BRA | Branch Always | 010 | PC = data | <span class="rtl">PC = data</span> | 무조건 분기. data[7:0]을 PC에 로드 |
-| **데이터 이동** | LDA | Load | 011 | Rd = mem[data] | Rd = Rs | Register 모드에서는 레지스터 간 복사 |
-| | STA | Store | 100 | mem[data] = Rd | <span class="rtl">mem[data] = Rd</span> | Rd 값을 메모리에 저장 |
-| **산술/논리** | ADD | Add | 101 | Rd = Rd + mem[data] | Rd = Rd + Rs | 2's complement 덧셈 |
-| | AND | And | 110 | Rd = Rd & mem[data] | Rd = Rd & Rs | 비트 단위 논리곱 |
-| | NOT | Not | 111 | Rd = ~Rd | <span class="rtl">Rd = ~Rd</span> | 단항 연산. 메모리 읽기 불필요 |
+| 그룹 | Opcode | 이름 | 인코딩 | 동작 | Note |
+| --- | --- | --- | --- | --- | --- |
+| **제어** | WFR | Wait For Reset | 000 | 프로세서 정지 | clock gating으로 전체 정지. rst_n으로만 해제 |
+| **분기** | BRZ | Branch if Zero | 001 | Rd=0이면 PC += 1 | 유일한 조건 분기. Rd가 0이면 다음 명령어를 건너뛴다 |
+| | BRA | Branch Always | 010 | PC = data | 무조건 분기. data[7:0]을 PC에 로드 |
+| **데이터 이동** | LDA | Load | 011 | Rd = mem[data] | 레지스터 모드에서는 레지스터 간 복사 |
+| | STA | Store | 100 | mem[data] = Rd | Rd 값을 메모리에 저장 |
+| **산술/논리** | ADD | Add | 101 | Rd = Rd + mem[data] | 2's complement 덧셈 |
+| | AND | And | 110 | Rd = Rd & mem[data] | 비트 단위 논리곱 |
+| | NOT | Not | 111 | Rd = ~Rd | 단항 연산. 메모리 읽기 불필요 |
 
-- `op_memrd` (ADD, AND, LDA): mode 구분이 있다. Direct/Register에 따라 피연산자 소스가 달라진다
-- `!op_memrd` (WFR, BRZ, BRA, STA, NOT): mode에 무관하다
+- ADD, AND, LDA는 레지스터 모드에서 mem[data] 대신 Rs를 사용한다
 
 ---
 
