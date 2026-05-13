@@ -12,9 +12,8 @@
 
 | 이름 | 설명 |
 |------|------|
-| lecture/marp/ | 강의 marp 슬라이드 |
+| lecture/marp/ | 강의 슬라이드 + lab 지시서 |
 | lecture/images/ | 다이어그램, 이미지 |
-| lecture/labs/ | lab 지시서 (marp) |
 | lab/ | 실습 demo 원본 (.sv + sim/) |
 | lab/lab00-design/ | 학생이 lab 진행하며 점진적으로 모으는 완성 설계 |
 | lab/lab01~12/ | 개별 모듈 실습 |
