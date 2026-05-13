@@ -26,9 +26,8 @@
 | exam/ | 시험지, 답안, 채점 |
 | slides/pdf/ | PDF 빌드 |
 | slides/pptx/ | PPTX 빌드 |
-| lab/lab00-design/ | 학생 설계 완성품 |
-| lab/student/ | 학생 배포용 (blank) |
-| lab/teacher/ | 교수용 (solution) |
+| lab/student/ | 학생 배포용 (blank + 빈 design 폴더) |
+| lab/teacher/ | 교수용 (solution + lab00-design 완성품) |
 
 ---
 
