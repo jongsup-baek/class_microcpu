@@ -27,7 +27,7 @@ Lab 06: Instruction Register
 ```verilog
 // Comment #1 : opcode/state 타입 정의
 typedef enum logic [2:0] {WFR, BRZ, BRA, LDA, STA, ADD, AND, NOT} opcode_t;
-typedef enum logic [2:0] {INST_ADDR, INST_FETCH, INST_LOAD, IDLE,
+typedef enum logic [2:0] {INST_ADDR, INST_FETCH, INST_LOAD, INST_DECODE,
                           OP_ADDR, OP_FETCH, OP_ALU, UPDATE} state_t;
 ```
 

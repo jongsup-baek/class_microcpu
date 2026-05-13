@@ -85,7 +85,7 @@ time  rst_n  state       ir_opcode  mem_rd  ir_load  inc_pc  load_reg  load_pc  
  100      1  INST_ADDR   WFR             0        0       0         0        0       0     0
  200      1  INST_FETCH  ADD             1        0       0         0        0       0     0    #2
  300      1  INST_LOAD   ADD             1        1       0         0        0       0     0
- 400      1  IDLE        ADD             1        1       0         0        0       0     0
+ 400      1  INST_DECODE ADD             1        1       0         0        0       0     0
  500      1  OP_ADDR     ADD             0        0       1         0        0       0     0
  600      1  OP_FETCH    ADD             1        0       0         0        0       0     0
  700      1  OP_ALU      ADD             1        0       0         1        0       0     0
@@ -94,7 +94,7 @@ time  rst_n  state       ir_opcode  mem_rd  ir_load  inc_pc  load_reg  load_pc  
 1000      1  INST_ADDR   BRA             0        0       0         0        0       0     0
 1100      1  INST_FETCH  BRA             1        0       0         0        0       0     0
 1200      1  INST_LOAD   BRA             1        1       0         0        0       0     0
-1300      1  IDLE        BRA             1        1       0         0        0       0     0
+1300      1  INST_DECODE BRA             1        1       0         0        0       0     0
 1400      1  OP_ADDR     BRA             0        0       1         0        0       0     0
 1500      1  OP_FETCH    BRA             0        0       0         0        0       0     0
 1600      1  OP_ALU      BRA             0        0       0         0        1       0     0
@@ -102,7 +102,7 @@ time  rst_n  state       ir_opcode  mem_rd  ir_load  inc_pc  load_reg  load_pc  
 1800      1  INST_ADDR   STA             0        0       0         0        0       0     0
 1900      1  INST_FETCH  STA             1        0       0         0        0       0     0
 2000      1  INST_LOAD   STA             1        1       0         0        0       0     0
-2100      1  IDLE        STA             1        1       0         0        0       0     0
+2100      1  INST_DECODE STA             1        1       0         0        0       0     0
 2200      1  OP_ADDR     STA             0        0       1         0        0       0     0
 2300      1  OP_FETCH    STA             0        0       0         0        0       0     0
 2400      1  OP_ALU      STA             0        0       0         0        0       0     0
@@ -110,7 +110,7 @@ time  rst_n  state       ir_opcode  mem_rd  ir_load  inc_pc  load_reg  load_pc  
 2600      1  INST_ADDR   WFR             0        0       0         0        0       0     0
 2700      1  INST_FETCH  WFR             1        0       0         0        0       0     0
 2800      1  INST_LOAD   WFR             1        1       0         0        0       0     0
-2900      1  IDLE        WFR             1        1       0         0        0       0     0
+2900      1  INST_DECODE WFR             1        1       0         0        0       0     0
 3000      1  OP_ADDR     WFR             0        0       1         0        0       0     0
 3100      1  OP_ADDR     WFR             0        0       1         0        0       0     1
 ```

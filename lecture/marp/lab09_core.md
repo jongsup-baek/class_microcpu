@@ -78,8 +78,8 @@ time  rst_n  clk_sys  halt  state       addr  mem_rd  mem_wr
  350      1        0     0  INST_FETCH    00       1       0
  450      1        1     0  INST_LOAD     00       1       0
  550      1        0     0  INST_LOAD     00       1       0
- 650      1        1     0  IDLE          00       1       0
- 750      1        0     0  IDLE          00       1       0
+ 650      1        1     0  INST_DECODE   00       1       0
+ 750      1        0     0  INST_DECODE   00       1       0
  850      1        1     1  OP_ADDR       00       0       0
 ```
 

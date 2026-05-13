@@ -70,7 +70,7 @@ package cpu_pkg;
      INST_ADDR,    // S0 Fetch
      INST_FETCH,   // S1
      INST_LOAD,    // S2
-     IDLE,         // S3
+     INST_DECODE,         // S3
      OP_ADDR,      // S4 Execute
      OP_FETCH,     // S5
      OP_ALU,       // S6

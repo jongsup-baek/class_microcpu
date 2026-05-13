@@ -119,7 +119,7 @@ td:nth-child(6) { width: 65%; }
 | S0 | INST_ADDR | Fetch | PC | addr_mux | PC 주소를 addr_mux에 전달한다. |
 | S1 | INST_FETCH | Fetch | addr_mux | MEM | PC 주소로 메모리 읽기를 시작한다. |
 | S2 | INST_LOAD | Fetch | MEM | IR | 메모리에서 읽은 16비트 명령어를 IR에 래치한다. |
-| S3 | IDLE | Decode | IR | — | IR이 명령어를 5개 필드로 분리한다. |
+| S3 | INST_DECODE | Decode | IR | — | IR이 명령어를 5개 필드로 분리한다. |
 | S4 | OP_ADDR | Execute | IR | addr_mux | addr_mux가 ir_addr을 선택한다. 다음 명령어를 위해 PC를 증가시킨다. |
 | S5 | OP_FETCH | Execute | addr_mux | MEM | ADD, AND, LDA이면 mem[addr]을 읽는다. 그 외 명령어는 읽지 않는다. |
 | S6 | OP_ALU | Execute | regfile, op_mux | regfile, PC | BRZ이면서 rd_data=0이면 건너뛰기, BRA이면 ir_addr을 PC에 로드한다.<br>ADD,AND,LDA,NOT이면 ALU 연산 결과를 Rd에 저장한다. |
