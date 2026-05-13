@@ -13,7 +13,7 @@ footer: "Copyright 2026. 한국반도체설계(주) KSDC Semi, Jongsup Baek. All
 
 # MicroCPU
 
-GitHub Classroom 사용법 — 가입, 레포 생성, 서버 clone, 과제 제출
+GitHub Classroom 사용법
 
 <br><br><br><br><br><br>
 건양대학교<br>백종섭 교수
@@ -100,19 +100,19 @@ ls
 
 ```
 2026-1-microcpu-kyu-본인Username/
-├── lab00-design/          # 설계 문서
-├── lab01-regfile/         # Register File
-├── lab02-alu/             # ALU
-├── lab03-mux/             # Mux
-├── lab04-pc/              # Program Counter
-├── lab05-mem/             # Memory
-├── lab06-ir/              # Instruction Register
-├── lab07-sysclk/          # System Clock
-├── lab08-ctrl/            # Control Unit
-├── lab09-core/            # CPU Core 통합
-├── lab10-prog_ctrl/       # 프로그램 테스트 (제어)
-├── lab11-prog_arith/      # 프로그램 테스트 (연산)
-└── lab12-prog_movsum/     # 프로그램 테스트 (이동/합산)
+├── lab00-design/
+├── lab01-regfile/
+├── lab02-alu/
+├── lab03-mux/
+├── lab04-pc/
+├── lab05-mem/
+├── lab06-ir/
+├── lab07-sysclk/
+├── lab08-ctrl/
+├── lab09-core/
+├── lab10-prog_ctrl/
+├── lab11-prog_arith/
+└── lab12-prog_movsum/
 ```
 
 - 각 lab 폴더에 `_blank.sv` 파일이 있음 → 이 파일을 완성하는 것이 과제
@@ -131,8 +131,8 @@ cd ~/work/2026-1-microcpu-kyu-본인Username
 ```
 ```bash
 git status                            # 변경 파일 확인
-git add lab01-regfile/regfile_blank.sv # 파일 스테이징
-git commit -m "lab01 완성"             # 커밋
+git add lab01-regfile/                    # 파일 스테이징
+git commit -m "lab01-regfile 완성"        # 커밋
 git push                              # GitHub에 업로드
 ```
 
@@ -174,4 +174,3 @@ git status → git add → git commit → git push
 - **git push가 거부된다**
   - 교수가 레포를 업데이트한 경우 발생
   - `git pull --rebase origin main` 실행 후 다시 `git push`
-
