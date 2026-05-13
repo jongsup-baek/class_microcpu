@@ -7,17 +7,17 @@
 //////////////////////////////////////////////////////////
 
 // Design sources
-../../../design/cpu_pkg.sv
-../../../design/regfile.sv
-../../../design/instr_reg.sv
-../../../design/prog_counter.sv
-../../../design/alu.sv
-../../../design/mux2to1.sv
-../../../design/control.sv
-../../../design/sysclk.sv
-../../../design/mem.sv
-../../../design/cpu_core.sv
-../../../design/cpu_top.sv
+../../../lab00-design/cpu_pkg.sv
+../../../lab00-design/regfile.sv
+../../../lab00-design/instr_reg.sv
+../../../lab00-design/prog_counter.sv
+../../../lab00-design/alu.sv
+../../../lab00-design/mux2to1.sv
+../../../lab00-design/control.sv
+../../../lab00-design/sysclk.sv
+../../../lab00-design/mem.sv
+../../../lab00-design/cpu_core.sv
+../../../lab00-design/cpu_top.sv
 
 // Lab files
 ../tb_cpu_top.sv
