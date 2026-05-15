@@ -36,12 +36,12 @@ module tb;
       reset_dut();
 
       // Comment #1 : 정상 2분주
-      repeat(8) @(posedge clk_ext);
+
       // End Comment
 
       // Comment #2 : halt 시 클럭 정지
-         halt = 1;
-      repeat(4) @(posedge clk_ext);
+
+
       // End Comment
 
       @(posedge clk_ext);

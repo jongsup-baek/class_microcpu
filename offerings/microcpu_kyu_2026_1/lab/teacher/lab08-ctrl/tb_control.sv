@@ -45,20 +45,20 @@ module tb;
    endtask
 
    // Comment #1 : drive_fsm task
-   task drive_fsm(input opcode_t op);
-      ir_opcode = op;
-      repeat(8) @(posedge clk);
-   endtask
+
+
+
+
    // End Comment
 
    initial begin
       reset_dut();
 
       // Comment #2 : 전체 opcode 검증
-      drive_fsm(ADD);
-      drive_fsm(BRA);
-      drive_fsm(STA);
-      drive_fsm(WFR);
+
+
+
+
       // End Comment
 
       @(posedge clk);

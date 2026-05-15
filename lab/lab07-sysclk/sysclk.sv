@@ -13,17 +13,17 @@ module sysclk (
    input  logic rst_n      // 비동기 리셋
 );
    // Comment #1 : sysclk 모듈
-   wire clk_i = clk_ext & ~halt;
-   logic div;
 
-   always_ff @(posedge clk_i or negedge rst_n) begin
-      if (!rst_n)
-         div <= 1'b0;
-      else
-         div <= ~div;
-   end
 
-   assign clk_sys = div;
+
+
+
+
+
+
+
+
+
    // End Comment
 
 endmodule

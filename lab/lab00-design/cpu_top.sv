@@ -21,33 +21,33 @@ logic [15:0] rd_data, data_out;
 logic        mem_rd, mem_wr;
 
 // Comment #1 : cpu_top 인스턴스 연결
-sysclk u_sysclk (
-   .clk_ext,
-   .halt,
-   .clk_sys,
-   .rst_n
-);
 
-cpu_core u_cpu_core (
-   .halt,
-   .ir_load,
-   .addr     (addr),
-   .rd_data  (rd_data),
-   .mem_rd   (mem_rd),
-   .mem_wr   (mem_wr),
-   .data_out (data_out),
-   .clk_sys  (clk_sys),
-   .rst_n
-);
 
-mem u_mem (
-   .clk      (clk_sys),
-   .read     (mem_rd),
-   .write    (mem_wr),
-   .addr     (addr),
-   .data_in  (rd_data),
-   .data_out (data_out)
-);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // End Comment
 
 endmodule : cpu_top

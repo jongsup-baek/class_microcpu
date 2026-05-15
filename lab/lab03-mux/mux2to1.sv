@@ -13,7 +13,7 @@ module mux2to1 #(WIDTH = 8) (
    input  logic             sel_a    // 선택 (1=A, 0=B)
 );
    // Comment #1 : 2:1 MUX 모듈
-   assign dout = sel_a ? din_a : din_b;
+
    // End Comment
 
 endmodule

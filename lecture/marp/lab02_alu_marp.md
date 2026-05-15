@@ -20,7 +20,22 @@ Lab 02: ALU
 
 ---
 
-## Step 1: 설계 — alu.sv
+## Step 1: 설계 — cpu_pkg.sv
+
+`cpu_pkg_blank.sv`를 열고 Comment #1 영역에 opcode/state 타입을 정의한다.
+
+```verilog
+// Comment #1 : opcode/state 타입 정의
+typedef enum logic [2:0] {WFR, BRZ, BRA, LDA, STA, ADD, AND, NOT} opcode_t;
+typedef enum logic [2:0] {INST_ADDR, INST_FETCH, INST_LOAD, IDLE,
+                          OP_ADDR, OP_FETCH, OP_ALU, UPDATE} state_t;
+```
+
+<p class="ref">💻 cpu_pkg.sv</p>
+
+---
+
+## Step 2: 설계 — alu.sv
 
 `alu_blank.sv`를 열고 포트 주석을 참고하여 Comment #1 영역에 RTL을 작성한다.
 
@@ -43,7 +58,7 @@ assign zero = ~(|dout);
 
 ---
 
-## Step 2: TB — ADD/AND 연산
+## Step 3: TB — ADD/AND 연산
 
 `tb_alu_blank.sv`를 열고 Comment #1, #2를 작성한다.
 
@@ -84,7 +99,7 @@ drive_alu(AND, 16'hAAAA, 16'h5555);
 
 ---
 
-## Step 3: 시뮬레이션
+## Step 4: 시뮬레이션
 
 - 시뮬레이션하여 파형을 확인한다.
 
@@ -107,7 +122,7 @@ time  opcode  accum  din    dout   zero
 
 ---
 
-## Step 4: TB — NOT/LDA + BRZ
+## Step 5: TB — NOT/LDA + BRZ
 
 Comment #3, #4를 추가하고 다시 시뮬레이션한다.
 
@@ -140,7 +155,7 @@ drive_alu(BRZ, 16'h1234, 16'h0000);
 
 ---
 
-## Step 5: 시뮬레이션
+## Step 6: 시뮬레이션
 
 - 시뮬레이션하여 파형을 확인한다.
 
@@ -167,16 +182,18 @@ time  opcode  accum  din    dout   zero
 
 ---
 
-## Step 6: 완성품 복사 + Git Checkin
+## Step 7: 완성품 복사 + Git Checkin
 
 검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
+cp cpu_pkg_blank.sv ../lab00-design/cpu_pkg.sv
 cp alu_blank.sv ../lab00-design/alu.sv
 
 git status
-git add alu_blank.sv
+git add cpu_pkg_blank.sv alu_blank.sv
+git add ../lab00-design/cpu_pkg.sv
 git add ../lab00-design/alu.sv
 git commit -m "lab02: done"
 git push
