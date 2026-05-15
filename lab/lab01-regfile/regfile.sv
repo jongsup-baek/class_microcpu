@@ -19,22 +19,23 @@ module regfile (
    input  logic        rst_n      // 비동기 리셋 (active-low)
 );
    // Comment #1 : 레지스터 파일 모듈
+   logic [15:0] regs [0:3];
 
+   always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n) begin
+         regs[0] <= '0;
+         regs[1] <= '0;
+         regs[2] <= '0;
+         regs[3] <= '0;
+      end
+      else if (wr_en) begin
+         regs[wr_addr] <= wr_data;
+      end
+   end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   assign rd_data = regs[rd_addr];
+   assign rs_data = regs[rs_addr];
    // End Comment
 
 endmodule
+

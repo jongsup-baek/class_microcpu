@@ -47,28 +47,28 @@ module tb;
    endtask
 
    // Comment #1 : write_reg task
+   task write_reg(input logic [1:0] addr, input logic [15:0] data);
+         wr_en   = 1;
+         wr_addr = addr;
+         wr_data = data;
+      @(posedge clk);
+   endtask
 
-
-
-
-
-
-
-
-
-
-
-
-
+   task read_reg(input logic [1:0] rd, input logic [1:0] rs);
+         wr_en   = 0;
+         rd_addr = rd;
+         rs_addr = rs;
+      @(posedge clk);
+   endtask
    // End Comment
 
    // Comment #3 : write_nowr task
-
-
-
-
-
-
+   task write_nowr(input logic [1:0] addr, input logic [15:0] data);
+         wr_en   = 0;
+         wr_addr = addr;
+         wr_data = data;
+      @(posedge clk);
+   endtask
    // End Comment
 
    
@@ -76,20 +76,20 @@ module tb;
       reset_dut();
 
       // Comment #2 : 쓰기 검증
+      write_reg(2'd0, 16'hAAAA);
+      write_reg(2'd1, 16'hBBBB);
+      write_reg(2'd2, 16'hCCCC);
+      write_reg(2'd3, 16'hDDDD);
 
-
-
-
-
-
-
+      read_reg(2'd0, 2'd1);
+      read_reg(2'd2, 2'd3);
       // End Comment
 
       // Comment #4 : wr_en 비활성 쓰기 시도
+      write_nowr(2'd0, 16'hEEEE);
+      write_nowr(2'd1, 16'hFFFF);
 
-
-
-
+      read_reg(2'd0, 2'd1);
       // End Comment
 
       @(posedge clk);

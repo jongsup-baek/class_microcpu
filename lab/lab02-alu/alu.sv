@@ -16,17 +16,17 @@ module alu
    input  opcode_t     opcode     // 연산 선택
 );
    // Comment #1 : ALU 모듈
+   always_comb begin
+      unique case (opcode)
+         ADD     : dout = accum + din;
+         AND     : dout = accum & din;
+         NOT     : dout = ~accum;
+         LDA     : dout = din;
+         default : dout = accum;
+      endcase
+   end
 
-
-
-
-
-
-
-
-
-
-
+   assign zero = ~(|dout);
    // End Comment
 
 endmodule
