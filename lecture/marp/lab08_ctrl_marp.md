@@ -117,24 +117,19 @@ time  rst_n  state       ir_opcode  mem_rd  ir_load  inc_pc  load_reg  load_pc  
 
 ---
 
-## Step 4: 완성품 복사
+## Step 4: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사한다.
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
 cp cpu_pkg_blank.sv ../lab00-design/cpu_pkg.sv
 cp control_blank.sv ../lab00-design/control.sv
-```
 
----
-
-## Step 5: Git Checkin
-
-```bash
 git status
 git add cpu_pkg_blank.sv control_blank.sv
 git add ../lab00-design/cpu_pkg.sv
 git add ../lab00-design/control.sv
-git commit -m "lab08: control FSM 설계 완료"
+git commit -m "lab08: 설계 완료"
+git push
 ```

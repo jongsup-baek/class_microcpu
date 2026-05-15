@@ -191,22 +191,17 @@ time  rst_n  wr_en  wr_addr  wr_data  rd_addr  rs_addr  rd_data  rs_data
 
 ---
 
-## Step 6: 완성품 복사
+## Step 6: 완성품 복사 + Git Checkin
 
-검증 끝난 `regfile_blank.sv`를 `regfile.sv`로 lab00-design 폴더에 복사한다.
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
 cp regfile_blank.sv ../lab00-design/regfile.sv
-```
 
----
-
-## Step 7: Git Checkin
-
-```bash
 git status
 git add regfile_blank.sv
 git add ../lab00-design/regfile.sv
-git commit -m "lab01: regfile 설계 완료"
+git commit -m "lab01: 설계 완료"
+git push
 ```

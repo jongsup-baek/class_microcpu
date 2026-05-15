@@ -185,22 +185,17 @@ time  write  read  addr  data_in  data_out
 
 ---
 
-## Step 6: 완성품 복사
+## Step 6: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사한다.
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
 cp mem_blank.sv ../lab00-design/mem.sv
-```
 
----
-
-## Step 7: Git Checkin
-
-```bash
 git status
 git add mem_blank.sv
 git add ../lab00-design/mem.sv
-git commit -m "lab05: mem 설계 완료"
+git commit -m "lab05: 설계 완료"
+git push
 ```

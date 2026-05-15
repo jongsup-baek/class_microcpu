@@ -149,22 +149,17 @@ time  rst_n  enable  load  din  pc_count
 
 ---
 
-## Step 6: 완성품 복사
+## Step 6: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사한다.
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
 cp prog_counter_blank.sv ../lab00-design/prog_counter.sv
-```
 
----
-
-## Step 7: Git Checkin
-
-```bash
 git status
 git add prog_counter_blank.sv
 git add ../lab00-design/prog_counter.sv
-git commit -m "lab04: prog_counter 설계 완료"
+git commit -m "lab04: 설계 완료"
+git push
 ```

@@ -146,21 +146,17 @@ time  sel_a  din_a  din_b  dout
 
 ---
 
-## Step 6: 완성품 복사
+## Step 6: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사한다.
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
 cp mux2to1_blank.sv ../lab00-design/mux2to1.sv
-```
 
----
-
-## Step 7: Git Checkin
-
-```bash
 git status
-git add mux2to1.sv tb_mux2to1.sv ../../../design/mux2to1.sv
-git commit -m "lab03: mux2to1 설계 완료"
+git add mux2to1_blank.sv
+git add ../lab00-design/mux2to1.sv
+git commit -m "lab03: 설계 완료"
+git push
 ```

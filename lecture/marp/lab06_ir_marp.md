@@ -131,24 +131,19 @@ time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_addr
 
 ---
 
-## Step 5: 완성품 복사
+## Step 5: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사한다.
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
 cp cpu_pkg_blank.sv ../lab00-design/cpu_pkg.sv
 cp instr_reg_blank.sv ../lab00-design/instr_reg.sv
-```
 
----
-
-## Step 6: Git Checkin
-
-```bash
 git status
 git add cpu_pkg_blank.sv instr_reg_blank.sv
 git add ../lab00-design/cpu_pkg.sv
 git add ../lab00-design/instr_reg.sv
-git commit -m "lab06: instr_reg 설계 완료"
+git commit -m "lab06: 설계 완료"
+git push
 ```
