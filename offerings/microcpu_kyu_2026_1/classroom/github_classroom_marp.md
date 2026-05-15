@@ -45,11 +45,12 @@ GitHub Classroom 사용법
 ## 🔖 2. GitHub Classroom 레포 생성
 
 - Notion 페이지에서 초대 링크를 클릭
-  - 초대 링크: https://classroom.github.com/a/vH_E2JJy
-- GitHub 로그인 → **Accept this assignment** 클릭
+  - 초대 링크: https://classroom.github.com/a/JEoTxrr3
+- GitHub 로그인
+- GitHub 알림(🔔 bell 아이콘)에서 초대를 확인 → **Accept** 클릭
 - 잠시 기다리면 개인 레포가 자동 생성됨
-  - 레포 이름: `2026-1-microcpu-kyu-본인Username`
-  - 예: `2026-1-microcpu-kyu-honggildong`
+  - 레포 이름: `microcpu2026a-본인Username`
+  - 예: `microcpu2026a-honggildong`
 - 초대 링크는 **1번만 클릭**하면 됨
 
 ---
@@ -81,14 +82,14 @@ git config --global credential.helper store
 ```bash
 mkdir ~/work
 cd ~/work
-git clone https://github.com/ksdcsemi-class/2026-1-microcpu-kyu-본인Username.git
+git clone https://github.com/ksdcsemi-class/microcpu2026a-본인Username.git
 ```
 
 - GitHub 사용자명과 비밀번호(또는 토큰) 입력
 - clone이 완료되면 레포 폴더로 이동:
 
 ```bash
-cd 2026-1-microcpu-kyu-본인Username
+cd microcpu2026a-본인Username
 ls
 ```
 
@@ -99,7 +100,7 @@ ls
 ## 🔖 5. 레포 구조
 
 ```
-2026-1-microcpu-kyu-본인Username/
+microcpu2026a-본인Username/
 ├── lab00-design/
 ├── lab01-regfile/
 ├── lab02-alu/
@@ -128,7 +129,7 @@ ls
 - 터미널에서 아래 명령을 순서대로 입력
 
 ```bash
-cd ~/work/2026-1-microcpu-kyu-본인Username
+cd ~/work/microcpu2026a-본인Username
 ```
 ```bash
 git status                            # 변경 파일 확인
