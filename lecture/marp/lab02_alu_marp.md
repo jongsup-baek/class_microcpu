@@ -178,6 +178,6 @@ cp alu_blank.sv ../lab00-design/alu.sv
 git status
 git add alu_blank.sv
 git add ../lab00-design/alu.sv
-git commit -m "lab02: 설계 완료"
+git commit -m "lab02: done"
 git push
 ```

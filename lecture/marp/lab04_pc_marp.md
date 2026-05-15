@@ -160,6 +160,6 @@ cp prog_counter_blank.sv ../lab00-design/prog_counter.sv
 git status
 git add prog_counter_blank.sv
 git add ../lab00-design/prog_counter.sv
-git commit -m "lab04: 설계 완료"
+git commit -m "lab04: done"
 git push
 ```

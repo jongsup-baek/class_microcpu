@@ -138,6 +138,6 @@ cp sysclk_blank.sv ../lab00-design/sysclk.sv
 git status
 git add sysclk_blank.sv
 git add ../lab00-design/sysclk.sv
-git commit -m "lab07: 설계 완료"
+git commit -m "lab07: done"
 git push
 ```

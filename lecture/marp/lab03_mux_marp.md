@@ -157,6 +157,6 @@ cp mux2to1_blank.sv ../lab00-design/mux2to1.sv
 git status
 git add mux2to1_blank.sv
 git add ../lab00-design/mux2to1.sv
-git commit -m "lab03: 설계 완료"
+git commit -m "lab03: done"
 git push
 ```

@@ -202,6 +202,6 @@ cp regfile_blank.sv ../lab00-design/regfile.sv
 git status
 git add regfile_blank.sv
 git add ../lab00-design/regfile.sv
-git commit -m "lab01: 설계 완료"
+git commit -m "lab01: done"
 git push
 ```

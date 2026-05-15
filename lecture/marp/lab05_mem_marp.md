@@ -196,6 +196,6 @@ cp mem_blank.sv ../lab00-design/mem.sv
 git status
 git add mem_blank.sv
 git add ../lab00-design/mem.sv
-git commit -m "lab05: 설계 완료"
+git commit -m "lab05: done"
 git push
 ```

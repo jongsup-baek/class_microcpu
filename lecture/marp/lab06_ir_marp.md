@@ -144,6 +144,6 @@ git status
 git add cpu_pkg_blank.sv instr_reg_blank.sv
 git add ../lab00-design/cpu_pkg.sv
 git add ../lab00-design/instr_reg.sv
-git commit -m "lab06: 설계 완료"
+git commit -m "lab06: done"
 git push
 ```

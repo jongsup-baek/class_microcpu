@@ -98,6 +98,6 @@ git status
 git add cpu_core_blank.sv cpu_top_blank.sv
 git add ../lab00-design/cpu_core.sv
 git add ../lab00-design/cpu_top.sv
-git commit -m "lab09: 설계 완료"
+git commit -m "lab09: done"
 git push
 ```
