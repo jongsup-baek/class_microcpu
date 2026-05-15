@@ -22,6 +22,8 @@ Lab 08: Control FSM
 
 ## Step 1: 설계 — control.sv
 
+> `cpu_pkg.sv`는 lab02에서 이미 작성한 자산을 그대로 사용한다 (lab02-alu/cpu_pkg.sv 참조).
+
 `control_blank.sv`를 열고 Comment #1 영역에 FSM을 작성한다. state FF + 출력 FF(next-state 기반).
 
 모든 출력이 FF — 글리치 없는 등록된 출력.
@@ -123,12 +125,10 @@ time  rst_n  state       ir_opcode  mem_rd  ir_load  inc_pc  load_reg  load_pc  
 
 ```bash
 cd ..
-cp cpu_pkg_blank.sv ../lab00-design/cpu_pkg.sv
 cp control_blank.sv ../lab00-design/control.sv
 
 git status
-git add cpu_pkg_blank.sv control_blank.sv
-git add ../lab00-design/cpu_pkg.sv
+git add control_blank.sv
 git add ../lab00-design/control.sv
 git commit -m "lab08: done"
 git push

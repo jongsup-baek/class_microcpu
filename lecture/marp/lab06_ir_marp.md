@@ -20,22 +20,9 @@ Lab 06: Instruction Register
 
 ---
 
-## Step 1: 설계 — cpu_pkg.sv
+## Step 1: 설계 — instr_reg.sv
 
-`cpu_pkg_blank.sv`를 열고 Comment #1 영역에 타입을 정의한다.
-
-```verilog
-// Comment #1 : opcode/state 타입 정의
-typedef enum logic [2:0] {WFR, BRZ, BRA, LDA, STA, ADD, AND, NOT} opcode_t;
-typedef enum logic [2:0] {INST_ADDR, INST_FETCH, INST_LOAD, INST_DECODE,
-                          OP_ADDR, OP_FETCH, OP_ALU, UPDATE} state_t;
-```
-
-<p class="ref">💻 cpu_pkg.sv</p>
-
----
-
-## Step 2: 설계 — instr_reg.sv
+> `cpu_pkg.sv`는 lab02에서 이미 작성한 자산을 그대로 사용한다 (lab02-alu/cpu_pkg.sv 참조).
 
 `instr_reg_blank.sv`를 열고 Comment #1 영역에 IR을 작성한다.
 
@@ -63,7 +50,7 @@ end
 
 ---
 
-## Step 3: TB — IR 로드 + 디코드
+## Step 2: TB — IR 로드 + 디코드
 
 `tb_instr_reg_blank.sv`를 열고 Comment #1, #2를 작성한다.
 
@@ -105,7 +92,7 @@ load_ir(16'b000_0_00_00_00000000);
 
 ---
 
-## Step 4: 시뮬레이션
+## Step 3: 시뮬레이션
 
 - 시뮬레이션하여 필드 디코드를 파형으로 확인한다.
 
@@ -131,18 +118,16 @@ time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_addr
 
 ---
 
-## Step 5: 완성품 복사 + Git Checkin
+## Step 4: 완성품 복사 + Git Checkin
 
 검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp cpu_pkg_blank.sv ../lab00-design/cpu_pkg.sv
 cp instr_reg_blank.sv ../lab00-design/instr_reg.sv
 
 git status
-git add cpu_pkg_blank.sv instr_reg_blank.sv
-git add ../lab00-design/cpu_pkg.sv
+git add instr_reg_blank.sv
 git add ../lab00-design/instr_reg.sv
 git commit -m "lab06: done"
 git push

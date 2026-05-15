@@ -6,8 +6,8 @@
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //////////////////////////////////////////////////////////
 
-// Lab files
-../cpu_pkg.sv
+// Lab files (cpu_pkg는 lab02에서 작성한 자산을 참조)
+../../lab02-alu/cpu_pkg.sv
 ../instr_reg.sv
 ../tb_instr_reg.sv
 
