@@ -87,9 +87,12 @@ time  rst_n  clk_sys  halt  state       addr  mem_rd  mem_wr
 
 ## Step 5: 완성품 복사
 
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사한다.
+
 ```bash
 cd ..
-cp cpu_core.sv cpu_top.sv ../../../design/
+cp cpu_core_blank.sv ../lab00-design/cpu_core.sv
+cp cpu_top_blank.sv ../lab00-design/cpu_top.sv
 ```
 
 ---
@@ -98,7 +101,8 @@ cp cpu_core.sv cpu_top.sv ../../../design/
 
 ```bash
 git status
-git add cpu_core.sv cpu_top.sv tb_cpu_core.sv
-git add ../../../design/cpu_core.sv ../../../design/cpu_top.sv
+git add cpu_core_blank.sv cpu_top_blank.sv
+git add ../lab00-design/cpu_core.sv
+git add ../lab00-design/cpu_top.sv
 git commit -m "lab09: cpu_core+cpu_top 조립 완료"
 ```

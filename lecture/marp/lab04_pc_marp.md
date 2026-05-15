@@ -151,9 +151,11 @@ time  rst_n  enable  load  din  pc_count
 
 ## Step 6: 완성품 복사
 
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사한다.
+
 ```bash
 cd ..
-cp prog_counter.sv ../../../design/
+cp prog_counter_blank.sv ../lab00-design/prog_counter.sv
 ```
 
 ---
@@ -162,7 +164,7 @@ cp prog_counter.sv ../../../design/
 
 ```bash
 git status
-git add prog_counter.sv tb_prog_counter.sv
-git add ../../../design/prog_counter.sv
+git add prog_counter_blank.sv
+git add ../lab00-design/prog_counter.sv
 git commit -m "lab04: prog_counter 설계 완료"
 ```

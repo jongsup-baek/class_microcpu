@@ -193,9 +193,11 @@ time  rst_n  wr_en  wr_addr  wr_data  rd_addr  rs_addr  rd_data  rs_data
 
 ## Step 6: 완성품 복사
 
+검증 끝난 `regfile_blank.sv`를 `regfile.sv`로 lab00-design 폴더에 복사한다.
+
 ```bash
 cd ..
-cp regfile.sv ../../../design/
+cp regfile_blank.sv ../lab00-design/regfile.sv
 ```
 
 ---
@@ -204,7 +206,7 @@ cp regfile.sv ../../../design/
 
 ```bash
 git status
-git add regfile.sv tb_regfile.sv
-git add ../../../design/regfile.sv
+git add regfile_blank.sv
+git add ../lab00-design/regfile.sv
 git commit -m "lab01: regfile 설계 완료"
 ```

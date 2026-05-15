@@ -169,9 +169,11 @@ time  opcode  accum  din    dout   zero
 
 ## Step 6: 완성품 복사
 
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사한다.
+
 ```bash
 cd ..
-cp alu.sv ../../../design/
+cp alu_blank.sv ../lab00-design/alu.sv
 ```
 
 ---

@@ -129,9 +129,11 @@ time  rst_n  halt  clk_sys
 
 ## Step 6: 완성품 복사
 
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사한다.
+
 ```bash
 cd ..
-cp sysclk.sv ../../../design/
+cp sysclk_blank.sv ../lab00-design/sysclk.sv
 ```
 
 ---
@@ -140,7 +142,7 @@ cp sysclk.sv ../../../design/
 
 ```bash
 git status
-git add sysclk.sv tb_sysclk.sv
-git add ../../../design/sysclk.sv
+git add sysclk_blank.sv
+git add ../lab00-design/sysclk.sv
 git commit -m "lab07: sysclk 설계 완료"
 ```

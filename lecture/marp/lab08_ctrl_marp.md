@@ -119,9 +119,12 @@ time  rst_n  state       ir_opcode  mem_rd  ir_load  inc_pc  load_reg  load_pc  
 
 ## Step 4: 완성품 복사
 
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사한다.
+
 ```bash
 cd ..
-cp cpu_pkg.sv control.sv ../../../design/
+cp cpu_pkg_blank.sv ../lab00-design/cpu_pkg.sv
+cp control_blank.sv ../lab00-design/control.sv
 ```
 
 ---
@@ -130,7 +133,8 @@ cp cpu_pkg.sv control.sv ../../../design/
 
 ```bash
 git status
-git add cpu_pkg.sv control.sv tb_control.sv
-git add ../../../design/cpu_pkg.sv ../../../design/control.sv
+git add cpu_pkg_blank.sv control_blank.sv
+git add ../lab00-design/cpu_pkg.sv
+git add ../lab00-design/control.sv
 git commit -m "lab08: control FSM 설계 완료"
 ```

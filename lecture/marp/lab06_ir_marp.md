@@ -133,9 +133,12 @@ time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_addr
 
 ## Step 5: 완성품 복사
 
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사한다.
+
 ```bash
 cd ..
-cp cpu_pkg.sv instr_reg.sv ../../../design/
+cp cpu_pkg_blank.sv ../lab00-design/cpu_pkg.sv
+cp instr_reg_blank.sv ../lab00-design/instr_reg.sv
 ```
 
 ---
@@ -144,7 +147,8 @@ cp cpu_pkg.sv instr_reg.sv ../../../design/
 
 ```bash
 git status
-git add cpu_pkg.sv instr_reg.sv tb_instr_reg.sv
-git add ../../../design/cpu_pkg.sv ../../../design/instr_reg.sv
+git add cpu_pkg_blank.sv instr_reg_blank.sv
+git add ../lab00-design/cpu_pkg.sv
+git add ../lab00-design/instr_reg.sv
 git commit -m "lab06: instr_reg 설계 완료"
 ```

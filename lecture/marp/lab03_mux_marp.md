@@ -148,9 +148,11 @@ time  sel_a  din_a  din_b  dout
 
 ## Step 6: 완성품 복사
 
+검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사한다.
+
 ```bash
 cd ..
-cp mux2to1.sv ../../../design/
+cp mux2to1_blank.sv ../lab00-design/mux2to1.sv
 ```
 
 ---
