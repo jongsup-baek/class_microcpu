@@ -24,11 +24,69 @@ Lab 08: Control FSM
 
 > `cpu_pkg.sv`는 lab02에서 이미 작성한 자산을 그대로 사용한다 (lab02-alu/cpu_pkg.sv 참조).
 
-`control_blank.sv`를 열고 Comment #1 영역에 FSM을 작성한다. state FF + 출력 FF(next-state 기반).
+`control_blank.sv`를 열고 Comment #1 영역에 FSM을 작성한다.
 
-모든 출력이 FF — 글리치 없는 등록된 출력.
+```verilog
+// 1. opcode decode (조합)
+state_t state;
+logic is_op_memrd, is_not, is_brz, is_bra, is_sta, is_wfr;
 
-<p class="ref">💻 control.sv (코드가 길어 슬라이드 참조)</p>
+assign is_op_memrd = (ir_opcode inside {ADD, AND, LDA});
+assign is_not      = (ir_opcode == NOT);
+assign is_brz      = (ir_opcode == BRZ);
+assign is_bra      = (ir_opcode == BRA);
+assign is_sta      = (ir_opcode == STA);
+assign is_wfr      = (ir_opcode == WFR);
+
+// 2. state FF
+always_ff @(posedge clk or negedge rst_n)
+   if (!rst_n)      state <= INST_ADDR;
+   else if (!halt)  state <= state.next();
+```
+
+---
+
+## Step 1 (계속): 출력 FF
+
+```verilog
+// 3. 출력 FF — next-state 기반
+always_ff @(posedge clk or negedge rst_n) begin
+   if (!rst_n) begin
+      {mem_rd, ir_load, inc_pc, load_reg, load_pc, mem_wr} <= 6'b0;
+      fetch_phase <= 1'b1;
+      halt        <= 1'b0;
+   end
+   else if (!halt) begin
+      fetch_phase <= (state.next() inside
+         {INST_ADDR, INST_FETCH, INST_LOAD, INST_DECODE});
+      case (state.next())
+         INST_ADDR  : {mem_rd,ir_load,inc_pc,load_reg,load_pc,mem_wr} <= 6'b000_000;
+         INST_FETCH : {mem_rd,ir_load,inc_pc,load_reg,load_pc,mem_wr} <= 6'b100_000;
+         INST_LOAD  : {mem_rd,ir_load,inc_pc,load_reg,load_pc,mem_wr} <= 6'b110_000;
+         INST_DECODE: {mem_rd,ir_load,inc_pc,load_reg,load_pc,mem_wr} <= 6'b110_000;
+         OP_ADDR    : begin
+            {mem_rd,ir_load,inc_pc,load_reg,load_pc,mem_wr} <= 6'b001_000;
+            halt <= is_wfr;
+         end
+         OP_FETCH   : begin
+            mem_rd <= is_op_memrd;
+            {ir_load, inc_pc, load_reg, load_pc, mem_wr} <= 5'b0;
+         end
+         OP_ALU     : begin
+            mem_rd   <= is_op_memrd;  ir_load <= 1'b0;
+            inc_pc   <= is_brz && zero;
+            load_reg <= is_op_memrd | is_not;
+            load_pc  <= is_bra;       mem_wr  <= 1'b0;
+         end
+         UPDATE     : begin
+            {mem_rd, ir_load, inc_pc, load_reg, load_pc} <= 5'b0;
+            mem_wr <= is_sta;
+         end
+         default    : {mem_rd,ir_load,inc_pc,load_reg,load_pc,mem_wr} <= 6'b0;
+      endcase
+   end
+end
+```
 
 ---
 
