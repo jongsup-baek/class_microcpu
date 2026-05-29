@@ -22,6 +22,8 @@ Lab 11: 연산 검증 프로그램 (test_arith)
 
 ## 개요: 메모리 맵과 검증 대상
 
+> Goal: MicroCPU의 연산 명령어(ADD, AND, NOT)를 검증. 메모리 모드와 레지스터 모드를 모두 사용
+
 <div class="columns">
 <div>
 

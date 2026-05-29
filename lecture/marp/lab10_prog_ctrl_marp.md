@@ -22,6 +22,8 @@ Lab 10: 제어 검증 프로그램 (test_ctrl)
 
 ## 개요: 명령어 형식과 인코딩
 
+> Goal: MicroCPU의 제어 및 메모리 명령어(BRA, BRZ, LDA, STA, WFR)를 검증
+
 <div class="columns">
 <div>
 
