@@ -56,6 +56,17 @@ table { width: 100%; }
 | R2 | 임시 (합계, 명령어 수정) |
 | R3 | 카운터 (7→0) |
 
+**사용 명령어**
+
+| opc | 명령어 | 이 lab에서 사용 |
+|-----|--------|----------------|
+| 011 | LDA | mem/reg 모드 |
+| 101 | ADD | mem/reg 모드 |
+| 100 | STA | 결과 저장 + self-modify |
+| 001 | BRZ | 루프 종료 |
+| 010 | BRA | 섹션 이동 + loop back |
+| 000 | WFR | 프로그램 종료 |
+
 **self-modifying code**
 
 - 0x10: `LDA R1,[addr]` → 매 반복 addr +1
