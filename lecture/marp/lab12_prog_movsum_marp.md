@@ -24,6 +24,10 @@ Lab 12: 이동합 프로그램 (test_movsum)
 
 > Goal: self-modifying code와 loop으로 배열의 이동합을 계산. y[n] = x[n] + x[n+1], 입력 8개에서 출력 7개
 
+<style scoped>
+table { width: 100%; }
+</style>
+
 <div class="columns">
 <div>
 
@@ -95,9 +99,11 @@ PC=0x15 BRA 0x20
 PC=0x20 LDA R2,[0x10] -> 명령어 읽기
 PC=0x21 ADD R2,[0xA1] -> addr +1
 PC=0x22 STA [0x10],R2 -> 명령어 갱신
+PC=0x23 BRA 0x30 -> 다음 섹션
 PC=0x30 LDA R2,[0x14] -> 명령어 읽기
 PC=0x31 ADD R2,[0xA1] -> addr +1
 PC=0x32 STA [0x14],R2 -> 명령어 갱신
+PC=0x33 BRA 0x40 -> 다음 섹션
 PC=0x40 ADD R3,[0xA2] -> R3 + (-1)
 PC=0x41 BRZ R3 -> R3=0이면 done
 PC=0x42 BRA 0x10 -> loop back
@@ -196,12 +202,18 @@ Comment #5: R3 -1 = 0이 도달할 때까지 loop back
 
 ## Step 5: 시뮬레이션
 
+<div class="columns">
+<div>
+
 - 시뮬레이션하여 이동합 결과를 파형으로 확인한다.
 
 ```bash
 cd sim
 xrun -f lab12_blank.f -input ../../shm.tcl
 ```
+
+</div>
+<div>
 
 Expected Waveform:
 
@@ -211,20 +223,31 @@ Expected Waveform:
    50      0     0    00  reset
  1650      1     0    01  LDA R3,[0xA0]
  3250      1     0    02  BRA 0x10
- 4850      1     0    10  LDA R1,[0x81]
- 6450      1     0    11  LDA R2,R0(m=1)
- 8050      1     0    12  ADD R2,R1(m=1)
- 9650      1     0    13  LDA R0,R1(m=1)
+--- 1회차 (R3=7) ---
+ 4850      1     0    10  LDA R1,[0x81]  x[1]=7
+ 6450      1     0    11  LDA R2,R0
+ 8050      1     0    12  ADD R2,R1      y[0]=3+7=10
+ 9650      1     0    13  LDA R0,R1      shift
 11250      1     0    14  STA [0x90],R2
-12850      1     0    20  LDA R2,[0x10]
-14450      1     0    21  ADD R2,[0xA1]
-16050      1     0    22  STA [0x10],R2
-17650      1     0    30  LDA R2,[0x14]
-19250      1     0    31  ADD R2,[0xA1]
-20850      1     0    32  STA [0x14],R2
-22450      1     0    40  ADD R3,[0xA2]
-24050      1     0    42  BRA 0x10 (loop)
+12850      1     0    20  self-modify x addr
+17650      1     0    30  self-modify y addr
+22450      1     0    40  ADD R3,[0xA2]  R3=6
+24050      1     0    42  BRA 0x10
+--- 2회차 (R3=6) ---
+25650      1     0    10  LDA R1,[0x82]  x[2]=2
+27250      1     0    11  LDA R2,R0
+28850      1     0    12  ADD R2,R1      y[1]=7+2=9
+30450      1     0    13  LDA R0,R1      shift
+32050      1     0    14  STA [0x91],R2
+          ...
+--- 7회차 (R3=1) → done ---
+          1     0    41  BRZ R3 (skip)
+          1     0    43  WFR
+          1     1    43  halt
 ```
+
+</div>
+</div>
 
 ---
 
@@ -234,4 +257,5 @@ Expected Waveform:
 git status
 git add program_code/test_movsum.dat tb_cpu_top.sv
 git commit -m "lab12: test_movsum 프로그램 작성 완료"
+git push
 ```
