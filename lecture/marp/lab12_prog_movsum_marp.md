@@ -64,20 +64,22 @@ table { width: 100%; }
 <div class="columns">
 <div>
 
-**코드 영역**
-
-| 주소 | 용도 |
-|------|------|
-| 0x00~0x02 | 초기화 |
-| 0x10 | LDA R1,[0x81] | R1 ← x[n+1] ← **self-modify** |
-| 0x11 | LDA R2,R0 (m=1) | R2 ← x[n] |
-| 0x12 | ADD R2,R1 (m=1) | R2 ← x[n] + x[n+1] |
-| 0x13 | LDA R0,R1 (m=1) | R0 ← x[n+1] (shift) |
-| 0x14 | STA [0x90],R2 | y[n] ← R2 ← **self-modify** |
-| 0x15 | BRA 0x20 | 다음 섹션 |
-| 0x20~0x23 | x[n+1] 주소 update |
-| 0x30~0x33 | y[n] 주소 update |
-| 0x40~0x43 | 카운터 + loop |
+| 주소 | 설명1 |설명2|
+|------|------|---|
+| 0x00~0x02 | R0=x[0]=3, R3=7, BRA 0x10 ||
+| 0x10 | LDA R1,[0x81]| R1 ← x[n+1] ← *0x20에서 수정됨* |
+| 0x11 | LDA R2,R0 (m=1)| R2 ← x[n] |
+| 0x12 | ADD R2,R1 (m=1)| R2 ← x[n] + x[n+1] |
+| 0x13 | LDA R0,R1 (m=1)| R0 ← x[n+1] |
+| 0x14 | STA [0x90],R2 | y[n] ← R2 ← *0x30에서 수정됨* |
+| 0x15 | BRA 0x20 | 다음 섹션 ||
+| 0x20~0x22 | x[n+1] 주소 update, BRA 0x30 ||
+| 0x23 | BRA 0x30 ||
+| 0x30~0x33 | y[n] 주소 update, BRA 0x40 ||
+| 0x33 | BRA 0x40 ||
+| 0x40~0x41 | R3 + (-1), BRZ R3||
+| 0x42 | BRA 0x10 ||
+| 0x43 | WFR ||
 
 </div>
 <div>
@@ -97,7 +99,7 @@ table { width: 100%; }
 | 0x90~0x96 | 0 | y[0]~y[6] 결과 |
 | 0xA0 | 7 | 카운터 초기값 |
 | 0xA1 | 1 | 주소 증분 |
-| 0xA2 | -1 (0xFFFF) | 카운터 감소 |
+| 0xA2 |0xFFFF| -1, 카운터 감소 |
 
 </div>
 </div>
@@ -127,6 +129,10 @@ PC=0x13 LDA R0,R1 (m=1) -> shift
 PC=0x14 STA [y+n],R2 <- self-modify
 PC=0x15 BRA 0x20
 ```
+
+</div>
+<div>
+
 **self-modify + 카운터**
 
 ```
@@ -134,10 +140,14 @@ PC=0x20 LDA R2,[0x10] -> 명령어 읽기
 PC=0x21 ADD R2,[0xA1] -> addr +1
 PC=0x22 STA [0x10],R2 -> 명령어 갱신
 PC=0x23 BRA 0x30 -> 다음 섹션
+```
+```
 PC=0x30 LDA R2,[0x14] -> 명령어 읽기
 PC=0x31 ADD R2,[0xA1] -> addr +1
 PC=0x32 STA [0x14],R2 -> 명령어 갱신
 PC=0x33 BRA 0x40 -> 다음 섹션
+```
+```
 PC=0x40 ADD R3,[0xA2] -> R3 + (-1)
 PC=0x41 BRZ R3 -> R3=0이면 done
 PC=0x42 BRA 0x10 -> loop back
