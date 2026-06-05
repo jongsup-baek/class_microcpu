@@ -20,7 +20,7 @@ Lab 12: 이동합 프로그램 (test_movsum)
 
 ---
 
-## 개요: 메모리 맵과 레지스터
+## 레퍼런스: 메모리 맵과 레지스터
 
 > Goal: self-modifying code와 loop으로 배열의 이동합을 계산. y[n] = x[n] + x[n+1], 입력 8개에서 출력 7개
 
@@ -77,7 +77,7 @@ table { width: 100%; }
 
 ---
 
-## 개요: 검증 실행 흐름
+## 검증 목표
 
 <div class="columns">
 <div>

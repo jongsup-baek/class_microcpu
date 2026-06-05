@@ -20,7 +20,7 @@ Lab 11: 연산 검증 프로그램 (test_arith)
 
 ---
 
-## 개요: 메모리 맵과 검증 대상
+## 레퍼런스: 메모리 맵과 검증 대상
 
 > Goal: MicroCPU의 연산 명령어(ADD, AND, NOT)를 검증. 메모리 모드와 레지스터 모드를 모두 사용
 
@@ -52,7 +52,7 @@ Lab 11: 연산 검증 프로그램 (test_arith)
 
 ---
 
-## 개요: 검증 실행 흐름
+## 검증 목표
 
 <div class="columns">
 <div>
@@ -165,12 +165,18 @@ Comment #3 영역에 바이너리를 추가한다. mode=1 레지스터 연산 + 
 
 ## Step 4: 시뮬레이션
 
+<div class="columns">
+<div>
+
 - 시뮬레이션하여 NOT/AND/ADD 연산 결과를 파형으로 확인한다.
 
 ```bash
 cd sim
 xrun -f lab11_blank.f -input ../../shm.tcl
 ```
+
+</div>
+<div>
 
 Expected Waveform:
 
@@ -201,6 +207,9 @@ Expected Waveform:
 32850      1     1    48  halt
 ```
 
+</div>
+</div>
+
 ---
 
 ## Step 5: Git Checkin
@@ -209,4 +218,5 @@ Expected Waveform:
 git status
 git add program_code/test_arith.dat tb_cpu_top.sv
 git commit -m "lab11: test_arith 프로그램 작성 완료"
+git push
 ```

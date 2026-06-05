@@ -20,15 +20,18 @@ Lab 10: 제어 검증 프로그램 (test_ctrl)
 
 ---
 
-## 개요: 명령어 형식과 인코딩
+## 레퍼런스: 명령어 형식과 메모리 맵
 
 > Goal: MicroCPU의 제어 및 메모리 명령어(BRA, BRZ, LDA, STA, WFR)를 검증
+
+<style scoped>
+table { width: 100%; }
+</style>
 
 <div class="columns">
 <div>
 
 **16비트 명령어 형식**
-- `opc_m_rd_rs_d[7:0]`
 
 | 필드 | 비트 | 의미 |
 |------|------|------|
@@ -55,7 +58,7 @@ Lab 10: 제어 검증 프로그램 (test_ctrl)
 | opc | 명령어 | 동작 |
 |-----|--------|------|
 | 000 | WFR | 정지 |
-| 001 | BRZ | R[rd]=0이면 PC+2 (skip) |
+| 001 | BRZ | R[rd]=0이면 PC+1 (skip) |
 | 010 | BRA | PC <- data |
 | 011 | LDA | m=0: R[rd] <- mem[data] <br> m=1: R[rd] <- R[rs] |
 | 100 | STA | mem[data] <- R[rd] |
@@ -67,7 +70,7 @@ Lab 10: 제어 검증 프로그램 (test_ctrl)
 
 ---
 
-## 개요: 검증 실행 흐름
+## 검증 목표
 
 <div class="columns">
 <div>
@@ -102,6 +105,14 @@ PC=0x43 LDA R0,[0x82] -> R0=0x0000
 PC=0x44 BRZ R0 -> skip (R0=0)
 PC=0x46 WFR -> 모든 테스트 통과!
 ```
+
+**데이터 영역**
+
+| 주소 | 값 | 용도 |
+|------|------|------|
+| 0x80 | 0x0000 | 상수 0 |
+| 0x81 | 0x00FF | 상수 255 |
+| 0x82 | 0xAAAA | 임시 변수 (STA 대상) |
 
 </div>
 </div>
@@ -200,4 +211,5 @@ Expected Waveform:
 git status
 git add program_code/test_ctrl.dat tb_cpu_top.sv
 git commit -m "lab10: test_ctrl 프로그램 작성 완료"
+git push
 ```
