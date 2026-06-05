@@ -159,12 +159,9 @@ Comment #2 영역: y[n] = x[n] + x[n+1]
 
 ---
 
-## Step 3: test_movsum.dat — self-modify
+## Step 3: test_movsum.dat — x[n+1] 주소 update
 
-<div class="columns">
-<div>
-
-Comment #3: x[n+1] 주소 +1
+Comment #3: x[n+1] 주소를 +1 하여 다음 입력을 가리킨다
 
 ```
 // Comment #3. x[n+1] 주소 update with +1
@@ -175,10 +172,11 @@ Comment #3: x[n+1] 주소 +1
 010_0_00_00_00110000    //  0x23  BRA 0x30          다음 섹션
 ```
 
-</div>
-<div>
+---
 
-Comment #4: y[n] 주소 +1
+## Step 4: test_movsum.dat — y[n] 주소 update
+
+Comment #4: y[n] 주소를 +1 하여 다음 출력 위치를 가리킨다
 
 ```
 // Comment #4. y[n] 주소 update with +1
@@ -189,12 +187,9 @@ Comment #4: y[n] 주소 +1
 010_0_00_00_01000000    //  0x33  BRA 0x40          다음 섹션
 ```
 
-</div>
-</div>
-
 ---
 
-## Step 4: test_movsum.dat — 카운터 + loop
+## Step 5: test_movsum.dat — 카운터 + loop
 
 Comment #5: R3 -1 = 0이 도달할 때까지 loop back
 
@@ -211,7 +206,7 @@ Comment #5: R3 -1 = 0이 도달할 때까지 loop back
 
 ---
 
-## Step 5: 시뮬레이션
+## Step 6: 시뮬레이션
 
 <div class="columns">
 <div>
@@ -262,7 +257,7 @@ Expected Waveform:
 
 ---
 
-## Step 6: Git Checkin
+## Step 7: Git Checkin
 
 ```bash
 git status
