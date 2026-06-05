@@ -66,18 +66,23 @@ table { width: 100%; }
 
 **코드 영역**
 
-| 주소 | 용도 |
-|------|------|
-| 0x00~0x02 | 초기화 |
-| 0x10~0x15 | 이동합 계산 |
-| 0x20~0x23 | x[n+1] 주소 update |
-| 0x30~0x33 | y[n] 주소 update |
-| 0x40~0x43 | 카운터 + loop |
-
-**self-modifying code**
-
-- 0x10: `LDA R1,[addr]` → 매 반복 addr +1
-- 0x14: `STA [addr],R2` → 매 반복 addr +1
+| 주소 | 명령어 | 동작 |
+|------|--------|------|
+| 0x00 | LDA R0,[0x80] | R0 ← x[0] |
+| 0x01 | LDA R3,[0xA0] | R3 ← 7 (카운터) |
+| 0x02 | BRA 0x10 | loop 진입 |
+| 0x10 | LDA R1,[0x81] | R1 ← x[n+1] ← **self-modify** |
+| 0x11 | LDA R2,R0 (m=1) | R2 ← x[n] |
+| 0x12 | ADD R2,R1 (m=1) | R2 ← x[n] + x[n+1] |
+| 0x13 | LDA R0,R1 (m=1) | R0 ← x[n+1] (shift) |
+| 0x14 | STA [0x90],R2 | y[n] ← R2 ← **self-modify** |
+| 0x15 | BRA 0x20 | 다음 섹션 |
+| 0x20~0x23 | self-modify | 0x10 addr +1 |
+| 0x30~0x33 | self-modify | 0x14 addr +1 |
+| 0x40 | ADD R3,[0xA2] | R3 + (-1) |
+| 0x41 | BRZ R3 | R3=0 → done |
+| 0x42 | BRA 0x10 | loop back |
+| 0x43 | WFR | 완료 |
 
 </div>
 <div>
