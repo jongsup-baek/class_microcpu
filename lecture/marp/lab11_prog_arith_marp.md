@@ -60,13 +60,13 @@ R0 = R0 + 0xFF56;  // 0x0000 (검증)
 
 | 주소 | 명령어 | 동작 |설명|
 |------|--------|------|--|
-| 0x00 | LDA R0,[0x80] | R0 ← 0x00AA ||
+| 0x00 | LDA R0,[0x80] | R0 ← 0x00AA |[0x80]|
 | 0x01 | NOT R0 | R0 ← 0xFF55 |NOT 0x00AA |
 | 0x02 | NOT R0 | R0 ← 0x00AA |NOT 0xFF55 |
 | 0x03 | ADD R0,[0x82] | R0 ← 0x0000 |0x00AA + x82[0xFF56]|
 | 0x04 | BRZ R0 ||skip (R0=0)|
 | 0x05 | WFR ||도달하면 안 됨|
-| 0x06 | BRA 0x20 ||2)로 이동 |
+| 0x06 | BRA 0x20 ||Next |
 
 </div>
 </div>
@@ -102,7 +102,7 @@ R0 = R0 + (-1);         // 0x0000 (검증)
 
 | 주소 | 명령어 | 동작 |설명|
 |------|--------|------|--|
-| 0x20 | LDA R0,[0x81] | R0 ← 0x0001 |
+| 0x20 | LDA R0,[0x81] | R0 ← 0x0001 |[0x81]|
 | 0x21 | AND R0,[0x80] | R0 ← 0x0000 |0x0001 & 0x00AA|
 | 0x22 | BRZ R0 || skip (R0=0) |
 | 0x23 | WFR | |도달하면 안 됨|
@@ -110,14 +110,14 @@ R0 = R0 + (-1);         // 0x0000 (검증)
 | 0x25 | ADD R0,[0x83] | R0 ← 0x0000 |0x0001 + 0xFFFF|
 | 0x26 | BRZ R0 || skip (R0=0) |
 | 0x27 | WFR || 도달하면 안 됨 |
-| 0x28 | BRA 0x40 || 3)으로 이동 |
+| 0x28 | BRA 0x40 || Next |
 
 </div>
 </div>
 
 ---
 
-## 3) ADD 레지스터 모드 + 뺄셈: 5 - 3 = 2
+## 3) 뺄셈 연산 검증
 > NOT+ADD 조합으로 2의 보수 뺄셈을 구현하고, 레지스터 모드(m=1) ADD를 검증한다
 
 <div class="columns">
@@ -150,57 +150,15 @@ R0 = R0 + (-2);  // 0x0000 (검증)
 
 | 주소 | 명령어 | 동작 |설명|
 |------|--------|------|--|
-| 0x40 | LDA R0,[0x84] | R0 ← 0x0005 ||
-| 0x41 | LDA R1,[0x85] | R1 ← 0x0003 ||
+| 0x40 | LDA R0,[0x84] | R0 ← 0x0005 |[0x84]|
+| 0x41 | LDA R1,[0x85] | R1 ← 0x0003 |[0x85]|
 | 0x42 | NOT R1 | R1 ← 0xFFFC |~0x0003|
 | 0x43 | ADD R1,[0x81] | R1 ← 0xFFFD |0xFFFC + 0x0001 = -3|
 | 0x44 | ADD R0,R1 (m=1) | R0 ← 0x0002 |5 + (-3) = 2|
-| 0x45 | ADD R0,[0x86] | R0 ← 0x0000 |0x0002 + 0xFFFE|
+| 0x45 | ADD R0,[0x86] | R0 ← 0x0000 |0x0002 + 0xFFFE(-2)|
 | 0x46 | BRZ R0 || skip (R0=0) |
 | 0x47 | WFR || 도달하면 안 됨 |
-| 0x48 | WFR || 모든 테스트 통과! |
-
-</div>
-</div>
-
----
-
-## 프로그램의 이해
-
-<div class="columns">
-<div>
-
-**1) NOT 검증: NOT(NOT(x)) == x**
-
-
-
-**2) AND + ADD 검증 (메모리 모드)**
-
-```
-PC=0x20 LDA R0,[0x81] -> R0=0x0001
-PC=0x21 AND R0,[0x80] -> R0=0x0001&0x00AA=0x0000
-PC=0x22 BRZ R0        -> skip (R0=0)
-PC=0x24 ADD R0,[0x81] -> R0=0x0000+0x0001=0x0001
-PC=0x25 ADD R0,[0x83] -> R0=0x0001+0xFFFF=0x0000
-PC=0x26 BRZ R0        -> skip (R0=0)
-PC=0x28 BRA 0x40      -> 3)으로 이동
-```
-
-</div>
-<div>
-
-**3) ADD 검증 (레지스터 모드 + 뺄셈): 5 - 3 = 2**
-
-```
-PC=0x40 LDA R0,[0x84] -> R0=0x0005
-PC=0x41 LDA R1,[0x85] -> R1=0x0003
-PC=0x42 NOT R1 -> R1=0xFFFC
-PC=0x43 ADD R1,[0x81] -> R1=0xFFFC+1=0xFFFD (-3)
-PC=0x44 ADD R0,R1 (m=1) -> R0=0x0005+0xFFFD=0x0002
-PC=0x45 ADD R0,[0x86] -> R0=0x0002+0xFFFE=0x0000
-PC=0x46 BRZ R0 -> skip (R0=0)
-PC=0x48 WFR -> 모든 테스트 통과!
-```
+| 0x48 | WFR || 프로그램 종료|
 
 </div>
 </div>
@@ -216,9 +174,9 @@ table { width: 100%; }
 | opc | 명령어 | 동작(기본,m=0) | m=1 | 이번 실습 |
 |-----|--------|------|------|---|
 | 000 | WFR | 정지 | | 프로그램 종료 |
-| 001 | BRZ | R[rd]=0이면 PC+2 (skip) | | 검증 결과 판단 |
-| 010 | BRA | PC <- data | | 섹션 이동 |
-| 011 | LDA | R[rd] <- mem[data] | R[rd] <- R[rs] | 데이터 로드 |
+| 001 | BRZ | R[rd]=0이면 PC+2 | | 검증 결과 판단 |
+| 010 | BRA | PC <- data | | PC Counter 이동 |
+| 011 | LDA | R[rd] <- mem[data] | R[rd] <- R[rs] | **mem 모드만** |
 | 100 | STA | mem[data] <- R[rd] | | 미사용 |
 | 101 | ADD | R[rd] <- R[rd] + mem[data] | R[rd] <- R[rd] + R[rs] | **mem/reg 둘 다** |
 | 110 | AND | R[rd] <- R[rd] & mem[data] | R[rd] <- R[rd] & R[rs] | **mem 모드** |
