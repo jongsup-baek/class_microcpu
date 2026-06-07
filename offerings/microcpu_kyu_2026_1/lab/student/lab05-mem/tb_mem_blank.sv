@@ -22,8 +22,8 @@ module tb;
       .read     (read),
       .write    (write),
       .addr     (addr),
-      .data_in  (data_in),
-      .data_out (data_out)
+      _blank.data_in  (data_in),
+      _blank.data_out (data_out)
    );
 
    task reset_dut();
