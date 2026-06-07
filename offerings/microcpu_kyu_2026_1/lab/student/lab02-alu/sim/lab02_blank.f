@@ -7,9 +7,9 @@
 //////////////////////////////////////////////////////////
 
 // Lab files
-../cpu_pkg.sv
-../alu.sv
-../tb_alu.sv
+../cpu_pkg_blank.sv
+../alu_blank.sv
+../tb_alu_blank.sv
 
 // Simulation Options
 +access+rwc

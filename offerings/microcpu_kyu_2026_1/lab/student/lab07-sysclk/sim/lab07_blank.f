@@ -7,8 +7,8 @@
 //////////////////////////////////////////////////////////
 
 // Lab files
-../sysclk.sv
-../tb_sysclk.sv
+../sysclk_blank.sv
+../tb_sysclk_blank.sv
 
 // Simulation Options
 +access+rwc

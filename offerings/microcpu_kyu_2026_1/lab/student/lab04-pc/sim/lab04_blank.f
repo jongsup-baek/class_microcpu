@@ -7,8 +7,8 @@
 //////////////////////////////////////////////////////////
 
 // Lab files
-../prog_counter.sv
-../tb_prog_counter.sv
+../prog_counter_blank.sv
+../tb_prog_counter_blank.sv
 
 // Simulation Options
 +access+rwc

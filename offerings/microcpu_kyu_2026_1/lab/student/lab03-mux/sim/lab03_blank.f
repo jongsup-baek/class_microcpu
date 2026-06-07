@@ -7,8 +7,8 @@
 //////////////////////////////////////////////////////////
 
 // Lab files
-../mux2to1.sv
-../tb_mux2to1.sv
+../mux2to1_blank.sv
+../tb_mux2to1_blank.sv
 
 // Simulation Options
 +access+rwc

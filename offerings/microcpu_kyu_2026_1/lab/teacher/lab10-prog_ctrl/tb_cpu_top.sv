@@ -35,19 +35,19 @@ module tb;
 
    initial begin
       // Comment #1 : 프로그램 로드 + 실행
-
-
-
-
-
-
-
-
-
-
-
-
-
+      $readmemb("../program_code/test_ctrl.dat",
+                 u_top.u_mem.memory);
+      reset_dut();
+      fork
+         begin
+            #50000;
+            $display("TIMEOUT");
+         end
+         begin
+            wait (halt == 1);
+         end
+      join_any
+      disable fork;
       // End Comment
 
       @(posedge clk_ext);

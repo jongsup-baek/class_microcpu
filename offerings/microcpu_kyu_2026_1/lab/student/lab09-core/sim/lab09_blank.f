@@ -18,9 +18,9 @@
 ../../lab00-design/mem.sv
 
 // Lab files
-../cpu_core.sv
-../cpu_top.sv
-../tb_cpu_core.sv
+../cpu_core_blank.sv
+../cpu_top_blank.sv
+../tb_cpu_core_blank.sv
 
 // Simulation Options
 +access+rwc

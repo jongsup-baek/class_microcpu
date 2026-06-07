@@ -7,8 +7,8 @@
 //////////////////////////////////////////////////////////
 
 // Lab files
-../mem.sv
-../tb_mem.sv
+../mem_blank.sv
+../tb_mem_blank.sv
 
 // Simulation Options
 +access+rwc

@@ -15,14 +15,14 @@ module prog_counter (
    input  logic       rst_n      // 비동기 리셋 (active-low)
 );
    // Comment #1 : 프로그램 카운터 모듈
-
-
-
-
-
-
-
-
+   always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n)
+         pc_count <= '0;
+      else if (load)
+         pc_count <= din;
+      else if (enable)
+         pc_count <= pc_count + 1;
+   end
    // End Comment
 
 endmodule

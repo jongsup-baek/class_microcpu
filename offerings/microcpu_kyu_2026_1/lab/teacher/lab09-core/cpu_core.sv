@@ -32,75 +32,75 @@ logic        load_reg, pc_inc, pc_load, fetch_phase;
 // End Comment
 
 // Comment #1 : 블록 인스턴스 연결
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+instr_reg u_ir (
+   .ir_opcode,
+   .ir_mode,
+   .ir_rd,
+   .ir_rs,
+   .ir_addr,
+   .din    (data_out),
+   .clk    (clk_sys),
+   .enable (ir_load),
+   .rst_n
+);
+
+regfile u_regfile (
+   .rd_data (rd_data),
+   .rs_data (rs_data),
+   .rd_addr (ir_rd),
+   .rs_addr (ir_rs),
+   .wr_data (alu_result),
+   .wr_addr (ir_rd),
+   .wr_en   (load_reg),
+   .clk     (clk_sys),
+   .rst_n
+);
+
+prog_counter u_pc (
+   .pc_count (pc_addr),
+   .din      (ir_addr),
+   .clk      (clk_sys),
+   .load     (pc_load),
+   .enable   (pc_inc),
+   .rst_n
+);
+
+mux2to1 #(16) u_opmux (
+   .dout  (alu_operand),
+   .din_a (data_out),
+   .din_b (rs_data),
+   .sel_a (~ir_mode)
+);
+
+alu u_alu (
+   .dout   (alu_result),
+   .zero   (alu_zero),
+   .accum  (rd_data),
+   .din    (alu_operand),
+   .opcode (ir_opcode)
+);
+
+mux2to1 #(8) u_addrmux (
+   .dout  (addr),
+   .din_a (pc_addr),
+   .din_b (ir_addr),
+   .sel_a (fetch_phase)
+);
+
+control u_ctrl (
+   .load_reg (load_reg),
+   .mem_rd,
+   .mem_wr,
+   .inc_pc   (pc_inc),
+   .load_pc  (pc_load),
+   .ir_load,
+   .halt,
+   .fetch_phase,
+   .ir_opcode,
+   .zero     (alu_zero),
+   .clk      (clk_sys),
+   .rst_n
+);
 // End Comment
 
 endmodule : cpu_core

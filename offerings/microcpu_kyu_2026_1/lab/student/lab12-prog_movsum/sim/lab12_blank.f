@@ -17,10 +17,10 @@
 ../../lab00-design/sysclk.sv
 ../../lab00-design/mem.sv
 ../../lab00-design/cpu_core.sv
-../../lab00-design/cpu_top.sv
+../../lab00-design/cpu_top_blank.sv
 
 // Lab files
-../tb_cpu_top.sv
+../tb_cpu_top_blank.sv
 
 // Simulation Options
 +access+rwc

@@ -39,30 +39,30 @@ module tb;
    endtask
 
    // Comment #1 : enable_pc_duration/load_pc task
+   task enable_pc_duration(input int n);
+         enable = 1;
+         load   = 0;
+      repeat(n) @(posedge clk);
+   endtask
 
-
-
-
-
-
-
-
-
-
-
-
+   task load_pc(input logic [7:0] val);
+         enable = 0;
+         load   = 1;
+         din    = val;
+      @(posedge clk);
+   endtask
    // End Comment
 
    initial begin
       reset_dut();
 
       // Comment #2 : enable 카운트
-
+      enable_pc_duration(4);
       // End Comment
 
       // Comment #3 : load 값 로드 후 카운트
-
-
+      load_pc(8'hF0);
+      enable_pc_duration(3);
       // End Comment
 
       @(posedge clk);

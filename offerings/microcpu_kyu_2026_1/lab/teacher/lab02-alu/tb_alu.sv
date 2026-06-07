@@ -37,32 +37,32 @@ module tb;
    endtask
 
    // Comment #1 : drive_alu task
-
-
-
-
-
-
+   task drive_alu(input opcode_t op, input logic [15:0] a, input logic [15:0] d);
+         opcode = op;
+         accum  = a;
+         din    = d;
+      @(posedge clk);
+   endtask
    // End Comment
 
    initial begin
       reset_dut();
 
       // Comment #2 : ADD/AND 연산
-
-
-
-
+      drive_alu(ADD, 16'h0010, 16'h0020);
+      drive_alu(ADD, 16'hFFFF, 16'h0001);
+      drive_alu(AND, 16'hFF00, 16'h0F0F);
+      drive_alu(AND, 16'hAAAA, 16'h5555);
       // End Comment
 
       // Comment #3 : NOT/LDA 연산
-
-
+      drive_alu(NOT, 16'h00FF, 16'h0000);
+      drive_alu(LDA, 16'h0000, 16'hBEEF);
       // End Comment
 
       // Comment #4 : BRZ zero 플래그 확인
-
-
+      drive_alu(BRZ, 16'h0000, 16'h0000);
+      drive_alu(BRZ, 16'h1234, 16'h0000);
       // End Comment
 
       @(posedge clk);

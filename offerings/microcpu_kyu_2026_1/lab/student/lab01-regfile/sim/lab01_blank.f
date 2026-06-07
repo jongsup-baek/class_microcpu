@@ -7,8 +7,8 @@
 //////////////////////////////////////////////////////////
 
 // Lab files
-../regfile.sv
-../tb_regfile.sv
+../regfile_blank.sv
+../tb_regfile_blank.sv
 
 // Simulation Options
 +access+rwc

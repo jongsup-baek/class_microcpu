@@ -36,47 +36,47 @@ module tb;
    endtask
 
    // Comment #1 : write_mem/read_mem task
+   task write_mem(input logic [7:0] a, input logic [15:0] d);
+         write   = 1;
+         read    = 0;
+         addr    = a;
+         data_in = d;
+      @(posedge clk);
+   endtask
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+   task read_mem(input logic [7:0] a);
+         write = 0;
+         read  = 1;
+         addr  = a;
+      @(posedge clk);
+   endtask
    // End Comment
 
    // Comment #3 : rw_mem task
-
-
-
-
-
-
-
+   task rw_mem(input logic [7:0] a, input logic [15:0] d);
+         write   = 1;
+         read    = 1;
+         addr    = a;
+         data_in = d;
+      @(posedge clk);
+   endtask
    // End Comment
 
    initial begin
       reset_dut();
 
       // Comment #2 : 쓰기 후 읽기 검증
-
-
-
-
-
-
+      write_mem(8'h00, 16'hAAAA);
+      write_mem(8'h01, 16'hBBBB);
+      write_mem(8'h02, 16'hCCCC);
+      read_mem(8'h00);
+      read_mem(8'h01);
+      read_mem(8'h02);
       // End Comment
 
       // Comment #4 : 읽기/쓰기 동시 — 무시
-
-
+      rw_mem(8'h00, 16'hFFFF);
+      read_mem(8'h00);
       // End Comment
 
       @(posedge clk);

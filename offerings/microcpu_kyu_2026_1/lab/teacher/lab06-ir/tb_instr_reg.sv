@@ -46,30 +46,30 @@ module tb;
    endtask
 
    // Comment #1 : load_ir task
-
-
-
-
-
-
-
+   task load_ir(input logic [15:0] instr);
+         enable = 1;
+         din    = instr;
+      @(posedge clk);
+         enable = 0;
+      @(posedge clk);
+   endtask
    // End Comment
 
    initial begin
       reset_dut();
 
       // Comment #2 : IR 로드 + 필드 디코드 검증
+      // ADD mode=0, Rd=1, Rs=2, data=0x55
+      // {ADD[2:0], mode, rd[1:0], rs[1:0], data[7:0]} = {101, 0, 01, 10, 01010101}
+      load_ir(16'b101_0_01_10_01010101);
 
+      // LDA mode=1, Rd=3, Rs=0, data=0xAB
+      // {LDA[2:0], mode, rd[1:0], rs[1:0], data[7:0]} = {011, 1, 11, 00, 10101011}
+      load_ir(16'b011_1_11_00_10101011);
 
-
-
-
-
-
-
-
-
-
+      // WFR (halt)
+      // {WFR[2:0], mode, rd[1:0], rs[1:0], data[7:0]} = {000, 0, 00, 00, 00000000}
+      load_ir(16'b000_0_00_00_00000000);
       // End Comment
 
       @(posedge clk);

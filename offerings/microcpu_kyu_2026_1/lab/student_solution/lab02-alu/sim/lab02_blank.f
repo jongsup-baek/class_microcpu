@@ -1,15 +1,16 @@
 //////////////////////////////////////////////////////////
 // KSDC Proprietary
 // Course: MicroCPU 설계 실무
-// File  : cpu_pkg_blank.sv
+// File  : lab05_demo.f
 // Date  : 2026-05-05
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //////////////////////////////////////////////////////////
 
-package cpu_pkg;
-   // Comment #1 : opcode/state 타입 정의
+// Lab files
+../cpu_pkg.sv
+../alu.sv
+../tb_alu.sv
 
-
-
-   // End Comment
-endpackage : cpu_pkg
+// Simulation Options
++access+rwc
+-timescale 1ns/100ps
