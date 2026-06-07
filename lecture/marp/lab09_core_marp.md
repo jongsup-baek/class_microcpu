@@ -22,7 +22,7 @@ Lab 09: CPU Core + Top 조립
 
 ## Step 1: 설계 — cpu_core.sv (1/2)
 
-`cpu_core_blank.sv`를 열고 Comment #1 영역에 블록 인스턴스를 연결한다.
+`cpu_core.sv`를 열고 Comment #1 영역에 블록 인스턴스를 연결한다.
 
 ```verilog
 instr_reg u_ir (
@@ -65,7 +65,7 @@ control u_ctrl (
 
 ## Step 2: 설계 — cpu_top.sv
 
-`cpu_top_blank.sv`를 열고 Comment #1 영역에 top 인스턴스를 연결한다.
+`cpu_top.sv`를 열고 Comment #1 영역에 top 인스턴스를 연결한다.
 
 ```verilog
 sysclk u_sysclk (
@@ -85,7 +85,7 @@ mem u_mem (
 
 ## Step 3: TB — halt 대기
 
-`tb_cpu_core_blank.sv`를 열고 Comment #1을 작성한다.
+`tb_cpu_core.sv`를 열고 Comment #1을 작성한다.
 
 ```verilog
 // Comment #1 : halt 대기
@@ -107,7 +107,7 @@ end
 
 ```bash
 cd sim
-xrun -f lab09_blank.f -input ../../shm.tcl
+xrun -f lab09_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -130,15 +130,15 @@ time  rst_n  clk_sys  halt  state       addr  mem_rd  mem_wr
 
 ## Step 5: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp cpu_core_blank.sv ../lab00-design/cpu_core.sv
-cp cpu_top_blank.sv ../lab00-design/cpu_top.sv
+cp cpu_core.sv ../lab00-design/cpu_core.sv
+cp cpu_top.sv ../lab00-design/cpu_top.sv
 
 git status
-git add cpu_core_blank.sv cpu_top_blank.sv
+git add cpu_core.sv cpu_top.sv
 git add ../lab00-design/cpu_core.sv
 git add ../lab00-design/cpu_top.sv
 git commit -m "lab09: done"

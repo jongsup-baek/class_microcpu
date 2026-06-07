@@ -22,7 +22,7 @@ Lab 03: 2:1 MUX
 
 ## Step 1: 설계 — mux2to1.sv
 
-`mux2to1_blank.sv`를 열고 Comment #1 영역에 RTL을 작성한다.
+`mux2to1.sv`를 열고 Comment #1 영역에 RTL을 작성한다.
 
 ```verilog
 // Comment #1 : 2:1 MUX 모듈
@@ -83,7 +83,7 @@ drive_mux(8'h00, 8'hFF, 0);
 
 ```bash
 cd sim
-xrun -f lab03_blank.f -input ../../shm.tcl
+xrun -f lab03_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -124,7 +124,7 @@ drive_mux(8'h12, 8'h34, 1);
 
 ```bash
 cd sim
-xrun -f lab03_blank.f -input ../../shm.tcl
+xrun -f lab03_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -148,14 +148,14 @@ time  sel_a  din_a  din_b  dout
 
 ## Step 6: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp mux2to1_blank.sv ../lab00-design/mux2to1.sv
+cp mux2to1.sv ../lab00-design/mux2to1.sv
 
 git status
-git add mux2to1_blank.sv
+git add mux2to1.sv
 git add ../lab00-design/mux2to1.sv
 git commit -m "lab03: done"
 git push

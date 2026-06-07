@@ -22,7 +22,7 @@ Lab 01: Register File
 
 ## Step 1: 설계 — regfile.sv
 
-`regfile_blank.sv`를 열고 포트 주석을 참고하여 Comment #1 영역에 RTL을 작성한다.
+`regfile.sv`를 열고 포트 주석을 참고하여 Comment #1 영역에 RTL을 작성한다.
 
 ```verilog
 // Comment #1 : 레지스터 파일 모듈
@@ -50,7 +50,7 @@ assign rs_data = regs[rs_addr];
 
 ## Step 2: TB — 쓰기/읽기 검증
 
-`tb_regfile_blank.sv`를 열고 Comment #1, #2를 작성한다.
+`tb_regfile.sv`를 열고 Comment #1, #2를 작성한다.
 
 <div class="columns">
 <div>
@@ -103,7 +103,7 @@ read_reg(2'd2, 2'd3);
 
 ```bash
 cd sim
-xrun -f lab01_blank.f -input ../../shm.tcl
+xrun -f lab01_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -168,7 +168,7 @@ read_reg(2'd0, 2'd1);
 
 ```bash
 cd sim
-xrun -f lab01_blank.f -input ../../shm.tcl
+xrun -f lab01_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -193,14 +193,14 @@ time  rst_n  wr_en  wr_addr  wr_data  rd_addr  rs_addr  rd_data  rs_data
 
 ## Step 6: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp regfile_blank.sv ../lab00-design/regfile.sv
+cp regfile.sv ../lab00-design/regfile.sv
 
 git status
-git add regfile_blank.sv
+git add regfile.sv
 git add ../lab00-design/regfile.sv
 git commit -m "lab01: done"
 git push

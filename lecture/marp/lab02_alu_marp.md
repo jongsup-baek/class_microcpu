@@ -22,7 +22,7 @@ Lab 02: ALU
 
 ## Step 1: 설계 — cpu_pkg.sv
 
-`cpu_pkg_blank.sv`를 열고 Comment #1 영역에 opcode/state 타입을 정의한다.
+`cpu_pkg.sv`를 열고 Comment #1 영역에 opcode/state 타입을 정의한다.
 
 ```verilog
 // Comment #1 : opcode/state 타입 정의
@@ -37,7 +37,7 @@ typedef enum logic [2:0] {INST_ADDR, INST_FETCH, INST_LOAD, IDLE,
 
 ## Step 2: 설계 — alu.sv
 
-`alu_blank.sv`를 열고 포트 주석을 참고하여 Comment #1 영역에 RTL을 작성한다.
+`alu.sv`를 열고 포트 주석을 참고하여 Comment #1 영역에 RTL을 작성한다.
 
 ```verilog
 // Comment #1 : ALU 모듈
@@ -60,7 +60,7 @@ assign zero = ~(|dout);
 
 ## Step 3: TB — ADD/AND 연산
 
-`tb_alu_blank.sv`를 열고 Comment #1, #2를 작성한다.
+`tb_alu.sv`를 열고 Comment #1, #2를 작성한다.
 
 <div class="columns">
 <div>
@@ -105,7 +105,7 @@ drive_alu(AND, 16'hAAAA, 16'h5555);
 
 ```bash
 cd sim
-xrun -f lab02_blank.f -input ../../shm.tcl
+xrun -f lab02_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -161,7 +161,7 @@ drive_alu(BRZ, 16'h1234, 16'h0000);
 
 ```bash
 cd sim
-xrun -f lab02_blank.f -input ../../shm.tcl
+xrun -f lab02_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -184,15 +184,15 @@ time  opcode  accum  din    dout   zero
 
 ## Step 7: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp cpu_pkg_blank.sv ../lab00-design/cpu_pkg.sv
-cp alu_blank.sv ../lab00-design/alu.sv
+cp cpu_pkg.sv ../lab00-design/cpu_pkg.sv
+cp alu.sv ../lab00-design/alu.sv
 
 git status
-git add cpu_pkg_blank.sv alu_blank.sv
+git add cpu_pkg.sv alu.sv
 git add ../lab00-design/cpu_pkg.sv
 git add ../lab00-design/alu.sv
 git commit -m "lab02: done"

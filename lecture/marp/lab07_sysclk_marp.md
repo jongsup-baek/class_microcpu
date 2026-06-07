@@ -22,7 +22,7 @@ Lab 07: System Clock
 
 ## Step 1: 설계 — sysclk.sv
 
-`sysclk_blank.sv`를 열고 Comment #1 영역에 RTL을 작성한다.
+`sysclk.sv`를 열고 Comment #1 영역에 RTL을 작성한다.
 
 ```verilog
 // Comment #1 : sysclk 모듈
@@ -45,7 +45,7 @@ assign clk_sys = div;
 
 ## Step 2: TB — 정상 2분주
 
-`tb_sysclk_blank.sv`를 열고 Comment #1을 작성한다.
+`tb_sysclk.sv`를 열고 Comment #1을 작성한다.
 
 - Comment #1: 정상 2분주
 
@@ -64,7 +64,7 @@ repeat(8) @(posedge clk_ext);
 
 ```bash
 cd sim
-xrun -f lab07_blank.f -input ../../shm.tcl
+xrun -f lab07_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -106,7 +106,7 @@ repeat(4) @(posedge clk_ext);
 
 ```bash
 cd sim
-xrun -f lab07_blank.f -input ../../shm.tcl
+xrun -f lab07_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -129,14 +129,14 @@ time  rst_n  halt  clk_sys
 
 ## Step 6: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp sysclk_blank.sv ../lab00-design/sysclk.sv
+cp sysclk.sv ../lab00-design/sysclk.sv
 
 git status
-git add sysclk_blank.sv
+git add sysclk.sv
 git add ../lab00-design/sysclk.sv
 git commit -m "lab07: done"
 git push

@@ -22,7 +22,7 @@ Lab 05: Memory
 
 ## Step 1: 설계 — mem.sv
 
-`mem_blank.sv`를 열고 Comment #1 영역에 RTL을 작성한다.
+`mem.sv`를 열고 Comment #1 영역에 RTL을 작성한다.
 
 ```verilog
 // Comment #1 : 동기 메모리 모듈
@@ -45,7 +45,7 @@ end
 
 ## Step 2: TB — 쓰기 후 읽기
 
-`tb_mem_blank.sv`를 열고 Comment #1, #2를 작성한다.
+`tb_mem.sv`를 열고 Comment #1, #2를 작성한다.
 
 <div class="columns">
 <div>
@@ -99,7 +99,7 @@ read_mem(8'h02);
 
 ```bash
 cd sim
-xrun -f lab05_blank.f -input ../../shm.tcl
+xrun -f lab05_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -163,7 +163,7 @@ read_mem(8'h00);
 
 ```bash
 cd sim
-xrun -f lab05_blank.f -input ../../shm.tcl
+xrun -f lab05_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -187,14 +187,14 @@ time  write  read  addr  data_in  data_out
 
 ## Step 6: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp mem_blank.sv ../lab00-design/mem.sv
+cp mem.sv ../lab00-design/mem.sv
 
 git status
-git add mem_blank.sv
+git add mem.sv
 git add ../lab00-design/mem.sv
 git commit -m "lab05: done"
 git push

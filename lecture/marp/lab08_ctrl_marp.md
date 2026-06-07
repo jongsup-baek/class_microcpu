@@ -24,7 +24,7 @@ Lab 08: Control FSM
 
 > `cpu_pkg.sv`는 lab02에서 이미 작성한 자산을 그대로 사용한다 (lab02-alu/cpu_pkg.sv 참조).
 
-`control_blank.sv`를 열고 Comment #1 영역에 FSM을 작성한다.
+`control.sv`를 열고 Comment #1 영역에 FSM을 작성한다.
 
 ```verilog
 // 1. opcode decode (조합)
@@ -92,7 +92,7 @@ end
 
 ## Step 2: TB — 전체 opcode 검증
 
-`tb_control_blank.sv`를 열고 Comment #1, #2를 작성한다.
+`tb_control.sv`를 열고 Comment #1, #2를 작성한다.
 
 <div class="columns">
 <div>
@@ -133,7 +133,7 @@ drive_fsm(WFR);
 
 ```bash
 cd sim
-xrun -f lab08_blank.f -input ../../shm.tcl
+xrun -f lab08_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -179,14 +179,14 @@ time  rst_n  state       ir_opcode  mem_rd  ir_load  inc_pc  load_reg  load_pc  
 
 ## Step 4: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp control_blank.sv ../lab00-design/control.sv
+cp control.sv ../lab00-design/control.sv
 
 git status
-git add control_blank.sv
+git add control.sv
 git add ../lab00-design/control.sv
 git commit -m "lab08: done"
 git push

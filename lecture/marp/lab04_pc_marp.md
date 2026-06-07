@@ -22,7 +22,7 @@ Lab 04: Program Counter
 
 ## Step 1: 설계 — prog_counter.sv
 
-`prog_counter_blank.sv`를 열고 Comment #1 영역에 RTL을 작성한다.
+`prog_counter.sv`를 열고 Comment #1 영역에 RTL을 작성한다.
 
 ```verilog
 // Comment #1 : 프로그램 카운터 모듈
@@ -42,7 +42,7 @@ end
 
 ## Step 2: TB — enable 카운트
 
-`tb_prog_counter_blank.sv`를 열고 Comment #1, #2를 작성한다.
+`tb_prog_counter.sv`를 열고 Comment #1, #2를 작성한다.
 
 <div class="columns">
 <div>
@@ -88,7 +88,7 @@ enable_pc_duration(4);
 
 ```bash
 cd sim
-xrun -f lab04_blank.f -input ../../shm.tcl
+xrun -f lab04_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -126,7 +126,7 @@ enable_pc_duration(3);
 
 ```bash
 cd sim
-xrun -f lab04_blank.f -input ../../shm.tcl
+xrun -f lab04_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -151,14 +151,14 @@ time  rst_n  enable  load  din  pc_count
 
 ## Step 6: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp prog_counter_blank.sv ../lab00-design/prog_counter.sv
+cp prog_counter.sv ../lab00-design/prog_counter.sv
 
 git status
-git add prog_counter_blank.sv
+git add prog_counter.sv
 git add ../lab00-design/prog_counter.sv
 git commit -m "lab04: done"
 git push

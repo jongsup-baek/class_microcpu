@@ -24,7 +24,7 @@ Lab 06: Instruction Register
 
 > `cpu_pkg.sv`는 lab02에서 이미 작성한 자산을 그대로 사용한다 (lab02-alu/cpu_pkg.sv 참조).
 
-`instr_reg_blank.sv`를 열고 Comment #1 영역에 IR을 작성한다.
+`instr_reg.sv`를 열고 Comment #1 영역에 IR을 작성한다.
 
 ```verilog
 // Comment #1 : IR 모듈
@@ -52,7 +52,7 @@ end
 
 ## Step 2: TB — IR 로드 + 디코드
 
-`tb_instr_reg_blank.sv`를 열고 Comment #1, #2를 작성한다.
+`tb_instr_reg.sv`를 열고 Comment #1, #2를 작성한다.
 
 <div class="columns">
 <div>
@@ -98,7 +98,7 @@ load_ir(16'b000_0_00_00_00000000);
 
 ```bash
 cd sim
-xrun -f lab06_blank.f -input ../../shm.tcl
+xrun -f lab06_demo.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -120,14 +120,14 @@ time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_addr
 
 ## Step 4: 완성품 복사 + Git Checkin
 
-검증 끝난 _blank.sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp instr_reg_blank.sv ../lab00-design/instr_reg.sv
+cp instr_reg.sv ../lab00-design/instr_reg.sv
 
 git status
-git add instr_reg_blank.sv
+git add instr_reg.sv
 git add ../lab00-design/instr_reg.sv
 git commit -m "lab06: done"
 git push
