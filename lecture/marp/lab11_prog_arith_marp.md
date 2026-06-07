@@ -22,7 +22,7 @@ Lab 11: 연산 검증 프로그램 (test_arith)
 
 ## 프로그램 개요: 연산 검증
 
-> Goal: MicroCPU의 연산 명령어(ADD, AND, NOT)를 검증. 메모리 모드(m=0)와 레지스터 모드(m=1)를 모두 사용
+> MicroCPU의 연산 명령어 ADD, AND, NOT을 검증한다. 메모리 모드(m=0)와 레지스터 모드(m=1)를 모두 사용하며, NOT+ADD 조합으로 2의 보수 뺄셈을 구현한다
 
 <div class="columns">
 <div>
