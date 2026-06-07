@@ -133,7 +133,7 @@ drive_fsm(WFR);
 
 ```bash
 cd sim
-xrun -f lab08_demo.f -input ../../shm.tcl
+xrun -f lab08.f -input ../../shm.tcl
 ```
 
 Expected Waveform:

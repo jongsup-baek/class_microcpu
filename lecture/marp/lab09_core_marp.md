@@ -107,7 +107,7 @@ end
 
 ```bash
 cd sim
-xrun -f lab09_demo.f -input ../../shm.tcl
+xrun -f lab09.f -input ../../shm.tcl
 ```
 
 Expected Waveform:

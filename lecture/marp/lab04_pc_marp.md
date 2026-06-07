@@ -88,7 +88,7 @@ enable_pc_duration(4);
 
 ```bash
 cd sim
-xrun -f lab04_demo.f -input ../../shm.tcl
+xrun -f lab04.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -126,7 +126,7 @@ enable_pc_duration(3);
 
 ```bash
 cd sim
-xrun -f lab04_demo.f -input ../../shm.tcl
+xrun -f lab04.f -input ../../shm.tcl
 ```
 
 Expected Waveform:

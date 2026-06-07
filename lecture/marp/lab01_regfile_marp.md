@@ -103,7 +103,7 @@ read_reg(2'd2, 2'd3);
 
 ```bash
 cd sim
-xrun -f lab01_demo.f -input ../../shm.tcl
+xrun -f lab01.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -168,7 +168,7 @@ read_reg(2'd0, 2'd1);
 
 ```bash
 cd sim
-xrun -f lab01_demo.f -input ../../shm.tcl
+xrun -f lab01.f -input ../../shm.tcl
 ```
 
 Expected Waveform:

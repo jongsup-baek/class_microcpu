@@ -98,7 +98,7 @@ load_ir(16'b000_0_00_00_00000000);
 
 ```bash
 cd sim
-xrun -f lab06_demo.f -input ../../shm.tcl
+xrun -f lab06.f -input ../../shm.tcl
 ```
 
 Expected Waveform:

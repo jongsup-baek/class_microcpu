@@ -64,7 +64,7 @@ repeat(8) @(posedge clk_ext);
 
 ```bash
 cd sim
-xrun -f lab07_demo.f -input ../../shm.tcl
+xrun -f lab07.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -106,7 +106,7 @@ repeat(4) @(posedge clk_ext);
 
 ```bash
 cd sim
-xrun -f lab07_demo.f -input ../../shm.tcl
+xrun -f lab07.f -input ../../shm.tcl
 ```
 
 Expected Waveform:

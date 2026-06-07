@@ -99,7 +99,7 @@ read_mem(8'h02);
 
 ```bash
 cd sim
-xrun -f lab05_demo.f -input ../../shm.tcl
+xrun -f lab05.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -163,7 +163,7 @@ read_mem(8'h00);
 
 ```bash
 cd sim
-xrun -f lab05_demo.f -input ../../shm.tcl
+xrun -f lab05.f -input ../../shm.tcl
 ```
 
 Expected Waveform:

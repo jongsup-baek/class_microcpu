@@ -83,7 +83,7 @@ drive_mux(8'h00, 8'hFF, 0);
 
 ```bash
 cd sim
-xrun -f lab03_demo.f -input ../../shm.tcl
+xrun -f lab03.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -124,7 +124,7 @@ drive_mux(8'h12, 8'h34, 1);
 
 ```bash
 cd sim
-xrun -f lab03_demo.f -input ../../shm.tcl
+xrun -f lab03.f -input ../../shm.tcl
 ```
 
 Expected Waveform:

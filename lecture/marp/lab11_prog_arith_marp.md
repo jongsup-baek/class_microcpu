@@ -282,7 +282,7 @@ disable fork;
 
 ```bash
 cd sim
-xrun -f lab11_demo.f -input ../../shm.tcl
+xrun -f lab11.f -input ../../shm.tcl
 ```
 
 </div>

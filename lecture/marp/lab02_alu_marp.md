@@ -105,7 +105,7 @@ drive_alu(AND, 16'hAAAA, 16'h5555);
 
 ```bash
 cd sim
-xrun -f lab02_demo.f -input ../../shm.tcl
+xrun -f lab02.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
@@ -161,7 +161,7 @@ drive_alu(BRZ, 16'h1234, 16'h0000);
 
 ```bash
 cd sim
-xrun -f lab02_demo.f -input ../../shm.tcl
+xrun -f lab02.f -input ../../shm.tcl
 ```
 
 Expected Waveform:
