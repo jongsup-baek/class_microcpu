@@ -24,55 +24,151 @@ Lab 11: 연산 검증 프로그램 (test_arith)
 
 > MicroCPU의 연산 명령어 ADD, AND, NOT을 검증한다. 메모리 모드(m=0)와 레지스터 모드(m=1)를 모두 사용하며, NOT+ADD 조합으로 2의 보수 뺄셈을 구현한다
 
+---
+
+## 1) NOT 검증: NOT(NOT(x)) == x
+
 <div class="columns">
 <div>
 
-**검증 항목**
+- NOT을 두 번 적용하면 원래 값으로 돌아온다
 
-1. **NOT 검증**: NOT(NOT(x)) == x
 ```c
 R0 = 0x00AA;
-R0 = ~R0;        // 0xFF55
-R0 = ~R0;        // 0x00AA (원복)
-R0 = R0 + 0xFF56; // 0x0000 (검증)
-```
-
-2. **AND + ADD 검증** (메모리 모드)
-```c
-R0 = 0x0001 & 0x00AA; // 0x0000
-R0 = R0 + 1 + (-1);    // 0x0000 (검증)
-```
-
-3. **ADD 레지스터 모드 + 뺄셈**: 5 - 3 = 2
-```c
-R0 = 5; R1 = 3;
-R1 = ~R1 + 1;    // -3 (2의 보수)
-R0 = R0 + R1;    // 2
-R0 = R0 + (-2);  // 0x0000 (검증)
+R0 = ~R0;          // 0xFF55
+R0 = ~R0;          // 0x00AA (원복)
+R0 = R0 + 0xFF56;  // 0x0000 (검증)
+// BRZ R0 → skip → 통과
 ```
 
 </div>
 <div>
 
-**메모리 맵 — 코드 영역**
-
-| 주소 | 용도 |
-|------|------|
-| 0x00~0x06 | 1) NOT 검증 |
-| 0x20~0x28 | 2) AND + ADD 검증 |
-| 0x40~0x48 | 3) ADD reg 모드 + 뺄셈 |
-
-**메모리 맵 — 데이터 영역**
+**사용 데이터**
 
 | 주소 | 값 | 용도 |
 |------|------|------|
 | 0x80 | 0x00AA | NOT 대상 |
-| 0x81 | 0x0001 | AND/ADD 상수 |
-| 0x82 | 0xFF56 | -0x00AA |
-| 0x83 | 0xFFFF | -1 |
+| 0x82 | 0xFF56 | -0x00AA (검증용) |
+
+**코드 영역**: 0x00~0x06
+
+</div>
+</div>
+
+---
+
+## 2) AND + ADD 검증 (메모리 모드)
+
+<div class="columns">
+<div>
+
+- AND 비트 마스킹 + ADD 덧셈/오버플로우를 확인한다
+
+```c
+R0 = 0x0001 & 0x00AA;  // 0x0000 (홀수 비트 마스킹)
+// BRZ R0 → skip → 통과
+R0 = R0 + 1;            // 0x0001
+R0 = R0 + (-1);         // 0x0000 (검증)
+// BRZ R0 → skip → 통과
+```
+
+</div>
+<div>
+
+**사용 데이터**
+
+| 주소 | 값 | 용도 |
+|------|------|------|
+| 0x80 | 0x00AA | AND 마스크 |
+| 0x81 | 0x0001 | +1 상수 |
+| 0x83 | 0xFFFF | -1 상수 |
+
+**코드 영역**: 0x20~0x28
+
+</div>
+</div>
+
+---
+
+## 3) ADD 레지스터 모드 + 뺄셈: 5 - 3 = 2
+
+<div class="columns">
+<div>
+
+- NOT+ADD로 2의 보수 뺄셈을 구현한다
+
+```c
+R0 = 5; R1 = 3;
+R1 = ~R1;        // 0xFFFC
+R1 = R1 + 1;     // 0xFFFD (-3)
+R0 = R0 + R1;    // 0x0002 (m=1 레지스터 모드)
+R0 = R0 + (-2);  // 0x0000 (검증)
+// BRZ R0 → skip → 통과
+```
+
+</div>
+<div>
+
+**사용 데이터**
+
+| 주소 | 값 | 용도 |
+|------|------|------|
+| 0x81 | 0x0001 | +1 (2의 보수용) |
 | 0x84 | 0x0005 | 피감수 |
 | 0x85 | 0x0003 | 감수 |
-| 0x86 | 0xFFFE | -2 |
+| 0x86 | 0xFFFE | -2 (검증용) |
+
+**코드 영역**: 0x40~0x48
+
+</div>
+</div>
+
+---
+
+## 프로그램의 이해
+
+<div class="columns">
+<div>
+
+**1) NOT 검증: NOT(NOT(x)) == x**
+
+```
+PC=0x00 LDA R0,[0x80] -> R0=0x00AA
+PC=0x01 NOT R0        -> R0=0xFF55
+PC=0x02 NOT R0        -> R0=0x00AA (원복)
+PC=0x03 ADD R0,[0x82] -> R0=0x00AA+0xFF56=0x0000
+PC=0x04 BRZ R0        -> skip (R0=0)
+PC=0x06 BRA 0x20      -> 2)로 이동
+```
+
+**2) AND + ADD 검증 (메모리 모드)**
+
+```
+PC=0x20 LDA R0,[0x81] -> R0=0x0001
+PC=0x21 AND R0,[0x80] -> R0=0x0001&0x00AA=0x0000
+PC=0x22 BRZ R0        -> skip (R0=0)
+PC=0x24 ADD R0,[0x81] -> R0=0x0000+0x0001=0x0001
+PC=0x25 ADD R0,[0x83] -> R0=0x0001+0xFFFF=0x0000
+PC=0x26 BRZ R0        -> skip (R0=0)
+PC=0x28 BRA 0x40      -> 3)으로 이동
+```
+
+</div>
+<div>
+
+**3) ADD 검증 (레지스터 모드 + 뺄셈): 5 - 3 = 2**
+
+```
+PC=0x40 LDA R0,[0x84] -> R0=0x0005
+PC=0x41 LDA R1,[0x85] -> R1=0x0003
+PC=0x42 NOT R1 -> R1=0xFFFC
+PC=0x43 ADD R1,[0x81] -> R1=0xFFFC+1=0xFFFD (-3)
+PC=0x44 ADD R0,R1 (m=1) -> R0=0x0005+0xFFFD=0x0002
+PC=0x45 ADD R0,[0x86] -> R0=0x0002+0xFFFE=0x0000
+PC=0x46 BRZ R0 -> skip (R0=0)
+PC=0x48 WFR -> 모든 테스트 통과!
+```
 
 </div>
 </div>
@@ -95,55 +191,6 @@ table { width: 100%; }
 | 101 | ADD | R[rd] <- R[rd] + mem[data] | R[rd] <- R[rd] + R[rs] | **mem/reg 둘 다** |
 | 110 | AND | R[rd] <- R[rd] & mem[data] | R[rd] <- R[rd] & R[rs] | **mem 모드** |
 | 111 | NOT | R[rd] <- ~R[rd] | | **이중 반전** |
-
----
-
-## 검증 목표
-
-<div class="columns">
-<div>
-
-**1) NOT 검증: NOT(NOT(x)) == x**
-
-```
-PC=0x00 LDA R0,[0x80] -> R0=0x00AA
-PC=0x01 NOT R0 -> R0=0xFF55
-PC=0x02 NOT R0 -> R0=0x00AA (원복)
-PC=0x03 ADD R0,[0x82] -> R0=0x00AA+0xFF56=0x0000
-PC=0x04 BRZ R0 -> skip (R0=0)
-PC=0x06 BRA 0x20 -> 2)로 이동
-```
-
-**2) AND + ADD 검증 (메모리 모드)**
-
-```
-PC=0x20 LDA R0,[0x81] -> R0=0x0001
-PC=0x21 AND R0,[0x80] -> R0=0x0001&0x00AA=0x0000
-PC=0x22 BRZ R0 -> skip (R0=0)
-PC=0x24 ADD R0,[0x81] -> R0=0x0000+0x0001=0x0001
-PC=0x25 ADD R0,[0x83] -> R0=0x0001+0xFFFF=0x0000
-PC=0x26 BRZ R0 -> skip (R0=0)
-PC=0x28 BRA 0x40 -> 3)으로 이동
-```
-
-</div>
-<div>
-
-**3) ADD 검증 (레지스터 모드 + 뺄셈): 5 - 3 = 2**
-
-```
-PC=0x40 LDA R0,[0x84] -> R0=0x0005
-PC=0x41 LDA R1,[0x85] -> R1=0x0003
-PC=0x42 NOT R1 -> R1=0xFFFC
-PC=0x43 ADD R1,[0x81] -> R1=0xFFFC+1=0xFFFD (-3)
-PC=0x44 ADD R0,R1 (m=1) -> R0=0x0005+0xFFFD=0x0002
-PC=0x45 ADD R0,[0x86] -> R0=0x0002+0xFFFE=0x0000
-PC=0x46 BRZ R0 -> skip (R0=0)
-PC=0x48 WFR -> 모든 테스트 통과!
-```
-
-</div>
-</div>
 
 ---
 
