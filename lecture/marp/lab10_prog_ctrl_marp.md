@@ -176,7 +176,7 @@ table { width: 100%; }
 
 ## Step 1: test_ctrl.dat — BRA 검증
 
-- `test_ctrl_blank.dat`를 열고 **Comment #1** 영역에 바이너리를 작성한다.
+- `test_ctrl.dat`를 열고 **Comment #1** 영역에 바이너리를 작성한다.
 
 ```
 // Comment #1. BRA 검증 
@@ -258,7 +258,7 @@ disable fork;
 
 ```bash
 cd sim
-xrun -f lab10_blank.f -input ../../shm.tcl
+xrun -f lab10_demo.f -input ../../shm.tcl
 ```
 
 </div>
