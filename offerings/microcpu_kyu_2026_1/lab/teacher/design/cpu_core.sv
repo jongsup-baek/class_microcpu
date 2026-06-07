@@ -1,37 +1,46 @@
 //////////////////////////////////////////////////////////
 // KSDC Proprietary
-// Course: MicroCPU 설계 실무
+// Course: MicroCPU 실습
 // File  : cpu_core.sv
-// Date  : 2026-05-05
+// Date  : 2026-05-01
 // Author: Jongsup Baek <jongsup.baek@ksdcsemi.com>
 //////////////////////////////////////////////////////////
 
+// CPU datapath — single clock, all blocks use clk_sys
 module cpu_core (
-   output logic        halt,       // 정지
-   output logic        ir_load,    // IR 로드
-   output logic [7:0]  addr,       // 메모리 주소
-   output logic [15:0] rd_data,    // Rd 레지스터 출력
-   output logic        mem_rd,     // 메모리 읽기
-   output logic        mem_wr,     // 메모리 쓰기
-   input  logic [15:0] data_out,   // 메모리 데이터 입력
-   input  logic        clk_sys,    // 시스템 클럭
-   input  logic        rst_n       // 비동기 리셋
+   output logic        halt,
+   output logic        ir_load,
+   output logic [7:0]  addr,
+   output logic [15:0] rd_data,
+   output logic        mem_rd,
+   output logic        mem_wr,
+   input  logic [15:0] data_out,
+   input  logic        clk_sys,
+   input  logic        rst_n
 );
 
 import cpu_pkg::*;
 
+// IR decoded fields
 opcode_t     ir_opcode;
 logic        ir_mode;
 logic [1:0]  ir_rd, ir_rs;
 logic [7:0]  ir_addr;
+
+// Register file signals
 logic [15:0] rs_data;
+
+// PC signals
 logic [7:0]  pc_addr;
+
+// ALU signals
 logic [15:0] alu_result, alu_operand;
 logic        alu_zero;
-logic        load_reg, pc_inc, pc_load, fetch_phase;
-// End Comment
 
-// Comment #1 : 블록 인스턴스 연결
+// Control signals
+logic load_reg, pc_inc, pc_load, fetch_phase;
+
+// IR — 16-bit instruction register + field decode
 instr_reg u_ir (
    .ir_opcode,
    .ir_mode,
@@ -44,6 +53,7 @@ instr_reg u_ir (
    .rst_n
 );
 
+// Register file
 regfile u_regfile (
    .rd_data (rd_data),
    .rs_data (rs_data),
@@ -56,6 +66,7 @@ regfile u_regfile (
    .rst_n
 );
 
+// PC — 8-bit program counter
 prog_counter u_pc (
    .pc_count (pc_addr),
    .din      (ir_addr),
@@ -65,6 +76,8 @@ prog_counter u_pc (
    .rst_n
 );
 
+// Operand MUX — selects ALU second input based on mode bit
+// mode=0: memory data, mode=1: register Rs
 mux2to1 #(16) u_opmux (
    .dout  (alu_operand),
    .din_a (data_out),
@@ -72,6 +85,7 @@ mux2to1 #(16) u_opmux (
    .sel_a (~ir_mode)
 );
 
+// ALU — 16-bit combinational
 alu u_alu (
    .dout   (alu_result),
    .zero   (alu_zero),
@@ -80,6 +94,7 @@ alu u_alu (
    .opcode (ir_opcode)
 );
 
+// Address MUX — selects between PC (fetch) and IR data (operand)
 mux2to1 #(8) u_addrmux (
    .dout  (addr),
    .din_a (pc_addr),
@@ -87,6 +102,7 @@ mux2to1 #(8) u_addrmux (
    .sel_a (fetch_phase)
 );
 
+// Control FSM — single clock
 control u_ctrl (
    .load_reg (load_reg),
    .mem_rd,
@@ -101,6 +117,5 @@ control u_ctrl (
    .clk      (clk_sys),
    .rst_n
 );
-// End Comment
 
 endmodule : cpu_core
