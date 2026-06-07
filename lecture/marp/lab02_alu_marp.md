@@ -184,17 +184,17 @@ time  opcode  accum  din    dout   zero
 
 ## Step 7: 완성품 복사 + Git Checkin
 
-검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp cpu_pkg.sv ../lab00-design/cpu_pkg.sv
-cp alu.sv ../lab00-design/alu.sv
+cp cpu_pkg.sv ../design/cpu_pkg.sv
+cp alu.sv ../design/alu.sv
 
 git status
 git add cpu_pkg.sv alu.sv
-git add ../lab00-design/cpu_pkg.sv
-git add ../lab00-design/alu.sv
+git add ../design/cpu_pkg.sv
+git add ../design/alu.sv
 git commit -m "lab02: done"
 git push
 ```

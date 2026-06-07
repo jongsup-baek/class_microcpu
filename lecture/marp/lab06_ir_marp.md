@@ -120,15 +120,15 @@ time  enable  din    ir_opcode  ir_mode  ir_rd  ir_rs  ir_addr
 
 ## Step 4: 완성품 복사 + Git Checkin
 
-검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp instr_reg.sv ../lab00-design/instr_reg.sv
+cp instr_reg.sv ../design/instr_reg.sv
 
 git status
 git add instr_reg.sv
-git add ../lab00-design/instr_reg.sv
+git add ../design/instr_reg.sv
 git commit -m "lab06: done"
 git push
 ```

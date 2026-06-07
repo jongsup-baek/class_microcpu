@@ -130,17 +130,17 @@ time  rst_n  clk_sys  halt  state       addr  mem_rd  mem_wr
 
 ## Step 5: 완성품 복사 + Git Checkin
 
-검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp cpu_core.sv ../lab00-design/cpu_core.sv
-cp cpu_top.sv ../lab00-design/cpu_top.sv
+cp cpu_core.sv ../design/cpu_core.sv
+cp cpu_top.sv ../design/cpu_top.sv
 
 git status
 git add cpu_core.sv cpu_top.sv
-git add ../lab00-design/cpu_core.sv
-git add ../lab00-design/cpu_top.sv
+git add ../design/cpu_core.sv
+git add ../design/cpu_top.sv
 git commit -m "lab09: done"
 git push
 ```

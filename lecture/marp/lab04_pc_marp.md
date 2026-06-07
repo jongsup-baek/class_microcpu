@@ -151,15 +151,15 @@ time  rst_n  enable  load  din  pc_count
 
 ## Step 6: 완성품 복사 + Git Checkin
 
-검증 끝난 .sv 파일을 lab00-design 폴더에 모듈명으로 복사하고 커밋한다.
+검증 끝난 .sv 파일을 design 폴더에 모듈명으로 복사하고 커밋한다.
 
 ```bash
 cd ..
-cp prog_counter.sv ../lab00-design/prog_counter.sv
+cp prog_counter.sv ../design/prog_counter.sv
 
 git status
 git add prog_counter.sv
-git add ../lab00-design/prog_counter.sv
+git add ../design/prog_counter.sv
 git commit -m "lab04: done"
 git push
 ```
