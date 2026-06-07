@@ -163,7 +163,30 @@ Comment #3 영역에 바이너리를 추가한다. mode=1 레지스터 연산 + 
 
 ---
 
-## Step 4: 시뮬레이션
+## Step 4: tb_cpu_top.sv — TB 작성
+
+`tb_cpu_top.sv`를 열고 Comment #1 영역에 프로그램 로드 + 실행 코드를 작성한다.
+
+```verilog
+// Comment #1 : 프로그램 로드 + 실행
+$readmemb("../program_code/test_arith.dat",
+           u_top.u_mem.memory);
+reset_dut();
+fork
+   begin
+      #200000;
+      $display("TIMEOUT");
+   end
+   begin
+      wait (halt == 1);
+   end
+join_any
+disable fork;
+```
+
+---
+
+## Step 5: 시뮬레이션
 
 <div class="columns">
 <div>
@@ -212,7 +235,7 @@ Expected Waveform:
 
 ---
 
-## Step 5: Git Checkin
+## Step 6: Git Checkin
 
 ```bash
 git status
