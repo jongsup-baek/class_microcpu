@@ -93,7 +93,7 @@ cd microcpu2026a-본인Username
 ls
 ```
 
-- `lab00-design/`, `lab01-regfile/`, ... `lab12-prog_movsum/` 폴더가 보이면 성공
+- `design/`, `lab01-regfile/`, ... `lab12-prog_movsum/` 폴더가 보이면 성공
 
 ---
 
@@ -101,7 +101,7 @@ ls
 
 ```
 microcpu2026a-본인Username/
-├── lab00-design/
+├── design/
 ├── lab01-regfile/
 ├── lab02-alu/
 ├── lab03-mux/
@@ -116,8 +116,8 @@ microcpu2026a-본인Username/
 └── lab12-prog_movsum/
 ```
 
-- lab01 이후 폴더에 `_blank.sv` 파일이 있음 → 이 파일을 완성하는 것이 과제
-- lab00-design은 lab 진행 시 설계 파일을 저장하는 폴더
+- lab01 이후 폴더에 파일이 있음 → 이 파일을 완성하는 것이 과제
+- design은 lab 진행 시 설계 파일을 저장하는 폴더
 
 ---
 
@@ -148,7 +148,7 @@ git push                              # GitHub에 업로드
 ```
 서버 접속 (VS Code / MobaXterm)
     ↓
-해당 lab 폴더의 _blank.sv 수정
+해당 lab 폴더의 파일 수정
     ↓
 코드 작성 → 저장
     ↓
